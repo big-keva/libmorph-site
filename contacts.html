@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libmorph :: Контакты</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительный стиль для компактности */
+        .contact-compact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .contact-item {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .contact-item h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="header-container">
+                <div class="logo">
+                  <a href="index.html">LIB<span>MORPH</span>.RU</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="help.html">Документация</a></li>
+                        <li><a href="modules.html">Модули</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                        <li><span class="current">Контакты</span></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content-wrapper">
+            <h1>Контакты</h1>
+            
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <p style="font-size: 1.5rem; font-weight: 600; color: var(--primary);">
+                    Андрей Коваленко (Keva)
+                </p>
+                <p style="font-size: 1.1rem; color: var(--text-dark);">
+                    Автор и бессменный разработчик LIBMORPH
+                </p>
+            </div>
+            
+            <div class="contact-compact">
+                <div class="contact-item">
+                    <h3>Email</h3>
+                    <a href="mailto:keva@rambler.ru">keva@rambler.ru</a><br>
+                    <a href="mailto:hude-keva@gmail.com">hude-keva@gmail.com</a>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>GitHub</h3>
+                    <p><a href="https://github.com/big-keva">github.com/big-keva</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>Мобила</h3>
+                    <p><a href="tel:+79265132991">+7 (926) 513-2991</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>Telegram</h3>
+                    <p><a href="https://t.me/Big_keva" style="color: #0284c7; font-weight: 600; text-decoration: none;">@Big_keva</a></p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-copyright">
+                © 1996-2026 Keva. Разработка высокопроизводительных NLP решений.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

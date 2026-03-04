@@ -1,0 +1,781 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #0a4b7a;
+    --primary-dark: #063456;
+    --primary-light: #2a6d9e;
+    --secondary: #e67e22;
+    --accent: #f39c12;
+    --text-dark: #2c3e50;
+    --text-light: #ecf0f1;
+    --code-bg: #1e2a3a;
+    --code-text: #e1e9f0;
+    --border-color: #b0c4d9;
+    --bg-light: #f8fafc;
+    --bg-white: #ffffff;
+    --shadow: 0 0.25rem 0.75rem rgba(0, 20, 40, 0.15);
+    --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    background: linear-gradient(135deg, #e9eef2 0%, #dce3e9 100%);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 100%;  /* 16px по умолчанию, но масштабируется */
+}
+
+/* ===== LAYOUT ===== */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    flex: 1;
+    max-width: 70rem;        /* было 120rem, уменьшили */
+    margin: 2rem auto;
+    padding: 0 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Все крупные блоки контента теперь наследуют ширину от родителя */
+.toc,
+.doc-content,
+.modules-grid,
+.contact-grid,
+.benchmark-banner {
+    max-width: 100%;          /* занимают всю ширину родителя */
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* ===== HEADER & NAVIGATION ===== */
+.site-header {
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 0.2rem solid var(--accent);
+}
+
+.header-container {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.logo a {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: white;
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--accent);
+    font-weight: 300;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 0.2rem;
+    font-family: var(--font-mono);
+    color: var(--text-light);
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav a {
+    display: block;
+    padding: 0.7rem 1.2rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 0.4rem;
+    transition: all 0.2s;
+    border: 0.06rem solid transparent;
+}
+
+.main-nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.main-nav .current {
+    background: var(--accent);
+    color: var(--text-dark);
+    font-weight: 600;
+    border-color: var(--accent);
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.4rem;
+    display: inline-block;
+    cursor: default;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+    background: var(--primary-dark);
+    color: var(--text-light);
+    padding: 0.5rem;
+    border-top: 0.2rem solid var(--secondary);
+}
+
+.footer-copyright {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 1.5rem 0 1rem;
+    color: var(--primary-dark);
+}
+
+h1 {
+    font-size: 2.5rem;
+    border-bottom: 0.2rem solid var(--primary-dark);
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    padding-bottom: 0.3rem;
+}
+
+h3 { font-size: 1.4rem; }
+h4 { font-size: 1.2rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; color: var(--primary); }
+
+p {
+    margin-top: 1rem;
+    line-height: 1.7;
+}
+
+/* ===== TABLE OF CONTENTS STYLE ===== */
+.toc {
+    background: var(--bg-light);
+    border: 0.06rem solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem 2rem;
+    margin: 1rem 0;            /* убрали auto, теперь отталкивается от родителя */
+    width: 100%;
+    box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.05);
+    counter-reset: toc-h2;
+    box-sizing: border-box;
+}
+
+.toc h2 {
+    margin: 0;
+    counter-reset: toc-h3;
+}
+
+.toc h2::before {
+    content: counter(toc-h2) ". ";
+    counter-increment: toc-h2;
+    color: var(--primary);
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.toc h3 {
+    margin: 0 0 0 2rem;
+    border: none;
+    font-weight: 500;
+    counter-reset: toc-h4;
+}
+
+.toc h3::before {
+    content: counter(toc-h2) "." counter(toc-h3) ". ";
+    counter-increment: toc-h3;
+    color: var(--primary);
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.toc h4 {
+    margin: 0.3rem 0 0 4rem;
+    border: none;
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+.toc h4::before {
+    content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) ". ";
+    counter-increment: toc-h4;
+    color: var(--primary);
+    opacity: 0.7;
+    margin-right: 0.5rem;
+}
+
+.toc a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.toc a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* ===== DOCUMENTATION CONTENT STYLING ===== */
+.doc-content {
+    counter-reset: doc-h2;
+    margin: 2rem 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Заголовки с номерами - на всю ширину родителя */
+.doc-content h2,
+.doc-content h3,
+.doc-content h4,
+.doc-content h5 {
+    position: relative;
+    width: 100%;
+    padding-left: 5rem;
+    padding-right: 2rem;
+    box-sizing: border-box;
+}
+
+.doc-content h2 {
+    counter-reset: doc-h3;
+    color: var(--primary-dark);
+}
+
+.doc-content h2::before {
+    content: counter(doc-h2) ". ";
+    counter-increment: doc-h2;
+    position: absolute;
+    left: 0;
+    width: 4rem;               /* фиксированная ширина для номера */
+    text-align: right;
+    padding-right: 0.5rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.doc-content h3 {
+    counter-reset: doc-h4;
+    color: var(--primary-dark);
+}
+
+.doc-content h3::before {
+    content: counter(doc-h2) "." counter(doc-h3) ". ";
+    counter-increment: doc-h3;
+    position: absolute;
+    left: 0;
+    width: 4rem;
+    text-align: right;
+    padding-right: 0.5rem;
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+.doc-content h4 {
+    color: var(--text-dark);
+}
+
+.doc-content h4::before {
+    content: counter(doc-h2) "." counter(doc-h3) "." counter(doc-h4) ". ";
+    counter-increment: doc-h4;
+    position: absolute;
+    left: 0;
+    width: 4rem;
+    text-align: right;
+    padding-right: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Контейнер для текста - центрированный и ограниченный по ширине */
+.doc-content-text {
+    max-width: 100rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 4rem;        /* такой же отступ, как у заголовков */
+    padding-right: 2rem;
+    box-sizing: border-box;
+}
+
+/* Все текстовые элементы внутри этого контейнера */
+/* Параграфы и списки - тоже на всю ширину */
+.doc-content p,
+.doc-content .api-interface,
+.doc-content table,
+.doc-content .note {
+    width: 100%;
+    margin-left: 5rem;
+    margin-right: 2rem;
+    margin-top: 1em;
+    box-sizing: border-box;
+}
+
+.doc-content ul,
+.doc-content ol {
+    width: 100%;
+    margin-top: 0em;
+    margin-left: 6em;
+    box-sizing: border-box;
+}
+
+/* Списки */
+.doc-content-text ul,
+.doc-content-text ol {
+    list-style-position: outside;
+    padding-left: 2rem;
+}
+
+.doc-content-text li {
+    margin-bottom: 0.3rem;
+}
+
+/* Вложенные списки */
+.doc-content-text ul,
+.doc-content-text ol {
+    margin-left: 1.5rem;
+    font-size: 0.9em;
+}
+
+/* Мобильные */
+@media (max-width: 48rem) {
+    .doc-content h2,
+    .doc-content h3,
+    .doc-content h4,
+    .doc-content h5,
+    .doc-content-text {
+        padding-left: 3rem;
+        padding-right: 1rem;
+    }
+    
+    .doc-content h2::before,
+    .doc-content h3::before,
+    .doc-content h4::before {
+        width: 3rem;
+    }
+    
+    .doc-content-text p,
+    .doc-content-text ul,
+    .doc-content-text ol {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 36rem) {
+    .doc-content h2,
+    .doc-content h3,
+    .doc-content h4,
+    .doc-content h5,
+    .doc-content-text {
+        padding-left: 2.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .doc-content h2::before,
+    .doc-content h3::before,
+    .doc-content h4::before {
+        width: 2.5rem;
+    }
+}
+
+/* ===== CARDS / MODULES ===== */
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.card {
+    background: var(--bg-white);
+    border: 0.06rem solid var(--border-color);
+    border-radius: 0.6rem;
+    padding: 1.5rem;
+    box-shadow: 0 0.25rem 0.6rem rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: var(--primary);
+    border-bottom: 0.06rem solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.lang-badge {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+}
+
+/* ===== DOWNLOAD TABLE ===== */
+.download-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-white);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.1);
+}
+
+.download-table th {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+}
+
+.download-table td {
+    padding: 1rem;
+    border-bottom: 0.06rem solid var(--border-color);
+}
+
+.download-table tr:last-child td {
+    border-bottom: none;
+}
+
+.download-table tr:hover {
+    background: var(--bg-light);
+}
+
+.download-link {
+    background: var(--accent);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.download-link:hover {
+    background: var(--secondary);
+}
+
+/* ===== BENCHMARK BANNER ===== */
+.benchmark-banner {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0.6rem;
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 1.3rem;
+    border-left: 0.4rem solid var(--accent);
+}
+
+.benchmark-banner strong {
+    color: var(--accent);
+    font-size: 2rem;
+    display: block;
+}
+
+/* ===== API INTERFACE BLOCK ===== */
+.api-interface {
+    background: #1e2a3a;
+    color: #e1e9f0;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    border: 0.06rem solid #2a3b4e;
+    max-width: 100%;
+}
+
+.api-interface .macro {
+    color: #ff8c66;
+}
+.api-interface .method {
+    color: #b8d7a0;
+}
+.api-interface .type {
+    color: #e6b89c;
+}
+
+/* ===== CONTACT GRID ===== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.contact-info {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 0.06rem solid var(--border-color);
+}
+
+.contact-info a {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* ===== UTILITIES ===== */
+.highlight {
+    background: #fcf2db;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+.note {
+    background: #e1f0fa;
+    border-left: 0.25rem solid var(--primary);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0 0.4rem 0.4rem 0;
+    max-width: 100%;
+}
+
+.warning {
+    background: #fee9d6;
+    border-left-color: var(--accent);
+}
+
+/* ===== CODE HIGHLIGHTING ===== */
+.hilite {
+    /* базовые стили уже есть в pre, code */
+}
+
+/* Подсветка синтаксиса */
+.kw { color: #0077ff; }
+.type { color: #b8d7a0; }
+.st { color: #f7e4b9; }
+.comment { color: #8b9bb2; font-style: italic; }
+.fn { color: #00aacc; }
+.number { color: #d8b3e6; }
+.preproc { color: #cd5c5c; }
+.operator { color: #ffa07a; }
+
+/* Для inline кода */
+code .kd,
+code .type,
+code .st,
+code .comment,
+code .fn,
+code .number {
+    /* наследуем цвета от классов выше */
+}
+
+/* Для блоков кода */
+pre .kw,
+pre .type,
+pre .st,
+pre .comment,
+pre .fn,
+pre .number {
+    /* цвета уже заданы */
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 75rem) {  /* 1200px */
+    .content-wrapper {
+        padding: 0 1.5rem;
+    }
+    
+    .doc-content p,
+    .doc-content ul,
+    .doc-content ol,
+    .doc-content pre,
+    .doc-content .api-interface,
+    .doc-content table {
+        max-width: 65ch;
+    }
+}
+
+@media (max-width: 62rem) {  /* 992px */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.6rem; }
+    h3 { font-size: 1.3rem; }
+    
+    .doc-content p,
+    .doc-content ul,
+    .doc-content ol {
+        margin-left: 2.5em;
+    }
+}
+
+@media (max-width: 48rem) {  /* 768px */
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.8rem 1rem;
+    }
+    
+    .main-nav ul {
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 0.3rem;
+    }
+    
+    .main-nav a,
+    .main-nav .current {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .content-wrapper {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    
+    .doc-content h2 { padding-left: 1.8rem; }
+    .doc-content h3 { padding-left: 2.5rem; }
+    .doc-content h4 { padding-left: 3.2rem; }
+    .doc-content h5 { padding-left: 4rem; }
+    
+    .doc-content p,
+    .doc-content ul,
+    .doc-content ol,
+    .doc-content pre,
+    .doc-content .api-interface,
+    .doc-content table {
+        margin-left: 1.5em;
+        max-width: 90%;
+    }
+    
+    .modules-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .toc h3 { margin-left: 1rem; }
+    .toc h4 { margin-left: 2rem; }
+    
+    .benchmark-banner {
+        font-size: 1.1rem;
+    }
+    
+    .benchmark-banner strong {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 36rem) {  /* 576px */
+    .doc-content p,
+    .doc-content ul,
+    .doc-content ol,
+    .doc-content pre,
+    .doc-content .api-interface,
+    .doc-content table {
+        margin-left: 1em;
+        max-width: 95%;
+    }
+    
+    .doc-content ul ul,
+    .doc-content ol ol {
+        margin-left: 0.8em;
+    }
+    
+    .download-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .download-table td,
+    .download-table th {
+        padding: 0.5rem;
+    }
+    
+    .download-link {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        word-break: break-word;
+    }
+    
+    .card {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 26rem) {  /* 416px - очень маленькие устройства */
+    .doc-content p,
+    .doc-content ul,
+    .doc-content ol {
+        margin-left: 0.5em;
+        max-width: 98%;
+        text-align: left;  /* отключаем justify на очень узких экранах */
+    }
+    
+    .doc-content h2 { padding-left: 1.2rem; }
+    .doc-content h3 { padding-left: 1.8rem; }
+    .doc-content h4 { padding-left: 2.4rem; }
+    .doc-content h5 { padding-left: 3rem; }
+    
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .logo a {
+        font-size: 1.6rem;
+    }
+}

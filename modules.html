@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libmorph :: Модули анализа</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили для модулей */
+        .module-section {
+            margin: 3rem 0;
+        }
+
+        .module-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .module-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .module-card:hover:not(.inactive) {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .module-card.inactive {
+            opacity: 0.6;
+            background: #f5f5f5;
+            border-color: #ccc;
+            filter: grayscale(30%);
+        }
+
+        .module-card.inactive::before {
+            content: "🔜 В разработке";
+            position: absolute;
+            top: -0.5rem;
+            right: 1rem;
+            background: var(--text-dark);
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .module-card h3 {
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .module-card.dictionary h3 {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .module-card.fuzzy h3 {
+            color: var(--secondary);
+            border-bottom-color: var(--secondary);
+        }
+
+        .module-type {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            margin-left: 0.5rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+
+        .badge-dict {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-fuzzy {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-ready {
+            background: #27ae60;
+            color: white;
+        }
+
+        .status-beta {
+            background: #f39c12;
+            color: white;
+        }
+
+        .status-dev {
+            background: #7f8c8d;
+            color: white;
+        }
+
+        .features-list {
+            margin: 1rem 0;
+            padding-left: 1.2rem;
+        }
+
+        .features-list li {
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .module-footer {
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .init-example {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .module-meta {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="header-container">
+                <div class="logo">
+                  <a href="index.html">LIB<span>MORPH</span>.RU</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="help.html">Документация</a></li>
+                        <li><span class="current">Модули</span></li>
+                        <li><a href="download.html">Скачать</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content-wrapper">
+            <h1>Модули libmorph</h1>
+            
+            <p>
+                Для каждого языка доступны два типа модулей: <strong class="highlight">словарные (libmorph/*)</strong> для точного анализа 
+                известных слов и <strong class="highlight">вероятностные (libfuzzy/*)</strong> для обработки неизвестных слов, опечаток, 
+                неологизмов. Некоторые модули находятся в разработке и будут доступны в ближайших релизах.
+            </p>
+
+            <div class="toc">
+                <h2>Содержание</h2>
+                <h3><a href="#rus">Русский язык</a></h3>
+                <h3><a href="#eng">Английский язык</a></h3>
+                <h3><a href="#ukr">Украинский язык</a></h3>
+                <h3><a href="#comparison">Сравнение типов модулей</a></h3>
+            </div>
+
+            <!-- Русский язык -->
+            <div class="module-section" id="rus">
+                <h2>🇷🇺 Русский язык</h2>
+                
+                <div class="module-pair">
+                    <!-- Словарный модуль (активный) -->
+                    <div class="module-card dictionary">
+                        <h3>
+                            libmorph/rus
+                            <span class="module-type">словарный</span>
+                        </h3>
+                        <div class="module-meta">
+                            <span class="status-badge status-ready">готов</span>
+                            <span class="badge-dict module-badge">точный анализ</span>
+                        </div>
+                        
+                        <p>Полная морфология русского языка на основе словарных данных. Высокая точность для известных слов.</p>
+                        
+                        <ul class="features-list">
+                            <li>✅ Объём словаря: 2.5 млн словоформ</li>
+                            <li>✅ Поддержка неологизмов (2000+ слов)</li>
+                            <li>✅ Склонение фамилий и имён</li>
+                            <li>✅ Распознавание аббревиатур</li>
+                            <li>✅ Грамматические категории: падеж, число, род, одушевлённость</li>
+                        </ul>
+                        
+                        <div class="init-example">
+                            <strong>Инициализация:</strong><br>
+                            IMlmaMb* morph = CreateRussianMorphMb("ru_RU.UTF-8");<br>
+                            IMlmaWc* morph_w = CreateRussianMorphWc();
+                        </div>
+                        
+                        <div class="module-footer">
+                            <a href="download.html?lang=rus&type=dict">Скачать →</a>
+                        </div>
+                    </div>
+
+                    <!-- Вероятностный модуль (в разработке) -->
+                    <div class="module-card fuzzy inactive">
+                        <h3>
+                            libfuzzy/rus
+                            <span class="module-type">вероятностный</span>
+                        </h3>
+                        <div class="module-meta">
+                            <span class="status-badge status-dev">разработка</span>
+                            <span class="badge-fuzzy module-badge">обработка неизвестных</span>
+                        </div>
+                        
+                        <p>Вероятностный анализатор для обработки неизвестных слов, опечаток и неологизмов на основе статистических моделей.</p>
+                        
+                        <ul class="features-list">
+                            <li>⏳ Модель на основе FastText (500K векторов)</li>
+                            <li>⏳ Предсказание грамматических форм для неизвестных слов</li>
+                            <li>⏳ Исправление опечаток (Levenshtein distance)</li>
+                            <li>⏳ Вероятностная лемматизация</li>
+                        </ul>
+                        
+                        <div class="init-example">
+                            <strong>Планируемый API:</strong><br>
+                            IFuzzyMb* fuzzy = CreateRussianFuzzyMb("ru_RU");<br>
+                            fuzzy->GuessLemma("програмирование");
+                        </div>
+                        
+                        <div class="module-footer">
+                            <span style="color: #999;">Ожидайте в версии 2.5.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Английский язык -->
+            <div class="module-section" id="eng">
+                <h2>🇬🇧 Английский язык</h2>
+                
+                <div class="module-pair">
+                    <!-- Словарный модуль (активный) -->
+                    <div class="module-card dictionary">
+                        <h3>
+                            libmorph/eng
+                            <span class="module-type">словарный</span>
+                        </h3>
+                        <div class="module-meta">
+                            <span class="status-badge status-ready">готов</span>
+                            <span class="badge-dict module-badge">точный анализ</span>
+                        </div>
+                        
+                        <p>Морфологический анализ английского языка на основе словарных данных.</p>
+                        
+                        <ul class="features-list">
+                            <li>✅ Объём словаря: 1.8 млн словоформ</li>
+                            <li>✅ Неправильные глаголы (полный список)</li>
+                            <li>✅ Множественное число существительных</li>
+                            <li>✅ Сравнительные степени прилагательных</li>
+                            <li>✅ Фразовые глаголы</li>
+                        </ul>
+                        
+                        <div class="init-example">
+                            <strong>Инициализация:</strong><br>
+                            IMlmaMb* morph = CreateEnglishMorphMb("en_US.UTF-8");<br>
+                            IMlmaWc* morph_w = CreateEnglishMorphWc();
+                        </div>
+                        
+                        <div class="module-footer">
+                            <a href="download.html?lang=eng&type=dict">Скачать →</a>
+                        </div>
+                    </div>
+
+                    <!-- Вероятностный модуль (в разработке) -->
+                    <div class="module-card fuzzy inactive">
+                        <h3>
+                            libfuzzy/eng
+                            <span class="module-type">вероятностный</span>
+                        </h3>
+                        <div class="module-meta">
+                            <span class="status-badge status-beta">бета</span>
+                            <span class="badge-fuzzy module-badge">обработка неизвестных</span>
+                        </div>
+                        
+                        <p>Вероятностный анализатор для английского языка. Доступен в бета-версии для тестирования.</p>
+                        
+                        <ul class="features-list">
+                            <li>🔄 Модель на основе word2vec (300K векторов)</li>
+                            <li>🔄 Предсказание для технических терминов</li>
+                            <li>🔄 Исправление опечаток</li>
+                            <li>🔄 Распознавание неологизмов</li>
+                        </ul>
+                        
+                        <div class="init-example">
+                            <strong>Инициализация (бета):</strong><br>
+                            IFuzzyMb* fuzzy = CreateEnglishFuzzyMb("en_US");<br>
+                            fuzzy->GuessWord("cryptocurrencies");
+                        </div>
+                        
+                        <div class="module-footer">
+                            <a href="download.html?lang=eng&type=fuzzy&beta=1" style="color: var(--secondary);">Скачать бета →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Украинский язык -->
+            <div class="module-section" id="ukr">
+                <h2>🇺🇦 Украинский язык</h2>
+                
+                <div class="module-pair">
+                    <!-- Словарный модуль (активный) -->
+                    <div class="module-card dictionary">
+                        <h3>
+                            libmorph/ukr
+                            <span class="module-type">словарный</span>
+                        </h3>
+                        <div class="module-meta">
+                            <span class="status-badge status-ready">готов</span>
+                            <span class="badge-dict module-badge">точный анализ</span>
+                        </div>
+                        
+                        <p>Морфологический анализ украинского языка с учётом особенностей грамматики.</p>
+                        
+                        <ul class="features-list">
+                            <li>✅ Объём словаря: 1.2 млн словоформ</li>
+                            <li>✅ Чередования в корнях</li>
+                            <li>✅ Кличний відмінок</li>
+                            <li>✅ Особливості української граматики</li>
+                            <li>✅ Історична лексика</li>
+                        </ul>
+                        
+                        <div class="init-example">
+                            <strong>Ініціалізація:</strong><br>
+                            IMlmaMb* morph = CreateUkrainianMorphMb("uk_UA.UTF-8");<br>
+                            IMlmaWc* morph_w = CreateUkrainianMorphWc();
+                        </div>
+                        
+                        <div class="module-footer">
+                            <a href="download.html?lang=ukr&type=dict">Завантажити →</a>
+                        </div>
+                    </div>
+
+                    <!-- Вероятностный модуль (в разработке) -->
+                    <div class="module-card fuzzy inactive">
+                        <h3>
+                            libfuzzy/ukr
+                            <span class="module-type">вероятностный</span>
+                        </h3>
+                        <div class="module-meta">
+                            <span class="status-badge status-dev">разработка</span>
+                            <span class="badge-fuzzy module-badge">обробка невідомих</span>
+                        </div>
+                        
+                        <p>Імовірнісний аналізатор для обробки невідомих слів, діалектизмів та неологізмів.</p>
+                        
+                        <ul class="features-list">
+                            <li>⏳ Модель на основі FastText</li>
+                            <li>⏳ Аналіз суржику</li>
+                            <li>⏳ Виправлення помилок</li>
+                            <li>⏳ Передбачення граматичних форм</li>
+                        </ul>
+                        
+                        <div class="init-example">
+                            <strong>Планується:</strong><br>
+                            IFuzzyMb* fuzzy = CreateUkrainianFuzzyMb("uk_UA");<br>
+                            fuzzy->Analyze("смартфон");
+                        </div>
+                        
+                        <div class="module-footer">
+                            <span style="color: #999;">Очікуйте у версії 2.6.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сравнение типов модулей -->
+            <div class="module-section" id="comparison">
+                <h2>Сравнение типов модулей</h2>
+                
+                <table class="download-table">
+                    <thead>
+                        <tr>
+                            <th>Характеристика</th>
+                            <th>Словарный (libmorph/*)</th>
+                            <th>Вероятностный (libfuzzy/*)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Точность на известных словах</strong></td>
+                            <td>99.9%</td>
+                            <td>85-95% (зависит от модели)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Обработка неизвестных слов</strong></td>
+                            <td>❌ Не работает</td>
+                            <td>✅ Да (статистическое предсказание)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Исправление опечаток</strong></td>
+                            <td>❌ Нет</td>
+                            <td>✅ Да (Levenshtein, Damerau)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Скорость (слов/сек)</strong></td>
+                            <td>1 000 000+</td>
+                            <td>50 000 - 100 000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Память</strong></td>
+                            <td>50-100 MB</td>
+                            <td>200-500 MB (модель)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Рекомендация</strong></td>
+                            <td>Для известной лексики, высокая точность</td>
+                            <td>Для текстов с опечатками, новых слов</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="note" style="margin-top: 2rem;">
+                    <strong>Рекомендации по использованию:</strong><br>
+                    Для максимальной точности рекомендуется комбинировать оба подхода: сначала пробовать словарный анализ,
+                    при неудаче — вероятностный. В будущих версиях появится гибридный модуль, объединяющий оба метода.
+                </div>
+            </div>
+
+            <!-- Статус разработки -->
+            <div class="module-section">
+                <h2>Статус разработки</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0;">
+                    <div style="background: var(--bg-white); padding: 1rem; border-radius: 8px; border-left: 4px solid #27ae60;">
+                        <strong>✅ Готовы</strong><br>
+                        libmorph/rus<br>
+                        libmorph/eng<br>
+                        libmorph/ukr
+                    </div>
+                    <div style="background: var(--bg-white); padding: 1rem; border-radius: 8px; border-left: 4px solid #f39c12;">
+                        <strong>🔄 Бета</strong><br>
+                        libfuzzy/eng
+                    </div>
+                    <div style="background: var(--bg-white); padding: 1rem; border-radius: 8px; border-left: 4px solid #7f8c8d;">
+                        <strong>⏳ В разработке</strong><br>
+                        libfuzzy/rus<br>
+                        libfuzzy/ukr
+                    </div>
+                </div>
+
+                <p>
+                    <strong>Планы релизов:</strong><br>
+                    • <strong>Версия 2.4.0</strong> (текущая) — словарные модули<br>
+                    • <strong>Версия 2.5.0</strong> (Q3 2025) — libfuzzy/eng (стабильный), libfuzzy/rus (бета)<br>
+                    • <strong>Версия 2.6.0</strong> (Q1 2026) — libfuzzy/rus (стабильный), libfuzzy/ukr (бета)<br>
+                    • <strong>Версия 3.0.0</strong> (Q4 2026) — гибридный анализ, универсальный API
+                </p>
+            </div>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-copyright">
+                © 1996-2026 Keva. Разработка высокопроизводительных NLP решений.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

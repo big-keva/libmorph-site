@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libmorph :: сверхбыстрая морфология на C++</title>
+    <meta name="description" content="Библиотека морфологического анализа libmorph для русского, английского и украинского языков. Скорость: 1 млн слов/сек на ядро.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="header-container">
+                <div class="logo">
+                  <a href="index.html">LIB<span>MORPH</span>.RU</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><span class="current">Главная</span></li>
+                        <li><a href="help.html">Документация</a></li>
+                        <li><a href="modules.html">Модули</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content-wrapper">
+            <h1>libmorph: морфологический анализ на C++</h1>
+            
+            <div class="benchmark-banner">
+                <strong>1 000 000 слов/сек</strong>
+                на одном ядре · в 50+ раз быстрее pymorphy3
+            </div>
+
+            <p>
+                <strong>libmorph</strong> — это семейство высокопроизводительных библиотек морфологического анализа, 
+                написанных на C++. Они предоставляют единый COM-подобный API для работы с русским, английским и 
+                украинским языками.
+            </p>
+
+            <h2>Ключевые особенности</h2>
+            <ul>
+                <li><span class="highlight">Скорость:</span> анализ 1 миллиона слов в секунду на одном ядре CPU</li>
+                <li><span class="highlight">Две версии API:</span> multibyte (с поддержкой кодовых страниц) и widechar (UTF-16)</li>
+                <li><span class="highlight">Обертки:</span> PHP, Python, Golang и другие языки</li>
+                <li><span class="highlight">Лемматизация, проверка орфографии, построение словоформ</span></li>
+                <li><span class="highlight">Готовые пакеты:</span> .deb, .rpm, ZIP для Windows</li>
+            </ul>
+
+            <h2>Пример использования (C++)</h2>
+            <pre><code><span class="comment">// Лемматизация слова (multibyte-версия)</span>
+<span class="kw">#include</span> &lt;libmorph/rus.h&gt;
+
+IMlmaMb* pMorph = <span class="fn">CreateRusMorph</span>();
+<span class="kw">if</span> (pMorph) {
+    <span class="type">char</span> lemma[256];
+    pMorph-&gt;<span class="fn">Lemmatize</span>(<span class="string">"бежали"</span>, 6, 
+                     <span class="kw">nullptr</span>, 0, lemma, 256, 
+                     <span class="kw">nullptr</span>, 0, 0);
+    <span class="comment">// lemma = "бежать"</span>
+    pMorph-&gt;<span class="fn">Detach</span>();
+}</code></pre>
+
+            <h2>Поддерживаемые языки</h2>
+            <div class="modules-grid">
+                <div class="card">
+                    <h3>libmorph/rus</h3>
+                    <div class="lang-badge">Русский</div>
+                    <p>Полная морфология русского языка. Поддержка неологизмов, имен собственных, аббревиатур.</p>
+                    <a href="modules.html#rus">Подробнее →</a>
+                </div>
+                <div class="card">
+                    <h3>libmorph/eng</h3>
+                    <div class="lang-badge">Английский</div>
+                    <p>Анализ английской морфологии: неправильные глаголы, словообразование.</p>
+                    <a href="modules.html#eng">Подробнее →</a>
+                </div>
+                <div class="card">
+                    <h3>libmorph/ukr</h3>
+                    <div class="lang-badge">Украинский</div>
+                    <p>Поддержка особенностей украинской грамматики и словоизменения.</p>
+                    <a href="modules.html#ukr">Подробнее →</a>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Примечание:</strong> Все модули используют общий API и могут быть 
+                расширены пользовательскими словарями.
+            </div>
+        </main>
+
+        <footer class="site-footer">
+          <div class="footer-copyright">
+            © 1996-2026 Keva. Разработка высокопроизводительных NLP решений.
+          </div>
+        </footer>
+    </div>
+</body>
+</html>
