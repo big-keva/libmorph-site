@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta name="description" content="libmorph — высокопроизводительная библиотека морфологического анализа.
+      libmorphrus, libmorpheng, libmorphukr - поддержка русского, английского и украинского языков. C++, Open Source, MIT License.">
+    <meta name="keywords" content="морфология, русский язык, C++, SDK, лемматизация, NLP, анализ текста, libmorphrus">
+    <meta property="og:title" content="libmorph — морфологический анализатор на C++">
+    <meta property="og:image" content="https://libmorph.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>libmorph :: API</title>
@@ -93,6 +99,8 @@
                 формальным правилам, которые в этом документе не приводятся.</p>
 
               <h3 id="1_2">Радискное дерево</h3>
+              <p><img src="./dicttree.gif" style='margin: .1em .5em .1em .1em; max-width: 100%; float: left;'></p>
+
               <p>Словарь представляет собою дерево, в каждом узле которого находится таблица, ставящая в соответствие каждому
               символу смещение аналогичной таблицы следующего уровня. А результате поис строки сводится к нескольким побайтовым
               сравнениям в памяти &ndash; это основное достоинство префиксного дерева, позволяющее получать производительность
@@ -104,9 +112,7 @@
               "стол", "столешниц", "сто", "сто", "стрел", "су" и "т". Дерево, строящееся из них, можно представить следующим
               образом:</p>
 
-              <center><img src="./dicttree.gif" style='padding-top: 1em; max-width: 100%'></center>
-
-              <p>Под "грамматической информацией" следует понимать в данном случае часть речи, ссылку на таблицу чередований
+              <p> Под "грамматической информацией" следует понимать в данном случае часть речи, ссылку на таблицу чередований
               в основе, ссылку на таблицу окончаний и список чередующихся приставок.</p>
 
               <h3 id="1_3">Сканирование словаря</h3>
@@ -130,15 +136,7 @@
               <h3 id="2_1">Структуры данных</h2>
                 <h4 id="2_1_1">Грамматика словоформы</h4>
 
-                <p>Для полного грамматического описания формы слова используется структура <code>SGramInfo</code>, в которой:</p>
-                  <ul>
-                    <li><code>wInfo</code> &ndash; техническая часть речи;</li>
-                    <li><code>gInfo</code> &ndash; грамматическое описание;</li>
-                    <li><code>iForm</code> &ndash; идентификатор формы слова, соответствующий грамматике для данной части речи;</li>
-                    <li><code>other</code> &ndash; дополнительные признаки одушевленности (0x01) и неодушевленности (0x02).</li>
-                  </ul>
-
-              <div class="api-interface"><pre><span class="kw">struct</span> SGramInfo
+              <div class="api-interface" style="float: left; width: 25em"><pre><span class="kw">struct</span> SGramInfo
 {
   <span class="kw">unsigned char</span>  wInfo;
   <span class="kw">unsigned char</span>  iForm;
@@ -147,7 +145,34 @@
 };
 </pre></div>
 
+                <p>Для полного грамматического описания формы слова используется структура <code>SGramInfo</code>, в которой:</p>
+                  <ul>
+                    <li><code>wInfo</code> &ndash; техническая часть речи;</li>
+                    <li><code>gInfo</code> &ndash; грамматическое описание;</li>
+                    <li><code>iForm</code> &ndash; идентификатор формы слова, соответствующий грамматике для данной части речи;</li>
+                    <li><code>other</code> &ndash; дополнительные признаки одушевленности (0x01) и неодушевленности (0x02).</li>
+                  </ul>
+
+                <div style="clear: both"></div>
+
                 <h4 id="2_1_2">Найденная лексема</h4>
+
+                <div class="api-interface" style="float: left; width: 25em"><pre><span class="kw">struct</span> SLemmInfoA
+{
+  lexeme_t     nlexid;
+  <span class="kw">const char</span>*  plemma;
+  SGramInfo*   pgrams;
+  <span class="kw">unsigned</span>     ngrams;
+} SLemmInfoA;
+
+<span class="kw">struct</span> SLemmInfoW
+{
+  lexeme_t         nlexid;
+  <span class="kw">const widechar</span>*  plemma;
+  SGramInfo*       pgrams;
+  <span class="kw">unsigned</span>         ngrams;
+};
+</pre></div>
 
                 <p>Две структуры описывают отождествления одной лексемы при лемматизации, однако первая из них используется
                 в multibyte-, а вторая - в unicode-интерфейсе при вызове функции лемматизации. В этих структурах:</p>
@@ -158,39 +183,11 @@
                   <li><code>ngrams</code> - количество грамматических описаний.</li>
                 </ul>
 
-                <div class="api-interface"><pre><span class="kw">struct</span> SLemmInfoA
-{
-  lexeme_t     nlexid;
-  <span class="kw">const char</span>*  plemma;
-  SGramInfo*   pgrams;
-  <span class="kw">unsigned</span>     ngrams;
-} SLemmInfoA;
-</pre></div>
-
-                <div class="api-interface"><pre><span class="kw">struct</span> SLemmInfoW
-{
-  lexeme_t         nlexid;
-  <span class="kw">const widechar</span>*  plemma;
-  SGramInfo*       pgrams;
-  <span class="kw">unsigned</span>         ngrams;
-};
-</pre></div>
+                <div style="clear: both"></div>
 
                 <h4 id="2_1_3">Интерфейс находок по шаблону</h4>
 
-                <p>При поиске в словаре по шаблону для каждой лексемы, с формами которой обнаружено совпадение,
-                анализатор вызывает предоставленный пользователем метод <code>AddLexeme</code>. Это своего рода
-                <code>callback</code>, оформленный в виде активного интерфейса со средствами контроля времени
-                жизни. Начиная взаимодействие с ним, анализатор вызывает метод <span class="fn">Attach</span>(),
-                а завершив &ndash; <span class="fn">Detach</span>(), что позволяет использовать интерфейс
-                асинхронно.</p>
-
-                <p><span class="kw">Addlexeme</span>( ... ) получает уникальный идентификатор лексемы <code>nlexid</code>,
-                количество форм этой лексемы <code>nforms</code>, с которыми произошло отождествление шаблона, и массив
-                структур <code>SStrMatch</code>, описывающих каждое из совпадений строкой словоформы (mb или wc) её длиной
-                и идентификатором формы слова.
-
-                <div class="api-interface"><pre><span class="kw">struct</span> SStrMatch
+                <div class="api-interface" style="float: left; width: 25em"><pre><span class="kw">struct</span> SStrMatch
 {
   union
   {
@@ -211,61 +208,38 @@
     <span class="kw">const</span> SStrMatch* pforms );
 };</pre></div>
 
+                <p>При поиске в словаре по шаблону для каждой лексемы, с формами которой обнаружено совпадение,
+                анализатор вызывает предоставленный пользователем метод <code>AddLexeme</code>. Это <code>callback</code>,
+                оформленный в виде активного интерфейса со средствами контроля времени жизни. Начиная взаимодействие
+                с ним, анализатор вызывает метод <span class="fn">Attach</span>(), а завершив &ndash; <span class="fn">Detach</span>(),
+                что позволяет использовать интерфейс асинхронно.</p>
+
+                <p><span class="kw">Addlexeme</span>( ... ) получает уникальный идентификатор лексемы <code>nlexid</code>,
+                количество форм этой лексемы <code>nforms</code>, с которыми произошло отождествление шаблона, и массив
+                структур <code>SStrMatch</code>, описывающих каждое из совпадений строкой словоформы (mb или wc) её длиной
+                и идентификатором формы слова.
+
+                <div style="clear: both"></div>
+
                 <h4 id="2_1_4">IMlmaMb и IMlmaWc</h4>
+
+                <div class="api-interface" style="width: 25em; float: left"><pre>struct IMlma[Mb|Wc]
+{
+  <span class="kw">int</span>   <span class="fn">Attach</span>();
+  <span class="kw">int</span>   <span class="fn">Detach</span>();
+  <span class="kw">int</span>   <span class="fn">CheckWord</span>( ... );
+  <span class="kw">int</span>   <span class="fn">Lemmatize</span>( ... );
+  <span class="kw">int</span>   <span class="fn">BuildForm</span>( ... );
+  <span class="kw">int</span>   <span class="fn">FindForms</span>( ... );
+  <span class="kw">int</span>   <span class="fn">GetWdInfo</span>( ... );
+  <span class="kw">int</span>   <span class="fn">FindMatch</span>( ... );
+};</pre></div>
 
                 <p>Два похожих интерфейса с одинаковым набором функций, отличающиеся лишь типом строковых параметров:
                 первый работает с multibyte-строками (<span class="kw">const char*</span>), второй &ndash; с UTF-16
                 (<span class="kw">const widechar*</span>)</p>
               
-                <div class="api-interface"><pre>struct IMlmaMb
-{
-  <span class="kw">int</span>   <span class="fn">Attach</span>();
-  <span class="kw">int</span>   <span class="fn">Detach</span>();
-  <span class="kw">int</span>   <span class="fn">CheckWord</span>(
-    <span class="kw">const char</span>* pszstr, size_t   cchstr, unsigned dwsets );
-  <span class="kw">int</span>   <span class="fn">Lemmatize</span>(
-    <span class="kw">const char</span>* pszstr, size_t   cchstr,
-    SLemmInfoA* plexid, size_t   clexid,
-    <span class="kw">char</span>*       plemma, size_t   clemma,
-    SGramInfo*  pgrams, size_t   ngrams, unsigned dwsets );
-  <span class="kw">int</span>   <span class="fn">BuildForm</span>(
-    <span class="kw">char</span>*       output, size_t   cchout,
-    lexeme_t    nlexid, formid_t idform );
-  <span class="kw">int</span>   <span class="fn">FindForms</span>(
-    <span class="kw">char</span>*       output, size_t   cchout,
-    <span class="kw">const char</span>* pszstr, size_t   cchstr,
-    formid_t    idform, unsigned dwsets );
-  <span class="kw">int</span>   <span class="fn">GetWdInfo</span>(
-    uint8_t*    pwinfo, lexeme_t nlexid );
-  <span class="kw">int</span>   <span class="fn">FindMatch</span>(
-    IMlmaMatch* pmatch,
-    <span class="kw">const char</span>* pszstr, size_t   cchstr );
-};
-
-<span class="kw">struct</span> IMlmaWc
-{
-  <span class="kw">int</span>   <span class="fn">Attach</span>();
-  <span class="kw">int</span>   <span class="fn">Detach</span>();
-  <span class="kw">int</span>   <span class="fn">CheckWord</span>(
-    <span class="kw">const</span> widechar* pszstr, size_t   cchstr, unsigned dwsets );
-  <span class="kw">int</span>   <span class="fn">Lemmatize</span>(
-    <span class="kw">const</span> widechar* pszstr, size_t   cchstr,
-    SLemmInfoA*     plexid, size_t   clexid,
-    <span class="kw">char</span>*           plemma, size_t   clemma,
-    SGramInfo*      pgrams, size_t   ngrams, unsigned dwsets );
-  <span class="kw">int</span>   <span class="fn">BuildForm</span>(
-    widechar*       output, size_t   cchout,
-    lexeme_t        nlexid, formid_t idform );
-  <span class="kw">int</span>   <span class="fn">FindForms</span>(
-    <span class="kw">char</span>*           output, size_t   cchout,
-    <span class="kw">const</span> widechar* pszstr, size_t   cchstr,
-    formid_t        idform, unsigned dwsets );
-  <span class="kw">int</span>   <span class="fn">GetWdInfo</span>(
-    uint8_t*        pwinfo, lexeme_t nlexid );
-  <span class="kw">int</span>   <span class="fn">FindMatch</span>(
-    IMlmaMatch*     pmatch,
-    <span class="kw">const</span> widechar* pszstr, size_t   cchstr );
-};</pre></div>
+                <div style="clear: both"></div>
 
               <h3 id="2_2">Функции</h3>
                 <h4 id="2_2_1">Проверка правописания</h4>

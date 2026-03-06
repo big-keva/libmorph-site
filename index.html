@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta name="description" content="libmorph — высокопроизводительная библиотека морфологического анализа.
+      libmorphrus, libmorpheng, libmorphukr - поддержка русского, английского и украинского языков. C++, Open Source, MIT License.">
+    <meta name="keywords" content="морфология, русский язык, C++, SDK, лемматизация, NLP, анализ текста, libmorphrus">
+    <meta property="og:title" content="libmorph — морфологический анализатор на C++">
+    <meta property="og:image" content="https://libmorph.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>libmorph :: сверхбыстрая морфология на C++</title>
-    <meta name="description" content="Библиотека морфологического анализа libmorph для русского, английского и украинского языков. Скорость: 1 млн слов/сек на ядро.">
-    <link rel="stylesheet" href="style.css">
+    <title>libmorph :: Быстрая морфология</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="page-wrapper">
@@ -30,65 +35,38 @@
             <h1>libmorph: морфологический анализ на C++</h1>
             
             <div class="benchmark-banner">
-                <strong>1 000 000 слов/сек</strong>
-                на одном ядре · в 50+ раз быстрее pymorphy3
+                <strong>1 300 000 слов в секунду</strong>
+                <span style="font-size: 0.8rem; display: block; opacity: 0.9;">на одном ядре Intel Core Ultra 7 155H @ 4.5 GHz</span>
             </div>
 
-            <p>
-                <strong>libmorph</strong> — это семейство высокопроизводительных библиотек морфологического анализа, 
-                написанных на C++. Они предоставляют единый COM-подобный API для работы с русским, английским и 
-                украинским языками.
-            </p>
-
-            <h2>Ключевые особенности</h2>
-            <ul>
-                <li><span class="highlight">Скорость:</span> анализ 1 миллиона слов в секунду на одном ядре CPU</li>
-                <li><span class="highlight">Две версии API:</span> multibyte (с поддержкой кодовых страниц) и widechar (UTF-16)</li>
-                <li><span class="highlight">Обертки:</span> PHP, Python, Golang и другие языки</li>
-                <li><span class="highlight">Лемматизация, проверка орфографии, построение словоформ</span></li>
-                <li><span class="highlight">Готовые пакеты:</span> .deb, .rpm, ZIP для Windows</li>
-            </ul>
+<div class="feature-compact">
+    <p><strong>libmorph</strong> — семейство высокопроизводительных библиотек морфологического анализа на C++</p>
+    <ul>
+        <li>Изящная модель описания словоизменения</li>
+        <li>Радиксные деревья для поиска</li>
+        <li>Выверенные словари для проверки орфографии</li>
+        <li>Пятнадцать лет индексирования и поиска в <a href="http://www.rambler.ru">Rambler</a></li>
+        <li>Единый COM-подобный API</li>
+        <li>Нативная поддержка UTF-16 и популярных кодировок кириллицы</li>
+        <li>Лемматизация, синтез словоформ, поиск по шаблону</li>
+        <li><span style="font-weight: bold; color: blue">Фиксированные числовые идентификаторы лексем!</span></li>
+    </ul>
+</div>
 
             <h2>Пример использования (C++)</h2>
-            <pre><code><span class="comment">// Лемматизация слова (multibyte-версия)</span>
-<span class="kw">#include</span> &lt;libmorph/rus.h&gt;
+<div class="api-interface"><pre><span class="comment">// Лемматизация слова (multibyte-версия)</span>
+  IMlmaMbXX*  pmorph;
+  SLemmInfoA  lemmas[32];
+  <span class="kw">char</span>        fmbuff[256];
+  SGramInfo   grbuff[32];
 
-IMlmaMb* pMorph = <span class="fn">CreateRusMorph</span>();
-<span class="kw">if</span> (pMorph) {
-    <span class="type">char</span> lemma[256];
-    pMorph-&gt;<span class="fn">Lemmatize</span>(<span class="string">"бежали"</span>, 6, 
-                     <span class="kw">nullptr</span>, 0, lemma, 256, 
-                     <span class="kw">nullptr</span>, 0, 0);
-    <span class="comment">// lemma = "бежать"</span>
-    pMorph-&gt;<span class="fn">Detach</span>();
-}</code></pre>
+  <span class="fn">mlmaruGetAPI</span>( <span class="st">"utf-8"</span>, (<span class="kw">void</span>**)&pmorph );
 
-            <h2>Поддерживаемые языки</h2>
-            <div class="modules-grid">
-                <div class="card">
-                    <h3>libmorph/rus</h3>
-                    <div class="lang-badge">Русский</div>
-                    <p>Полная морфология русского языка. Поддержка неологизмов, имен собственных, аббревиатур.</p>
-                    <a href="modules.html#rus">Подробнее →</a>
-                </div>
-                <div class="card">
-                    <h3>libmorph/eng</h3>
-                    <div class="lang-badge">Английский</div>
-                    <p>Анализ английской морфологии: неправильные глаголы, словообразование.</p>
-                    <a href="modules.html#eng">Подробнее →</a>
-                </div>
-                <div class="card">
-                    <h3>libmorph/ukr</h3>
-                    <div class="lang-badge">Украинский</div>
-                    <p>Поддержка особенностей украинской грамматики и словоизменения.</p>
-                    <a href="modules.html#ukr">Подробнее →</a>
-                </div>
-            </div>
+  nlemma = pmorph-><span class="fn">Lemmatize</span>( <span class="st">"стали"</span>, lemmas, fmbuff, grbuff );
 
-            <div class="note">
-                <strong>Примечание:</strong> Все модули используют общий API и могут быть 
-                расширены пользовательскими словарями.
-            </div>
+  for ( <span class="kw">int</span> i = 0; i < nlemma; ++i )
+    <span class="fn">printf</span>( <span class="st">"%s\tIDL:%u\n"</span>, lemmas[i].plemma, lemmas[i].nlexid );}</pre></div>
+
         </main>
 
         <footer class="site-footer">

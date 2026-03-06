@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta name="description" content="libmorph — высокопроизводительная библиотека морфологического анализа.
+      libmorphrus, libmorpheng, libmorphukr - поддержка русского, английского и украинского языков. C++, Open Source, MIT License.">
+    <meta name="keywords" content="морфология, русский язык, C++, SDK, лемматизация, NLP, анализ текста, libmorphrus">
+    <meta property="og:title" content="libmorph — морфологический анализатор на C++">
+    <meta property="og:image" content="https://libmorph.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>libmorph :: Скачать</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         /* Дополнительные стили для селекторов и модулей */
         .selector-panel {
@@ -298,11 +304,11 @@
         <main class="content-wrapper">
             <h1>Загрузки</h1>
             
-            <p>
+            <!-- p>
                 Для каждого языка доступны два типа модулей: <strong class="highlight">словарные (libmorph/*)</strong> для точного анализа 
                 известных слов и <strong class="highlight">вероятностные (libfuzzy/*)</strong> для обработки неизвестных слов. 
                 Модули в разработке отмечены как неактивные.
-            </p>
+            </p -->
 
             <!-- Интерактивный селектор -->
             <div class="selector-panel">
@@ -310,18 +316,18 @@
                     <div class="selector-group">
                         <label for="lang-select">Язык:</label>
                         <select id="lang-select" onchange="updateDownload()">
-                            <option value="rus">Русский</option>
-                            <option value="eng">Английский</option>
+                            <option value="rus" selected>Русский</option>
+                            <!-- option value="eng">Английский</option>
                             <option value="ukr">Украинский</option>
-                            <option value="all">Все языки</option>
+                            <option value="all">Все языки</option -->
                         </select>
                     </div>
 
                     <div class="selector-group">
                         <label for="type-select">Тип модуля:</label>
                         <select id="type-select" onchange="updateDownload()">
-                            <option value="dict">Словарный (libmorph)</option>
-                            <option value="fuzzy">Вероятностный (libfuzzy)</option>
+                            <option value="dict" selected>Словарный (libmorph)</option>
+                            <!-- option value="fuzzy">Вероятностный (libfuzzy)</option -->
                         </select>
                     </div>
 
@@ -331,15 +337,14 @@
                             <option value="deb">Debian/Ubuntu (.deb)</option>
                             <option value="rpm">RHEL/Fedora (.rpm)</option>
                             <option value="windows">Windows (ZIP)</option>
-                            <option value="source">Исходный код</option>
                         </select>
                     </div>
 
                     <div class="selector-group">
                         <label for="package-select">Тип пакета:</label>
                         <select id="package-select" onchange="updateDownload()">
-                            <option value="runtime">Только запуск (runtime)</option>
-                            <option value="dev">Разработка (dev + runtime)</option>
+                            <option value="runtime">runtime</option>
+                            <option value="dev">runtime + headers</option>
                         </select>
                     </div>
                 </div>
@@ -350,7 +355,7 @@
             </div>
 
             <!-- Быстрый обзор модулей -->
-            <h2>Доступные модули</h2>
+            <!-- h2>Доступные модули</h2>
             
             <div class="module-type-tabs">
                 <span class="module-type-tab dict">Словарные (libmorph)</span>
@@ -358,7 +363,6 @@
             </div>
 
             <div class="module-grid">
-                <!-- Русский: словарный (активный) -->
                 <div class="module-card dict">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h3 style="margin: 0;">libmorph/rus</h3>
@@ -373,7 +377,6 @@
                     <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Скачать</a>
                 </div>
 
-                <!-- Русский: вероятностный (неактивный) -->
                 <div class="module-card fuzzy inactive">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h3 style="margin: 0;">libfuzzy/rus</h3>
@@ -386,7 +389,6 @@
                     <span class="inactive-badge">Ожидайте в 2.5.0</span>
                 </div>
 
-                <!-- Английский: словарный (активный) -->
                 <div class="module-card dict">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h3 style="margin: 0;">libmorph/eng</h3>
@@ -401,7 +403,6 @@
                     <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Скачать</a>
                 </div>
 
-                <!-- Английский: вероятностный (бета) -->
                 <div class="module-card fuzzy">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h3 style="margin: 0;">libfuzzy/eng</h3>
@@ -414,7 +415,6 @@
                     <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Скачать бета</a>
                 </div>
 
-                <!-- Украинский: словарный (активный) -->
                 <div class="module-card dict">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h3 style="margin: 0;">libmorph/ukr</h3>
@@ -429,7 +429,6 @@
                     <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Завантажити</a>
                 </div>
 
-                <!-- Украинский: вероятностный (неактивный) -->
                 <div class="module-card fuzzy inactive">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h3 style="margin: 0;">libfuzzy/ukr</h3>
@@ -441,10 +440,10 @@
                     </div>
                     <span class="inactive-badge">Очікуйте у 2.6.0</span>
                 </div>
-            </div>
+            </div -->
 
             <!-- Таблицы пакетов -->
-            <h2>Словарные модули (libmorph/*)</h2>
+            <!-- h2>Словарные модули (libmorph/*)</h2>
             
             <h3>Debian/Ubuntu (.deb)</h3>
             <table class="download-table">
@@ -494,9 +493,9 @@
                         <td><a href="#" class="download-link">deb</a></td>
                     </tr>
                 </tbody>
-            </table>
+            </table -->
 
-            <h2>Вероятностные модули (libfuzzy/*)</h2>
+            <!-- h2>Вероятностные модули (libfuzzy/*)</h2>
             
             <h3>Debian/Ubuntu (.deb)</h3>
             <table class="download-table">
@@ -594,21 +593,21 @@
                         <td>node-libmorph</td>
                         <td>⏳</td>
                         <td><code>npm install node-libmorph</code></td>
-                    </tr -->
+                    </tr>
                 </tbody>
-            </table>
+            </table -->
 
-            <div class="note">
+            <!-- div class="note">
                 <strong>Статусы модулей:</strong><br>
                 <span class="status-badge status-ready">готов</span> — стабильная версия, рекомендуется для производства<br>
                 <span class="status-badge status-beta">бета</span> — тестирование, возможны изменения API<br>
                 <span class="status-badge status-dev">разработка</span> — в активной разработке, не для производства
-            </div>
+            </div -->
 
-            <div class="note warning">
+            <!-- -div class="note warning">
                 <strong>Для Windows:</strong> Требуется Visual C++ Redistributable 2019+.
                 Вероятностные модули требуют больше оперативной памяти (от 500 MB).
-            </div>
+            </div -->
         </main>
 
         <footer class="site-footer">
@@ -625,14 +624,14 @@
                 dict: {
                     deb: {
                         runtime: {
-                            name: 'libmorph-rus',
+                            name: 'libmorphrus',
                             desc: 'Словарный модуль для русского языка',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-rus-dev',
+                            name: 'libmorphrus-dev',
                             desc: 'Заголовочные файлы для русского языка',
                             status: 'ready',
                             url: '#',
@@ -642,14 +641,14 @@
                     },
                     rpm: {
                         runtime: {
-                            name: 'libmorph-rus',
+                            name: 'libmorphrus',
                             desc: 'Словарный модуль для русского языка',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-rus-devel',
+                            name: 'libmorphrus-devel',
                             desc: 'Заголовочные файлы для русского языка',
                             status: 'ready',
                             url: '#',
@@ -675,14 +674,14 @@
                     },
                     source: {
                         runtime: {
-                            name: 'libmorph-rus-source',
+                            name: 'libmorphrus-source',
                             desc: 'Исходный код словарного модуля',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-rus-source',
+                            name: 'libmorphrus-source',
                             desc: 'Исходный код (включая заголовки)',
                             status: 'ready',
                             url: '#',
@@ -693,14 +692,14 @@
                 fuzzy: {
                     deb: {
                         runtime: {
-                            name: 'libfuzzy-rus',
+                            name: 'libfuzzyrus',
                             desc: 'Вероятностный модуль для русского языка',
                             status: 'dev',
                             url: null,
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-rus-dev',
+                            name: 'libfuzzyrus-dev',
                             desc: 'Заголовочные файлы для fuzzy/rus',
                             status: 'dev',
                             url: null,
@@ -710,14 +709,14 @@
                     },
                     rpm: {
                         runtime: {
-                            name: 'libfuzzy-rus',
+                            name: 'libfuzzyrus',
                             desc: 'Вероятностный модуль для русского языка',
                             status: 'dev',
                             url: null,
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-rus-devel',
+                            name: 'libfuzzyrus-devel',
                             desc: 'Заголовочные файлы для fuzzy/rus',
                             status: 'dev',
                             url: null,
@@ -727,14 +726,14 @@
                     },
                     windows: {
                         runtime: {
-                            name: 'libfuzzy-windows-x64',
+                            name: 'libfuzzyrus-windows-x64',
                             desc: 'Вероятностные модули для Windows',
                             status: 'beta',
                             url: '#',
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-windows-x64-dev',
+                            name: 'libfuzzyrus-windows-x64-dev',
                             desc: 'Вероятностные модули + заголовки',
                             status: 'beta',
                             url: '#',
@@ -743,14 +742,14 @@
                     },
                     source: {
                         runtime: {
-                            name: 'libfuzzy-rus-source',
+                            name: 'libfuzzyrus-source',
                             desc: 'Исходный код вероятностного модуля',
                             status: 'dev',
                             url: null,
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-rus-source',
+                            name: 'libfuzzyrus-source',
                             desc: 'Исходный код (включая заголовки)',
                             status: 'dev',
                             url: null,
@@ -763,14 +762,14 @@
                 dict: {
                     deb: {
                         runtime: {
-                            name: 'libmorph-eng',
+                            name: 'libmorpheng',
                             desc: 'Словарный модуль для английского языка',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-eng-dev',
+                            name: 'libmorpheng-dev',
                             desc: 'Заголовочные файлы для английского языка',
                             status: 'ready',
                             url: '#',
@@ -780,14 +779,14 @@
                     },
                     rpm: {
                         runtime: {
-                            name: 'libmorph-eng',
+                            name: 'libmorpheng',
                             desc: 'Словарный модуль для английского языка',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-eng-devel',
+                            name: 'libmorpheng-devel',
                             desc: 'Заголовочные файлы для английского языка',
                             status: 'ready',
                             url: '#',
@@ -797,14 +796,14 @@
                     },
                     windows: {
                         runtime: {
-                            name: 'libmorph-windows-x64',
+                            name: 'libmorpheng-windows-x64',
                             desc: 'Словарные модули для Windows',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-windows-x64-dev',
+                            name: 'libmorpheng-windows-x64-dev',
                             desc: 'Словарные модули + заголовки',
                             status: 'ready',
                             url: '#',
@@ -813,14 +812,14 @@
                     },
                     source: {
                         runtime: {
-                            name: 'libmorph-eng-source',
+                            name: 'libmorpheng-source',
                             desc: 'Исходный код словарного модуля',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-eng-source',
+                            name: 'libmorpheng-source',
                             desc: 'Исходный код (включая заголовки)',
                             status: 'ready',
                             url: '#',
@@ -831,14 +830,14 @@
                 fuzzy: {
                     deb: {
                         runtime: {
-                            name: 'libfuzzy-eng',
+                            name: 'libfuzzyeng',
                             desc: 'Вероятностный модуль для английского языка',
                             status: 'beta',
                             url: '#',
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-eng-dev',
+                            name: 'libfuzzyeng-dev',
                             desc: 'Заголовочные файлы для fuzzy/eng',
                             status: 'beta',
                             url: '#',
@@ -848,14 +847,14 @@
                     },
                     rpm: {
                         runtime: {
-                            name: 'libfuzzy-eng',
+                            name: 'libfuzzyeng',
                             desc: 'Вероятностный модуль для английского языка',
                             status: 'beta',
                             url: '#',
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-eng-devel',
+                            name: 'libfuzzyeng-devel',
                             desc: 'Заголовочные файлы для fuzzy/eng',
                             status: 'beta',
                             url: '#',
@@ -865,14 +864,14 @@
                     },
                     windows: {
                         runtime: {
-                            name: 'libfuzzy-windows-x64',
+                            name: 'libfuzzyeng-windows-x64',
                             desc: 'Вероятностные модули для Windows',
                             status: 'beta',
                             url: '#',
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-windows-x64-dev',
+                            name: 'libfuzzyeng-windows-x64-dev',
                             desc: 'Вероятностные модули + заголовки',
                             status: 'beta',
                             url: '#',
@@ -881,14 +880,14 @@
                     },
                     source: {
                         runtime: {
-                            name: 'libfuzzy-eng-source',
+                            name: 'libfuzzyeng-source',
                             desc: 'Исходный код вероятностного модуля',
                             status: 'beta',
                             url: '#',
                             version: '0.9.0'
                         },
                         dev: {
-                            name: 'libfuzzy-eng-source',
+                            name: 'libfuzzyeng-source',
                             desc: 'Исходный код (включая заголовки)',
                             status: 'beta',
                             url: '#',
