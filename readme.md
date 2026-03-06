@@ -1,43 +1,47 @@
-# LibMorph (v2.4.1)
+# libmorph
 
 ![License: MIT](https://img.shields.io)
-![Platform: Windows | Linux](https://img.shields.io)
+![Platform: Linux | Windows](https://img.shields.io)
 ![Language: C++](https://img.shields.io)
 
-Высокопроизводительное ядро морфологического анализа русского языка на базе детерминированных конечных автоматов (DFA). 
+Высокопроизводительные морфологические анализаторы русского, английского и украинского языков. 
 
 ## Ключевые особенности
-* **Встроенный словарь:** База (~40MB RAM) уже интегрирована в библиотеку.
-* **Производительность:** Свыше 1.2 млн слов/сек на одном ядре.
-* **Zero-allocation:** Минимальное использование кучи, работа через внешние буферы.
-* **Двойной интерфейс:** Нативная поддержка ANSI (`IMlmaMb`) и WideChar (`IMlmaWc`).
+* **Встроенный словарь:** уже интегрирован в библиотеки.
+* **Минимальный размер:** Не более 4MB RAM.
+* **Производительность:** Свыше миллиона слов в секунду на одном ядре.
+* **Zero-allocation:** При работе не происходит операций резервирования памяти.
+* **Многопоточность:** С внутренними данными работа в режиме read-only.
+* **Поддержка кодировок:** Поддержка основных мультибайтовых (`IMlmaMb`) и UTF-16 (`IMlmaWc`) кодировок.
 
 ## Быстрый старт (C++)
 
 ```cpp
-#include "libmorph.h"
+# include <libmorph/rus.h>
 
-// Получение интерфейса (ANSI)
-IMlmaMb* pMorph;
-GetInterface(IID_IMlmaMb, (void**)&pMorph);
+...
 
-pMorph->Attach(); // Инициализация словарей
+// Лемматизация слова (multibyte-версия)
+  IMlmaMbXX*  pmorph;
+  SLemmInfoA  lemmas[32];
+  char        fmbuff[256];
+  SGramInfo   grbuff[32];
 
-SLemmInfoA info;
-char lemma[256];
+  mlmaruGetAPI( "utf-8", (void**)&pmorph );
 
-// Морфологический разбор
-pMorph->Lemmatize("программисты", 0, &info, 1, lemma, 256, nullptr, 0, sfStopAfterFirst);
+  nlemma = pmorph->Lemmatize( "стали", lemmas, fmbuff, grbuff );
 
-pMorph->Detach();
+  for ( int i = 0; i < nlemma; ++i )
+    printf( "%s\tIDL:%u\n", lemmas[i].plemma, lemmas[i].nlexid );
+
+...
+```
 
 Сборка
 Проект использует CMake:
 bash
 mkdir build && cd build
 cmake ..
-make
-Используйте код с осторожностью.
 
 Лицензия
 Распространяется под лицензией MIT. Подробности в файле LICENSE.
