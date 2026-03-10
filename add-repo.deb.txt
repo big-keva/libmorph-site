@@ -1,0 +1,4 @@
+curl -sSf https://libmorph.ru/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/libmorph-archive-keyring.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/libmorph-archive-keyring.gpg] https://libmorph.ru/deb/ stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list
+
+

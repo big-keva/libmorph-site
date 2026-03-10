@@ -280,6 +280,98 @@
             display: inline-block;
             margin-left: 0.5rem;
         }
+        /* Дополнительные стили для отображения зависимостей */
+        .badge-depends {
+            background: var(--primary-light);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            margin-left: 0.5rem;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .depends-note {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            opacity: 0.9;
+        }
+        
+        .depends-note::before {
+            content: "ⓘ";
+            margin-right: 0.3rem;
+            font-weight: bold;
+        }
+        
+        .install-instructions {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .packages-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .package-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 120px;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .package-row:last-child {
+            border-bottom: none;
+        }
+        
+        .package-name {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .package-desc {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+        
+        .package-link {
+            background: var(--accent);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            min-width: 80px;
+            text-align: center;
+            justify-self: end;
+        }
+        
+        .package-link.disabled {
+            background: #ccc;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .package-link:hover:not(.disabled) {
+            background: var(--secondary);
+        }
     </style>
 </head>
 <body>
@@ -335,7 +427,7 @@
                         <label for="platform-select">Платформа:</label>
                         <select id="platform-select" onchange="updateDownload()">
                             <option value="deb">Debian/Ubuntu (.deb)</option>
-                            <option value="rpm">RHEL/Fedora (.rpm)</option>
+                            <!-- option value="rpm">RHEL/Fedora (.rpm)</option -->
                             <option value="windows">Windows (ZIP)</option>
                         </select>
                     </div>
@@ -624,19 +716,19 @@
                 dict: {
                     deb: {
                         runtime: {
-                            name: 'libmorphrus',
-                            desc: 'Словарный модуль для русского языка',
+                            name: 'libmorph-rus',        // изменено
+                            desc: 'Словарный модуль для русского языка, разделяемый runtime (.so)',
                             status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
+                            url: 'deb/pool/main/libm/libmorph-rus/libmorph-rus_4.2026.03.7_amd64.deb',
+                            version: '4.2026.03.7'
                         },
                         dev: {
-                            name: 'libmorphrus-dev',
-                            desc: 'Заголовочные файлы для русского языка',
+                            name: 'libmorph-rus-dev',    // изменено
+                            desc: 'Статическая библиотека и заголовки для русского языка',
                             status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-rus'
+                            url: 'deb/pool/main/libm/libmorph-rus-dev/libmorph-rus-dev_4.2026.03.7_amd64.deb',
+                            version: '4.2026.03.7',
+                            depends: 'libmorph-api'
                         }
                     },
                     rpm: {
@@ -658,31 +750,15 @@
                     },
                     windows: {
                         runtime: {
-                            name: 'libmorph-windows-x64',
-                            desc: 'Словарные модули для Windows',
+                            name: 'libmorph-rus-win64',
+                            desc: 'Словарный модуль для русского языка, разделяемый runtime (.dll)',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
                         },
                         dev: {
-                            name: 'libmorph-windows-x64-dev',
-                            desc: 'Словарные модули + заголовки',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libmorphrus-source',
-                            desc: 'Исходный код словарного модуля',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorphrus-source',
-                            desc: 'Исходный код (включая заголовки)',
+                            name: 'libmorph-rus-win64-dev',
+                            desc: 'Статическая библиотека и заголовки',
                             status: 'ready',
                             url: '#',
                             version: '2.3.1'
@@ -739,22 +815,6 @@
                             url: '#',
                             version: '0.9.0'
                         }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libfuzzyrus-source',
-                            desc: 'Исходный код вероятностного модуля',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyrus-source',
-                            desc: 'Исходный код (включая заголовки)',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0'
-                        }
                     }
                 }
             },
@@ -809,22 +869,6 @@
                             url: '#',
                             version: '2.3.1'
                         }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libmorpheng-source',
-                            desc: 'Исходный код словарного модуля',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorpheng-source',
-                            desc: 'Исходный код (включая заголовки)',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
                     }
                 },
                 fuzzy: {
@@ -873,22 +917,6 @@
                         dev: {
                             name: 'libfuzzyeng-windows-x64-dev',
                             desc: 'Вероятностные модули + заголовки',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libfuzzyeng-source',
-                            desc: 'Исходный код вероятностного модуля',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyeng-source',
-                            desc: 'Исходный код (включая заголовки)',
                             status: 'beta',
                             url: '#',
                             version: '0.9.0'
@@ -947,22 +975,6 @@
                             url: '#',
                             version: '2.3.1'
                         }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libmorph-ukr-source',
-                            desc: 'Вихідний код словникового модуля',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-ukr-source',
-                            desc: 'Вихідний код (включаючи заголовки)',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
                     }
                 },
                 fuzzy: {
@@ -1013,22 +1025,6 @@
                             desc: 'Імовірнісні модулі + заголовки',
                             status: 'beta',
                             url: '#',
-                            version: '0.9.0'
-                        }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libfuzzy-ukr-source',
-                            desc: 'Вихідний код імовірнісного модуля',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-ukr-source',
-                            desc: 'Вихідний код (включаючи заголовки)',
-                            status: 'dev',
-                            url: null,
                             version: '0.9.0'
                         }
                     }
@@ -1085,22 +1081,6 @@
                             url: '#',
                             version: '2.3.1'
                         }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libmorph-all-source',
-                            desc: 'Исходный код всех словарных модулей',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-all-source',
-                            desc: 'Исходный код всех модулей',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
                     }
                 },
                 fuzzy: {
@@ -1153,22 +1133,6 @@
                             url: '#',
                             version: '0.9.0'
                         }
-                    },
-                    source: {
-                        runtime: {
-                            name: 'libfuzzy-all-source',
-                            desc: 'Исходный код всех вероятностных модулей',
-                            status: 'mixed',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-all-source',
-                            desc: 'Исходный код всех модулей',
-                            status: 'mixed',
-                            url: '#',
-                            version: '0.9.0'
-                        }
                     }
                 }
             }
@@ -1187,107 +1151,133 @@
             windows: {
                 runtime: 'Скачайте ZIP и распакуйте в C:\\libmorph\\',
                 dev: 'Скачайте ZIP и распакуйте в C:\\libmorph\\'
-            },
-            source: {
-                runtime: 'tar -xzf {package}.tar.gz && cd {package} && make && sudo make install',
-                dev: 'Исходный код уже включает все необходимые заголовки'
             }
         };
 
-        function updateDownload() {
-            const lang = document.getElementById('lang-select').value;
-            const type = document.getElementById('type-select').value;
-            const platform = document.getElementById('platform-select').value;
-            const pkgType = document.getElementById('package-select').value;
+function updateDownload() {
+    const lang = document.getElementById('lang-select').value;
+    const type = document.getElementById('type-select').value;
+    const platform = document.getElementById('platform-select').value;
+    const pkgType = document.getElementById('package-select').value;
+    
+    try {
+        const data = downloads[lang][type][platform][pkgType];
+        const resultDiv = document.getElementById('download-result');
+        
+        if (!data) {
+            resultDiv.innerHTML = `
+                <p>Для выбранной комбинации пакет не найден.</p>
+            `;
+            return;
+        }
+        
+        const isAvailable = data.url !== null && data.url !== undefined;
+        
+        // Проверяем, dev ли это пакет (требует libmorph-api)
+        const isDevPackage = pkgType === 'dev' || data.name.includes('-dev');
+        
+        // Данные для libmorph-api (если нужно)
+        let apiData = null;
+        if (isDevPackage) {
+            apiData = {
+                name: 'libmorph-api',
+                desc: 'Базовый API для всех морфологических анализаторов',
+                url: 'deb/pool/main/libm/libmorph-api/libmorph-api_4_all.deb'
+            };
+        }
+        
+        let html = `<div class="packages-grid">`;
+        
+        // Основной пакет
+        html += `
+            <div class="package-row">
+                <span class="package-name">${data.name}</span>
+                <span class="package-desc">${data.desc}</span>
+                ${isAvailable ? 
+                    `<a href="${data.url}" class="package-link">Скачать</a>` : 
+                    `<span class="package-link disabled">Скачать</span>`}
+            </div>
+        `;
+        
+        // Если есть зависимость, показываем её
+        if (isDevPackage && apiData) {
+            html += `
+                <div class="package-row">
+                    <span class="package-name">${apiData.name}</span>
+                    <span class="package-desc">${apiData.desc} (требуется)</span>
+                    <a href="${apiData.url}" class="package-link">Скачать</a>
+                </div>
+            `;
+        }
+        
+        html += `</div>`;
+
+        // Инструкции по установке в зависимости от платформы
+        if (platform === 'deb') {
+            html += `
+                <div class="install-instructions">
+                    <strong>Подключение репозитория (однократно):</strong><br>
+                    <code>curl -sSf https://libmorph.ru/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/libmorph-archive-keyring.gpg </code><br>
+                    <code>echo "deb https://libmorph.ru/deb stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list</code><br>
+                    <code>sudo apt update</code>
+                </div>
+            `;
             
-            try {
-                const data = downloads[lang][type][platform][pkgType];
-                const resultDiv = document.getElementById('download-result');
-                
-                if (!data) {
-                    resultDiv.innerHTML = `
-                        <h3>Информация недоступна</h3>
-                        <p>Для выбранной комбинации пакет не найден.</p>
-                    `;
-                    return;
+            if (isAvailable) {
+                let installCmd = '';
+                if (pkgType === 'runtime') {
+                    installCmd = `sudo apt install ${data.name}`;
+                } else if (pkgType === 'dev') {
+                    installCmd = `sudo apt install ${data.name}  # автоматически установит libmorph-api`;
                 }
-                
-                const statusText = {
-                    'ready': 'Стабильная версия',
-                    'beta': 'Бета-версия',
-                    'dev': 'В разработке',
-                    'mixed': 'Смешанный статус'
-                }[data.status] || 'Неизвестно';
-                
-                let installCmd = installInstructions[platform][pkgType];
-                if (installCmd) {
-                    installCmd = installCmd.replace('{package}', data.name);
-                }
-                
-                const isAvailable = data.url !== null && data.url !== undefined;
-                const statusColor = {
-                    'ready': '#27ae60',
-                    'beta': '#f39c12',
-                    'dev': '#7f8c8d',
-                    'mixed': '#f39c12'
-                }[data.status] || '#7f8c8d';
-                
-                let html = `
-                    <h3>Выбранный пакет</h3>
-                    <ul class="package-list">
-                        <li>
-                            <span class="package-name">${data.name}</span>
-                            <span style="color: ${statusColor}; font-weight: 600; margin-left: 1rem;">${statusText}</span>
-                        </li>
-                        <li style="justify-content: flex-start; gap: 1rem;">
-                            <span class="package-desc" style="margin-left: 0;">${data.desc}</span>
-                        </li>
-                        <li>
-                            <span>Версия: ${data.version}</span>
-                            ${isAvailable ? 
-                                `<a href="${data.url}" class="package-link">Скачать</a>` : 
-                                `<span class="package-link disabled">Недоступно</span>`}
-                        </li>
-                    </ul>
-                `;
-                
-                if (installCmd && isAvailable) {
-                    html += `
-                        <div class="install-instructions">
-                            <strong>Установка:</strong><br>
-                            ${installCmd}
-                        </div>
-                    `;
-                }
-                
-                if (data.depends) {
-                    html += `
-                        <div class="note" style="margin-top: 1rem; padding: 0.5rem;">
-                            <small>⚠️ Зависит от: ${data.depends}</small>
-                        </div>
-                    `;
-                }
-                
-                if (!isAvailable) {
-                    html += `
-                        <div class="note warning" style="margin-top: 1rem;">
-                            <strong>Модуль в разработке</strong><br>
-                            ${data.status === 'dev' ? 
-                                'Ожидайте в ближайших релизах. Следите за обновлениями.' : 
-                                'Временно недоступно.'}
-                        </div>
-                    `;
-                }
-                
-                resultDiv.innerHTML = html;
-            } catch (e) {
-                document.getElementById('download-result').innerHTML = `
-                    <h3>Информация недоступна</h3>
-                    <p>Для выбранной комбинации пакет не найден.</p>
+                html += `
+                    <div class="install-instructions">
+                        <strong>Установка пакета:</strong> ${installCmd}
+                    </div>
                 `;
             }
+        } else if (platform === 'rpm') {
+            html += `
+                <div class="install-instructions">
+                    <strong>Подключение репозитория (однократно):</strong><br>
+                    <code>sudo rpm --import https://libmorph.ru/keys/libmorph.asc</code><br>
+                    <code>sudo curl -o /etc/yum.repos.d/libmorph.repo https://libmorph.ru/rpm/libmorph.repo</code>
+                </div>
+            `;
+            
+            if (isAvailable) {
+                html += `
+                    <div class="install-instructions">
+                        <strong>Установка пакета:</strong> sudo dnf install ${data.name}
+                    </div>
+                `;
+            }
+        } else if (platform === 'windows') {
+            html += `
+                <div class="install-instructions">
+                    <strong>Установка:</strong> Скачайте ZIP и распакуйте в C:\\libmorph\\
+                </div>
+            `;
         }
-
+        
+        if (!isAvailable) {
+            html += `
+                <div class="note warning" style="margin-top: 1rem;">
+                    <strong>Модуль в разработке</strong><br>
+                    ${data.status === 'dev' ? 
+                        'Ожидайте в ближайших релизах.' : 
+                        'Временно недоступно.'}
+                </div>
+            `;
+        }
+        
+        resultDiv.innerHTML = html;
+    } catch (e) {
+        document.getElementById('download-result').innerHTML = `
+            <p>Для выбранной комбинации пакет не найден.</p>
+        `;
+    }
+}
         // Инициализация при загрузке
         window.onload = updateDownload;
     </script>
