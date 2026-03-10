@@ -12,7 +12,7 @@
     <title>libmorph :: Скачать</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Дополнительные стили для селекторов и модулей */
+        /* Дополнительные стили для селекторов */
         .selector-panel {
             background: var(--bg-white);
             border: 1px solid var(--border-color);
@@ -61,215 +61,12 @@
             border-color: var(--accent);
         }
 
-        .selector-group select:disabled {
-            background: #eee;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
         .download-result {
             background: var(--bg-light);
             border: 2px solid var(--accent);
             border-radius: 8px;
             padding: 1.5rem;
             margin-top: 1rem;
-        }
-
-        .download-result h3 {
-            margin-top: 0;
-            color: var(--primary-dark);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .package-list {
-            list-style: none;
-            margin: 1rem 0 0 0;
-        }
-
-        .package-list li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.8rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .package-list li:last-child {
-            border-bottom: none;
-        }
-
-        .package-name {
-            font-family: var(--font-mono);
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .package-desc {
-            color: var(--text-dark);
-            font-size: 0.9rem;
-            flex: 1;
-            margin-left: 1rem;
-        }
-
-        .package-link {
-            background: var(--accent);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .package-link.disabled {
-            background: #ccc;
-            pointer-events: none;
-            cursor: not-allowed;
-        }
-
-        .package-link:hover:not(.disabled) {
-            background: var(--secondary);
-        }
-
-        .install-instructions {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 1rem;
-            border-radius: 6px;
-            margin-top: 1rem;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-right: 0.5rem;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-left: 0.5rem;
-        }
-
-        .status-ready {
-            background: #27ae60;
-            color: white;
-        }
-
-        .status-beta {
-            background: #f39c12;
-            color: white;
-        }
-
-        .status-dev {
-            background: #7f8c8d;
-            color: white;
-        }
-
-        .module-type-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin: 2rem 0 1rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .module-type-tab {
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .module-type-tab.dict {
-            background: var(--primary-light);
-            color: white;
-        }
-
-        .module-type-tab.fuzzy {
-            background: #e67e22;
-            color: white;
-        }
-
-        .module-type-tab:hover {
-            opacity: 0.8;
-        }
-
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .module-card {
-            background: var(--bg-white);
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: all 0.2s;
-        }
-
-        .module-card.dict {
-            border-left: 6px solid var(--primary);
-        }
-
-        .module-card.fuzzy {
-            border-left: 6px solid #e67e22;
-        }
-
-        .module-card.inactive {
-            opacity: 0.6;
-            background: #f5f5f5;
-            filter: grayscale(30%);
-            position: relative;
-        }
-
-        .module-card.inactive::after {
-            content: "🔜 В разработке";
-            position: absolute;
-            top: -0.5rem;
-            right: 1rem;
-            background: var(--text-dark);
-            color: white;
-            padding: 0.2rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .inactive-badge {
-            background: var(--text-dark);
-            color: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 0.5rem;
-        }
-
-        .install-instructions {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 1rem;
-            border-radius: 6px;
-            margin-top: 1rem;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            position: relative;
         }
 
         .packages-grid {
@@ -326,6 +123,49 @@
         .package-link:hover:not(.disabled) {
             background: var(--secondary);
         }
+
+        .setup-instructions {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            border: 1px solid var(--accent);
+        }
+
+        .setup-instructions h3 {
+            color: #cccccc;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-family: var(--font-sans);
+        }
+
+        .setup-instructions code {
+            display: block;
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            color: #aaaaaa;
+        }
+
+        .setup-instructions .note {
+            background: transparent;
+            border-left-color: var(--accent);
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .windows-packages {
+            margin: 2rem 0;
+        }
+
+        .windows-packages h3 {
+            margin: 1.5rem 0 0.5rem 0;
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
@@ -350,22 +190,13 @@
         <main class="content-wrapper">
             <h1>Загрузки</h1>
             
-            <!-- p>
-                Для каждого языка доступны два типа модулей: <strong class="highlight">словарные (libmorph/*)</strong> для точного анализа 
-                известных слов и <strong class="highlight">вероятностные (libfuzzy/*)</strong> для обработки неизвестных слов. 
-                Модули в разработке отмечены как неактивные.
-            </p -->
-
-            <!-- Интерактивный селектор -->
+            <!-- Интерактивный селектор для Linux -->
             <div class="selector-panel">
                 <div class="selector-grid">
                     <div class="selector-group">
                         <label for="lang-select">Язык:</label>
                         <select id="lang-select" onchange="updateDownload()">
                             <option value="rus" selected>Русский</option>
-                            <!-- option value="eng">Английский</option>
-                            <option value="ukr">Украинский</option>
-                            <option value="all">Все языки</option -->
                         </select>
                     </div>
 
@@ -373,7 +204,6 @@
                         <label for="type-select">Тип модуля:</label>
                         <select id="type-select" onchange="updateDownload()">
                             <option value="dict" selected>Словарный (libmorph)</option>
-                            <!-- option value="fuzzy">Вероятностный (libfuzzy)</option -->
                         </select>
                     </div>
 
@@ -381,8 +211,7 @@
                         <label for="platform-select">Платформа:</label>
                         <select id="platform-select" onchange="updateDownload()">
                             <option value="deb">Debian/Ubuntu (.deb)</option>
-                            <!-- option value="rpm">RHEL/Fedora (.rpm)</option -->
-                            <option value="windows">Windows (ZIP)</option>
+                            <!-- option value="windows">Windows (ZIP)</option -->
                         </select>
                     </div>
 
@@ -400,259 +229,47 @@
                 </div>
             </div>
 
-            <!-- Быстрый обзор модулей -->
-            <!-- h2>Доступные модули</h2>
-            
-            <div class="module-type-tabs">
-                <span class="module-type-tab dict">Словарные (libmorph)</span>
-                <span class="module-type-tab fuzzy">Вероятностные (libfuzzy)</span>
+            <!-- Статическая плашка с инструкциями по установке для Linux -->
+            <div class="setup-instructions">
+                <h3>📦 Установка из репозитория (Debian/Ubuntu)</h3>
+                <p>Подключение репозитория:</p>
+                <code><pre>curl -sSf https://libmorph.ru/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/libmorph-archive-keyring.gpg
+echo "deb https://libmorph.ru/deb stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list
+apt update</pre></code>
+                
+                <p>Пакеты:</p><code><pre>apt install libmorph-rus
+apt install libmorph-rus-dev</pre></code>
             </div>
 
-            <div class="module-grid">
-                <div class="module-card dict">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0;">libmorph/rus</h3>
-                        <span class="status-badge status-ready">готов</span>
-                    </div>
-                    <p style="margin: 0.5rem 0;">Словарный анализ русского языка</p>
-                    <div style="margin: 0.5rem 0;">
-                        <span class="badge badge-dict">точный</span>
-                        <span class="badge badge-runtime">runtime</span>
-                        <span class="badge badge-dev">dev</span>
-                    </div>
-                    <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Скачать</a>
-                </div>
-
-                <div class="module-card fuzzy inactive">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0;">libfuzzy/rus</h3>
-                        <span class="status-badge status-dev">разработка</span>
-                    </div>
-                    <p style="margin: 0.5rem 0;">Вероятностный анализ, обработка неизвестных слов</p>
-                    <div style="margin: 0.5rem 0;">
-                        <span class="badge badge-fuzzy">вероятностный</span>
-                    </div>
-                    <span class="inactive-badge">Ожидайте в 2.5.0</span>
-                </div>
-
-                <div class="module-card dict">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0;">libmorph/eng</h3>
-                        <span class="status-badge status-ready">готов</span>
-                    </div>
-                    <p style="margin: 0.5rem 0;">Словарный анализ английского языка</p>
-                    <div style="margin: 0.5rem 0;">
-                        <span class="badge badge-dict">точный</span>
-                        <span class="badge badge-runtime">runtime</span>
-                        <span class="badge badge-dev">dev</span>
-                    </div>
-                    <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Скачать</a>
-                </div>
-
-                <div class="module-card fuzzy">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0;">libfuzzy/eng</h3>
-                        <span class="status-badge status-beta">бета</span>
-                    </div>
-                    <p style="margin: 0.5rem 0;">Вероятностный анализ, исправление опечаток</p>
-                    <div style="margin: 0.5rem 0;">
-                        <span class="badge badge-fuzzy">вероятностный</span>
-                    </div>
-                    <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Скачать бета</a>
-                </div>
-
-                <div class="module-card dict">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0;">libmorph/ukr</h3>
-                        <span class="status-badge status-ready">готов</span>
-                    </div>
-                    <p style="margin: 0.5rem 0;">Словниковий аналіз української мови</p>
-                    <div style="margin: 0.5rem 0;">
-                        <span class="badge badge-dict">точний</span>
-                        <span class="badge badge-runtime">runtime</span>
-                        <span class="badge badge-dev">dev</span>
-                    </div>
-                    <a href="#" class="download-link" style="display: inline-block; margin-top: 0.5rem;">Завантажити</a>
-                </div>
-
-                <div class="module-card fuzzy inactive">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0;">libfuzzy/ukr</h3>
-                        <span class="status-badge status-dev">розробка</span>
-                    </div>
-                    <p style="margin: 0.5rem 0;">Імовірнісний аналіз, обробка невідомих слів</p>
-                    <div style="margin: 0.5rem 0;">
-                        <span class="badge badge-fuzzy">імовірнісний</span>
-                    </div>
-                    <span class="inactive-badge">Очікуйте у 2.6.0</span>
-                </div>
-            </div -->
-
-            <!-- Таблицы пакетов -->
-            <!-- h2>Словарные модули (libmorph/*)</h2>
+            <!-- Windows архивы -->
+            <!-- h2>Windows (ZIP архивы)</h2>
             
-            <h3>Debian/Ubuntu (.deb)</h3>
-            <table class="download-table">
-                <thead>
-                    <tr>
-                        <th>Пакет</th>
-                        <th>Описание</th>
-                        <th>Статус</th>
-                        <th>Скачать</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>libmorph-rus</strong></td>
-                        <td>Бинарная библиотека для русского языка</td>
-                        <td><span class="status-badge status-ready">готов</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libmorph-rus-dev</strong></td>
-                        <td>Заголовочные файлы (русский)</td>
-                        <td><span class="status-badge status-ready">готов</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libmorph-eng</strong></td>
-                        <td>Бинарная библиотека для английского языка</td>
-                        <td><span class="status-badge status-ready">готов</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libmorph-eng-dev</strong></td>
-                        <td>Заголовочные файлы (английский)</td>
-                        <td><span class="status-badge status-ready">готов</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libmorph-ukr</strong></td>
-                        <td>Бінарна бібліотека для української мови</td>
-                        <td><span class="status-badge status-ready">готов</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libmorph-ukr-dev</strong></td>
-                        <td>Заголовочні файли (українська)</td>
-                        <td><span class="status-badge status-ready">готов</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                </tbody>
-            </table -->
-
-            <!-- h2>Вероятностные модули (libfuzzy/*)</h2>
-            
-            <h3>Debian/Ubuntu (.deb)</h3>
-            <table class="download-table">
-                <thead>
-                    <tr>
-                        <th>Пакет</th>
-                        <th>Описание</th>
-                        <th>Статус</th>
-                        <th>Скачать</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>libfuzzy-eng</strong></td>
-                        <td>Вероятностный анализатор для английского</td>
-                        <td><span class="status-badge status-beta">бета</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libfuzzy-eng-dev</strong></td>
-                        <td>Заголовочные файлы (fuzzy/eng)</td>
-                        <td><span class="status-badge status-beta">бета</span></td>
-                        <td><a href="#" class="download-link">deb</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libfuzzy-rus</strong></td>
-                        <td>Вероятностный анализатор для русского</td>
-                        <td><span class="status-badge status-dev">разработка</span></td>
-                        <td><span class="download-link disabled">скоро</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libfuzzy-ukr</strong></td>
-                        <td>Імовірнісний аналізатор для української</td>
-                        <td><span class="status-badge status-dev">розробка</span></td>
-                        <td><span class="download-link disabled">скоро</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>Windows (ZIP архивы)</h2>
-            <table class="download-table">
-                <thead>
-                    <tr>
-                        <th>Архив</th>
-                        <th>Содержимое</th>
-                        <th>Статус</th>
-                        <th>Скачать</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>libmorph-windows-x64</strong></td>
-                        <td>Словарные модули (rus, eng, ukr) + заголовки</td>
-                        <td><span class="status-badge status-ready">готов</span></td>
-                        <td><a href="#" class="download-link">ZIP</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>libfuzzy-windows-x64</strong></td>
-                        <td>Вероятностные модули (eng - бета, rus/ukr - dev)</td>
-                        <td><span class="status-badge status-beta">бета</span></td>
-                        <td><a href="#" class="download-link">ZIP</a></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>Обертки для языков</h2>
-            <table class="download-table">
-                <thead>
-                    <tr>
-                        <th>Язык</th>
-                        <th>Пакет</th>
-                        <th>Команда установки</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Python</td>
-                        <td>libmorph<span style="color:blue; font-weight: bold">rus</span></td>
-                        <td><code>pip install libmorphrus</code></td>
-                    </tr>
-                    <!-- tr>
-                        <td>PHP</td>
-                        <td>libmorph-php</td>
-                        <td>⏳</td>
-                        <td><code>pecl install libmorph-php</code></td>
-                    </tr -->
-                    <!-- tr>
-                        <td>Golang</td>
-                        <td>go-libmorph</td>
-                        <td>✅ (eng)</td>
-                        <td><code>go get github.com/keva/go-libmorph</code></td>
-                    </tr -->
-                    <!-- tr>
-                        <td>Node.js</td>
-                        <td>node-libmorph</td>
-                        <td>⏳</td>
-                        <td><code>npm install node-libmorph</code></td>
-                    </tr>
-                </tbody>
-            </table -->
-
-            <!-- div class="note">
-                <strong>Статусы модулей:</strong><br>
-                <span class="status-badge status-ready">готов</span> — стабильная версия, рекомендуется для производства<br>
-                <span class="status-badge status-beta">бета</span> — тестирование, возможны изменения API<br>
-                <span class="status-badge status-dev">разработка</span> — в активной разработке, не для производства
-            </div -->
-
-            <!-- -div class="note warning">
-                <strong>Для Windows:</strong> Требуется Visual C++ Redistributable 2019+.
-                Вероятностные модули требуют больше оперативной памяти (от 500 MB).
+            <div class="windows-packages">
+                <h3>Русский язык</h3>
+                <table class="download-table">
+                    <thead>
+                        <tr>
+                            <th>Архив</th>
+                            <th>Содержимое</th>
+                            <th>Версия</th>
+                            <th>Скачать</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>libmorph-rus-win64</strong></td>
+                            <td>Словарный модуль для русского языка, разделяемый runtime (.dll)</td>
+                            <td>4.2026.03.7</td>
+                            <td><a href="#" class="download-link">ZIP</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>libmorph-rus-win64-dev</strong></td>
+                            <td>Статическая библиотека и заголовки для русского языка</td>
+                            <td>4.2026.03.7</td>
+                            <td><a href="#" class="download-link">ZIP</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div -->
         </main>
 
@@ -664,447 +281,35 @@
     </div>
 
     <script>
-        // Данные для загрузок с учётом fuzzy модулей
+        // Данные для загрузок (только Linux, Windows теперь статически)
         const downloads = {
             rus: {
                 dict: {
                     deb: {
                         runtime: {
-                            name: 'libmorph-rus',        // изменено
+                            name: 'libmorph-rus',
                             desc: 'Словарный модуль для русского языка, разделяемый runtime (.so)',
-                            status: 'ready',
-                            url: 'deb/pool/main/libm/libmorph-rus/libmorph-rus_4.2026.03.7_amd64.deb',
-                            version: '4.2026.03.7'
+                            url: 'deb/pool/main/libm/libmorph-rus/libmorph-rus_4.2026.03.7_amd64.deb'
                         },
                         dev: {
-                            name: 'libmorph-rus-dev',    // изменено
+                            name: 'libmorph-rus-dev',
                             desc: 'Статическая библиотека и заголовки для русского языка',
-                            status: 'ready',
-                            url: 'deb/pool/main/libm/libmorph-rus-dev/libmorph-rus-dev_4.2026.03.7_amd64.deb',
-                            version: '4.2026.03.7',
-                            depends: 'libmorph-api'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libmorphrus',
-                            desc: 'Словарный модуль для русского языка',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorphrus-devel',
-                            desc: 'Заголовочные файлы для русского языка',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-rus'
+                            url: 'deb/pool/main/libm/libmorph-rus-dev/libmorph-rus-dev_4.2026.03.7_amd64.deb'
                         }
                     },
                     windows: {
                         runtime: {
                             name: 'libmorph-rus-win64',
                             desc: 'Словарный модуль для русского языка, разделяемый runtime (.dll)',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
+                            url: '#'
                         },
                         dev: {
                             name: 'libmorph-rus-win64-dev',
                             desc: 'Статическая библиотека и заголовки',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
-                    }
-                },
-                fuzzy: {
-                    deb: {
-                        runtime: {
-                            name: 'libfuzzyrus',
-                            desc: 'Вероятностный модуль для русского языка',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyrus-dev',
-                            desc: 'Заголовочные файлы для fuzzy/rus',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0',
-                            depends: 'libfuzzy-rus'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libfuzzyrus',
-                            desc: 'Вероятностный модуль для русского языка',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyrus-devel',
-                            desc: 'Заголовочные файлы для fuzzy/rus',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0',
-                            depends: 'libfuzzy-rus'
-                        }
-                    },
-                    windows: {
-                        runtime: {
-                            name: 'libfuzzyrus-windows-x64',
-                            desc: 'Вероятностные модули для Windows',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyrus-windows-x64-dev',
-                            desc: 'Вероятностные модули + заголовки',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
+                            url: '#'
                         }
                     }
                 }
-            },
-            eng: {
-                dict: {
-                    deb: {
-                        runtime: {
-                            name: 'libmorpheng',
-                            desc: 'Словарный модуль для английского языка',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorpheng-dev',
-                            desc: 'Заголовочные файлы для английского языка',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-eng'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libmorpheng',
-                            desc: 'Словарный модуль для английского языка',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorpheng-devel',
-                            desc: 'Заголовочные файлы для английского языка',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-eng'
-                        }
-                    },
-                    windows: {
-                        runtime: {
-                            name: 'libmorpheng-windows-x64',
-                            desc: 'Словарные модули для Windows',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorpheng-windows-x64-dev',
-                            desc: 'Словарные модули + заголовки',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
-                    }
-                },
-                fuzzy: {
-                    deb: {
-                        runtime: {
-                            name: 'libfuzzyeng',
-                            desc: 'Вероятностный модуль для английского языка',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyeng-dev',
-                            desc: 'Заголовочные файлы для fuzzy/eng',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0',
-                            depends: 'libfuzzy-eng'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libfuzzyeng',
-                            desc: 'Вероятностный модуль для английского языка',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyeng-devel',
-                            desc: 'Заголовочные файлы для fuzzy/eng',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0',
-                            depends: 'libfuzzy-eng'
-                        }
-                    },
-                    windows: {
-                        runtime: {
-                            name: 'libfuzzyeng-windows-x64',
-                            desc: 'Вероятностные модули для Windows',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzyeng-windows-x64-dev',
-                            desc: 'Вероятностные модули + заголовки',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        }
-                    }
-                }
-            },
-            ukr: {
-                dict: {
-                    deb: {
-                        runtime: {
-                            name: 'libmorph-ukr',
-                            desc: 'Словниковий модуль для української мови',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-ukr-dev',
-                            desc: 'Заголовочні файли для української мови',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-ukr'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libmorph-ukr',
-                            desc: 'Словниковий модуль для української мови',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-ukr-devel',
-                            desc: 'Заголовочні файли для української мови',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-ukr'
-                        }
-                    },
-                    windows: {
-                        runtime: {
-                            name: 'libmorph-windows-x64',
-                            desc: 'Словникові модулі для Windows',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-windows-x64-dev',
-                            desc: 'Словникові модулі + заголовки',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
-                    }
-                },
-                fuzzy: {
-                    deb: {
-                        runtime: {
-                            name: 'libfuzzy-ukr',
-                            desc: 'Імовірнісний модуль для української мови',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-ukr-dev',
-                            desc: 'Заголовочні файли для fuzzy/ukr',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0',
-                            depends: 'libfuzzy-ukr'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libfuzzy-ukr',
-                            desc: 'Імовірнісний модуль для української мови',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-ukr-devel',
-                            desc: 'Заголовочні файли для fuzzy/ukr',
-                            status: 'dev',
-                            url: null,
-                            version: '0.9.0',
-                            depends: 'libfuzzy-ukr'
-                        }
-                    },
-                    windows: {
-                        runtime: {
-                            name: 'libfuzzy-windows-x64',
-                            desc: 'Імовірнісні модулі для Windows',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-windows-x64-dev',
-                            desc: 'Імовірнісні модулі + заголовки',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        }
-                    }
-                }
-            },
-            all: {
-                dict: {
-                    deb: {
-                        runtime: {
-                            name: 'libmorph-all',
-                            desc: 'Все словарные модули',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-all-dev',
-                            desc: 'Заголовки для всех словарных модулей',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-all'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libmorph-all',
-                            desc: 'Все словарные модули',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-all-devel',
-                            desc: 'Заголовки для всех словарных модулей',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1',
-                            depends: 'libmorph-all'
-                        }
-                    },
-                    windows: {
-                        runtime: {
-                            name: 'libmorph-windows-x64-all',
-                            desc: 'Все словарные модули для Windows',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        },
-                        dev: {
-                            name: 'libmorph-windows-x64-all-dev',
-                            desc: 'Все словарные модули + заголовки',
-                            status: 'ready',
-                            url: '#',
-                            version: '2.3.1'
-                        }
-                    }
-                },
-                fuzzy: {
-                    deb: {
-                        runtime: {
-                            name: 'libfuzzy-all',
-                            desc: 'Все вероятностные модули',
-                            status: 'mixed',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-all-dev',
-                            desc: 'Заголовки для всех вероятностных модулей',
-                            status: 'mixed',
-                            url: '#',
-                            version: '0.9.0',
-                            depends: 'libfuzzy-all'
-                        }
-                    },
-                    rpm: {
-                        runtime: {
-                            name: 'libfuzzy-all',
-                            desc: 'Все вероятностные модули',
-                            status: 'mixed',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-all-devel',
-                            desc: 'Заголовки для всех вероятностных модулей',
-                            status: 'mixed',
-                            url: '#',
-                            version: '0.9.0',
-                            depends: 'libfuzzy-all'
-                        }
-                    },
-                    windows: {
-                        runtime: {
-                            name: 'libfuzzy-windows-x64-all',
-                            desc: 'Все вероятностные модули для Windows',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        },
-                        dev: {
-                            name: 'libfuzzy-windows-x64-all-dev',
-                            desc: 'Все вероятностные модули + заголовки',
-                            status: 'beta',
-                            url: '#',
-                            version: '0.9.0'
-                        }
-                    }
-                }
-            }
-        };
-
-        // Инструкции по установке
-        const installInstructions = {
-            deb: {
-                runtime: 'sudo apt install {package}',
-                dev: 'sudo apt install {package}'
-            },
-            rpm: {
-                runtime: 'sudo dnf install {package}',
-                dev: 'sudo dnf install {package}'
-            },
-            windows: {
-                runtime: 'Скачайте ZIP и распакуйте в C:\\libmorph\\',
-                dev: 'Скачайте ZIP и распакуйте в C:\\libmorph\\'
             }
         };
 
@@ -1119,20 +324,15 @@
                 const resultDiv = document.getElementById('download-result');
                 
                 if (!data) {
-                    resultDiv.innerHTML = `
-                        <p>Для выбранной комбинации пакет не найден.</p>
-                    `;
+                    resultDiv.innerHTML = `<p>Для выбранной комбинации пакет не найден.</p>`;
                     return;
                 }
                 
                 const isAvailable = data.url !== null && data.url !== undefined;
-                
-                // Проверяем, dev ли это пакет (требует libmorph-api)
                 const isDevPackage = pkgType === 'dev' || data.name.includes('-dev');
                 
-                // Данные для libmorph-api (если нужно)
                 let apiData = null;
-                if (isDevPackage) {
+                if (isDevPackage && platform === 'deb') {
                     apiData = {
                         name: 'libmorph-api',
                         desc: 'Базовый API для всех морфологических анализаторов',
@@ -1142,7 +342,6 @@
                 
                 let html = `<div class="packages-grid">`;
                 
-                // Основной пакет
                 html += `
                     <div class="package-row">
                         <span class="package-name">${data.name}</span>
@@ -1153,7 +352,6 @@
                     </div>
                 `;
                 
-                // Если есть зависимость, показываем её
                 if (isDevPackage && apiData) {
                     html += `
                         <div class="package-row">
@@ -1165,65 +363,6 @@
                 }
                 
                 html += `</div>`;
-        
-                // Инструкции по установке в зависимости от платформы
-                if (platform === 'deb') {
-                    html += `
-                        <div class="install-instructions">
-                            <strong>Подключение репозитория (однократно):</strong><br>
-                            <code>curl -sSf https://libmorph.ru/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/libmorph-archive-keyring.gpg </code><br>
-                            <code>echo "deb https://libmorph.ru/deb stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list</code><br>
-                            <code>sudo apt update</code>
-                        </div>
-                    `;
-                    
-                    if (isAvailable) {
-                        let installCmd = '';
-                        if (pkgType === 'runtime') {
-                            installCmd = `sudo apt install ${data.name}`;
-                        } else if (pkgType === 'dev') {
-                            installCmd = `sudo apt install ${data.name}  # автоматически установит libmorph-api`;
-                        }
-                        html += `
-                            <div class="install-instructions">
-                                <strong>Установка пакета:</strong> ${installCmd}
-                            </div>
-                        `;
-                    }
-                } else if (platform === 'rpm') {
-                    html += `
-                        <div class="install-instructions">
-                            <strong>Подключение репозитория (однократно):</strong><br>
-                            <code>sudo rpm --import https://libmorph.ru/keys/libmorph.asc</code><br>
-                            <code>sudo curl -o /etc/yum.repos.d/libmorph.repo https://libmorph.ru/rpm/libmorph.repo</code>
-                        </div>
-                    `;
-                    
-                    if (isAvailable) {
-                        html += `
-                            <div class="install-instructions">
-                                <strong>Установка пакета:</strong> sudo dnf install ${data.name}
-                            </div>
-                        `;
-                    }
-                } else if (platform === 'windows') {
-                    html += `
-                        <div class="install-instructions">
-                            <strong>Установка:</strong> Скачайте ZIP и распакуйте в C:\\libmorph\\
-                        </div>
-                    `;
-                }
-                
-                if (!isAvailable) {
-                    html += `
-                        <div class="note warning" style="margin-top: 1rem;">
-                            <strong>Модуль в разработке</strong><br>
-                            ${data.status === 'dev' ? 
-                                'Ожидайте в ближайших релизах.' : 
-                                'Временно недоступно.'}
-                        </div>
-                    `;
-                }
                 
                 resultDiv.innerHTML = html;
             } catch (e) {
@@ -1232,7 +371,7 @@
                 `;
             }
         }
-        // Инициализация при загрузке
+
         window.onload = updateDownload;
     </script>
 </body>
