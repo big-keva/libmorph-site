@@ -1,0 +1,19 @@
+Origin: Andrey Kovalenko aka Keva
+Label: libmorph
+Codename: stable
+Date: Tue, 10 Mar 2026 14:45:40 UTC
+Architectures: amd64
+Components: main
+Description: libmorph[rus/eng] repository for Debian
+MD5Sum:
+ 31668ef10131925853c0e46c05ad4000 1748 main/binary-amd64/Packages
+ 6b8382beb2d8c813cda3a9246eb9a913 757 main/binary-amd64/Packages.gz
+ bb79ebc411f6cf61bafd66e5bae92b5c 139 main/binary-amd64/Release
+SHA1:
+ 47420bce13ff5c605358faa5833eeb3f4b951f18 1748 main/binary-amd64/Packages
+ d9bd393220f7d85cda2c141f05e08b4dd1f0118d 757 main/binary-amd64/Packages.gz
+ a074d9855fa9f536b7a00ec24fa2471b2fff6c79 139 main/binary-amd64/Release
+SHA256:
+ 219a57e8b31b964bc4057ebdef186345ed2868a6be13ca0e505e66b7c7a42917 1748 main/binary-amd64/Packages
+ 3c0037eb87bc78b804fa6715dd6a77375d5e3a605c0aae5a775b668b93e5f9d4 757 main/binary-amd64/Packages.gz
+ 756b46e48a53a2194aa9f2b7f7e3cdce58481dcb9f1d97359c6fad9e30b3c1ab 139 main/binary-amd64/Release

@@ -1,0 +1,5 @@
+Component: main
+Origin: Andrey Kovalenko aka Keva
+Label: libmorph
+Architecture: amd64
+Description: libmorph[rus/eng] repository for Debian

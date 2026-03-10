@@ -1,0 +1,47 @@
+Package: libmorph-api
+Version: 4
+Architecture: all
+Depends:
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: libdevel
+Filename: pool/main/libm/libmorph-api/libmorph-api_4_all.deb
+Size: 5732
+SHA256: f9d3bb6f39b79a1e9c3930e71267e7585d6ffc9094fdf2af22c8ea05fdc015ff
+SHA1: 243fa128a9b45d3602b89ef7522944a103992f12
+MD5sum: bfdb896b23d01b86701dd0b027b459b6
+Description: libmorph libraries common API headers
+  This package contains the common API headers (morphapi.h and fuzzyapi.h) used
+  by all libmorph libraries. These headers are required for development only.
+
+Package: libmorph-rus
+Version: 4.2026.03.7
+Architecture: amd64
+Depends: libc6 (>= 2.17)
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: libdevel
+Filename: pool/main/libm/libmorph-rus/libmorph-rus_4.2026.03.7_amd64.deb
+Size: 1418284
+SHA256: 7204988dfe89b2f3ea4fb249f72f3f3f5b1ca1ecfaace5249f6969d23c5c483f
+SHA1: 567e83b09a10e14e389cf0d486159dbeeadc7396
+MD5sum: 9b76ecbd791f7e6170d9c6110b439902
+Description: libmorphrus shared runtime library
+  This package contains russian morphological analyser shared library.
+
+Package: libmorph-rus-dev
+Version: 4.2026.03.7
+Architecture: amd64
+Depends: libc6 (>= 2.17), libmorph-api
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: libdevel
+Filename: pool/main/libm/libmorph-rus-dev/libmorph-rus-dev_4.2026.03.7_amd64.deb
+Size: 1397396
+SHA256: 17bc4b595c52d6da08233bec4a40c7dcc9606112f3205606e5de2d46d1a2c565
+SHA1: b3cc9ef1c8dc31c7e11dc69ef12144dd972318fa
+MD5sum: 81b270ab49258ca0711e420caefb058c
+Description: libmorphrus static library and headers
+  This package contains russian morphological analyser static library
+  and developer headers.
+
