@@ -152,26 +152,6 @@
             margin-right: 0.5rem;
         }
 
-        .badge-runtime {
-            background: var(--primary);
-            color: white;
-        }
-
-        .badge-dev {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .badge-dict {
-            background: var(--primary);
-            color: white;
-        }
-
-        .badge-fuzzy {
-            background: #e67e22;
-            color: white;
-        }
-
         .status-badge {
             display: inline-block;
             padding: 0.2rem 0.8rem;
@@ -280,33 +260,7 @@
             display: inline-block;
             margin-left: 0.5rem;
         }
-        /* Дополнительные стили для отображения зависимостей */
-        .badge-depends {
-            background: var(--primary-light);
-            color: white;
-            font-size: 0.7rem;
-            padding: 0.15rem 0.5rem;
-            border-radius: 12px;
-            margin-left: 0.5rem;
-            white-space: nowrap;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        
-        .depends-note {
-            display: block;
-            color: var(--text-light);
-            font-size: 0.8rem;
-            margin-top: 0.3rem;
-            opacity: 0.9;
-        }
-        
-        .depends-note::before {
-            content: "ⓘ";
-            margin-right: 0.3rem;
-            font-weight: bold;
-        }
-        
+
         .install-instructions {
             background: var(--code-bg);
             color: var(--code-text);
@@ -1154,130 +1108,130 @@
             }
         };
 
-function updateDownload() {
-    const lang = document.getElementById('lang-select').value;
-    const type = document.getElementById('type-select').value;
-    const platform = document.getElementById('platform-select').value;
-    const pkgType = document.getElementById('package-select').value;
-    
-    try {
-        const data = downloads[lang][type][platform][pkgType];
-        const resultDiv = document.getElementById('download-result');
-        
-        if (!data) {
-            resultDiv.innerHTML = `
-                <p>Для выбранной комбинации пакет не найден.</p>
-            `;
-            return;
-        }
-        
-        const isAvailable = data.url !== null && data.url !== undefined;
-        
-        // Проверяем, dev ли это пакет (требует libmorph-api)
-        const isDevPackage = pkgType === 'dev' || data.name.includes('-dev');
-        
-        // Данные для libmorph-api (если нужно)
-        let apiData = null;
-        if (isDevPackage) {
-            apiData = {
-                name: 'libmorph-api',
-                desc: 'Базовый API для всех морфологических анализаторов',
-                url: 'deb/pool/main/libm/libmorph-api/libmorph-api_4_all.deb'
-            };
-        }
-        
-        let html = `<div class="packages-grid">`;
-        
-        // Основной пакет
-        html += `
-            <div class="package-row">
-                <span class="package-name">${data.name}</span>
-                <span class="package-desc">${data.desc}</span>
-                ${isAvailable ? 
-                    `<a href="${data.url}" class="package-link">Скачать</a>` : 
-                    `<span class="package-link disabled">Скачать</span>`}
-            </div>
-        `;
-        
-        // Если есть зависимость, показываем её
-        if (isDevPackage && apiData) {
-            html += `
-                <div class="package-row">
-                    <span class="package-name">${apiData.name}</span>
-                    <span class="package-desc">${apiData.desc} (требуется)</span>
-                    <a href="${apiData.url}" class="package-link">Скачать</a>
-                </div>
-            `;
-        }
-        
-        html += `</div>`;
-
-        // Инструкции по установке в зависимости от платформы
-        if (platform === 'deb') {
-            html += `
-                <div class="install-instructions">
-                    <strong>Подключение репозитория (однократно):</strong><br>
-                    <code>curl -sSf https://libmorph.ru/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/libmorph-archive-keyring.gpg </code><br>
-                    <code>echo "deb https://libmorph.ru/deb stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list</code><br>
-                    <code>sudo apt update</code>
-                </div>
-            `;
+        function updateDownload() {
+            const lang = document.getElementById('lang-select').value;
+            const type = document.getElementById('type-select').value;
+            const platform = document.getElementById('platform-select').value;
+            const pkgType = document.getElementById('package-select').value;
             
-            if (isAvailable) {
-                let installCmd = '';
-                if (pkgType === 'runtime') {
-                    installCmd = `sudo apt install ${data.name}`;
-                } else if (pkgType === 'dev') {
-                    installCmd = `sudo apt install ${data.name}  # автоматически установит libmorph-api`;
+            try {
+                const data = downloads[lang][type][platform][pkgType];
+                const resultDiv = document.getElementById('download-result');
+                
+                if (!data) {
+                    resultDiv.innerHTML = `
+                        <p>Для выбранной комбинации пакет не найден.</p>
+                    `;
+                    return;
                 }
+                
+                const isAvailable = data.url !== null && data.url !== undefined;
+                
+                // Проверяем, dev ли это пакет (требует libmorph-api)
+                const isDevPackage = pkgType === 'dev' || data.name.includes('-dev');
+                
+                // Данные для libmorph-api (если нужно)
+                let apiData = null;
+                if (isDevPackage) {
+                    apiData = {
+                        name: 'libmorph-api',
+                        desc: 'Базовый API для всех морфологических анализаторов',
+                        url: 'deb/pool/main/libm/libmorph-api/libmorph-api_4_all.deb'
+                    };
+                }
+                
+                let html = `<div class="packages-grid">`;
+                
+                // Основной пакет
                 html += `
-                    <div class="install-instructions">
-                        <strong>Установка пакета:</strong> ${installCmd}
+                    <div class="package-row">
+                        <span class="package-name">${data.name}</span>
+                        <span class="package-desc">${data.desc}</span>
+                        ${isAvailable ? 
+                            `<a href="${data.url}" class="package-link">Скачать</a>` : 
+                            `<span class="package-link disabled">Скачать</span>`}
                     </div>
                 `;
-            }
-        } else if (platform === 'rpm') {
-            html += `
-                <div class="install-instructions">
-                    <strong>Подключение репозитория (однократно):</strong><br>
-                    <code>sudo rpm --import https://libmorph.ru/keys/libmorph.asc</code><br>
-                    <code>sudo curl -o /etc/yum.repos.d/libmorph.repo https://libmorph.ru/rpm/libmorph.repo</code>
-                </div>
-            `;
-            
-            if (isAvailable) {
-                html += `
-                    <div class="install-instructions">
-                        <strong>Установка пакета:</strong> sudo dnf install ${data.name}
-                    </div>
+                
+                // Если есть зависимость, показываем её
+                if (isDevPackage && apiData) {
+                    html += `
+                        <div class="package-row">
+                            <span class="package-name">${apiData.name}</span>
+                            <span class="package-desc">${apiData.desc} (требуется)</span>
+                            <a href="${apiData.url}" class="package-link">Скачать</a>
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+        
+                // Инструкции по установке в зависимости от платформы
+                if (platform === 'deb') {
+                    html += `
+                        <div class="install-instructions">
+                            <strong>Подключение репозитория (однократно):</strong><br>
+                            <code>curl -sSf https://libmorph.ru/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/libmorph-archive-keyring.gpg </code><br>
+                            <code>echo "deb https://libmorph.ru/deb stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list</code><br>
+                            <code>sudo apt update</code>
+                        </div>
+                    `;
+                    
+                    if (isAvailable) {
+                        let installCmd = '';
+                        if (pkgType === 'runtime') {
+                            installCmd = `sudo apt install ${data.name}`;
+                        } else if (pkgType === 'dev') {
+                            installCmd = `sudo apt install ${data.name}  # автоматически установит libmorph-api`;
+                        }
+                        html += `
+                            <div class="install-instructions">
+                                <strong>Установка пакета:</strong> ${installCmd}
+                            </div>
+                        `;
+                    }
+                } else if (platform === 'rpm') {
+                    html += `
+                        <div class="install-instructions">
+                            <strong>Подключение репозитория (однократно):</strong><br>
+                            <code>sudo rpm --import https://libmorph.ru/keys/libmorph.asc</code><br>
+                            <code>sudo curl -o /etc/yum.repos.d/libmorph.repo https://libmorph.ru/rpm/libmorph.repo</code>
+                        </div>
+                    `;
+                    
+                    if (isAvailable) {
+                        html += `
+                            <div class="install-instructions">
+                                <strong>Установка пакета:</strong> sudo dnf install ${data.name}
+                            </div>
+                        `;
+                    }
+                } else if (platform === 'windows') {
+                    html += `
+                        <div class="install-instructions">
+                            <strong>Установка:</strong> Скачайте ZIP и распакуйте в C:\\libmorph\\
+                        </div>
+                    `;
+                }
+                
+                if (!isAvailable) {
+                    html += `
+                        <div class="note warning" style="margin-top: 1rem;">
+                            <strong>Модуль в разработке</strong><br>
+                            ${data.status === 'dev' ? 
+                                'Ожидайте в ближайших релизах.' : 
+                                'Временно недоступно.'}
+                        </div>
+                    `;
+                }
+                
+                resultDiv.innerHTML = html;
+            } catch (e) {
+                document.getElementById('download-result').innerHTML = `
+                    <p>Для выбранной комбинации пакет не найден.</p>
                 `;
             }
-        } else if (platform === 'windows') {
-            html += `
-                <div class="install-instructions">
-                    <strong>Установка:</strong> Скачайте ZIP и распакуйте в C:\\libmorph\\
-                </div>
-            `;
         }
-        
-        if (!isAvailable) {
-            html += `
-                <div class="note warning" style="margin-top: 1rem;">
-                    <strong>Модуль в разработке</strong><br>
-                    ${data.status === 'dev' ? 
-                        'Ожидайте в ближайших релизах.' : 
-                        'Временно недоступно.'}
-                </div>
-            `;
-        }
-        
-        resultDiv.innerHTML = html;
-    } catch (e) {
-        document.getElementById('download-result').innerHTML = `
-            <p>Для выбранной комбинации пакет не найден.</p>
-        `;
-    }
-}
         // Инициализация при загрузке
         window.onload = updateDownload;
     </script>
