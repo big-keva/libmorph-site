@@ -1,0 +1,13 @@
+Allow: /*.html$
+Allow: /$
+Disallow: /*.css$
+Disallow: /*.js$
+Disallow: /deb/
+Disallow: /win/
+Disallow: /keys/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /images/
+
+# Карта сайта
+Sitemap: https://libmorph.ru/sitemap.xml
