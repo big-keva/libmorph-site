@@ -893,3 +893,75 @@ pre .number {
         grid-template-columns: 1fr;
     }
 }
+
+/* Плашки языков */
+.lang-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+@media (max-width: 48rem) {  /* 768px */
+    .lang-cards {
+        grid-template-columns: 1fr;  /* одна колонка на мобильных */
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 36rem) {  /* 576px - очень маленькие */
+    .lang-cards {
+        gap: 0.8rem;
+    }
+    
+    .lang-card {
+        padding: 1rem;  /* уменьшаем отступы на совсем узких */
+    }
+}
+
+.lang-card {
+    border-radius: 10px;
+    padding: .5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+}
+
+.lang-card.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-left: 4px solid var(--accent);
+}
+
+.lang-card.inactive {
+    background: #e0e5ec;
+    border-left: 4px solid #aaa;
+    opacity: 0.7;
+    filter: grayscale(50%);
+}
+
+.lang-card .emoji {
+    font-size: 1.6em;
+    margin-bottom: 0.5rem;
+}
+
+.lang-card.active .emoji {
+    opacity: 1;
+}
+
+.lang-card.inactive .emoji {
+    opacity: 0.7;
+}
+
+.lang-card .title {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.lang-card.active .title {
+    color: white;
+}
+
+.lang-card.inactive .title {
+    color: var(--text-dark);
+}

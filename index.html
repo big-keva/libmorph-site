@@ -39,22 +39,38 @@
                 <span style="font-size: 0.8rem; display: block; opacity: 0.9;">на одном ядре Intel Core Ultra 7 155H @ 4.5 GHz</span>
             </div>
 
-<div class="feature-compact">
-    <p><strong>libmorph</strong> — семейство высокопроизводительных библиотек морфологического анализа на C++</p>
-    <ul>
-        <li>Изящная модель описания словоизменения</li>
-        <li>Радиксные деревья для поиска</li>
-        <li>Выверенные словари для проверки орфографии</li>
-        <li>Пятнадцать лет индексирования и поиска в <a href="http://www.rambler.ru">Rambler</a></li>
-        <li>Единый COM-подобный API</li>
-        <li>Нативная поддержка UTF-16 и популярных кодировок кириллицы</li>
-        <li>Лемматизация, синтез словоформ, поиск по шаблону</li>
-        <li><span style="font-weight: bold; color: blue">Фиксированные числовые идентификаторы лексем!</span></li>
-    </ul>
-</div>
-
+            <div class="feature-compact">
+                <p><strong>libmorph</strong> — семейство высокопроизводительных библиотек морфологического анализа на C++</p>
+                <ul>
+                    <li>Изящная модель описания словоизменения</li>
+                    <li>Радиксные деревья для поиска</li>
+                    <li>Выверенные словари для проверки орфографии</li>
+                    <li>Пятнадцать лет индексирования и поиска в <a href="http://www.rambler.ru">Rambler</a></li>
+                    <li>Единый COM-подобный API</li>
+                    <li>Нативная поддержка UTF-16 и популярных кодировок кириллицы</li>
+                    <li>Лемматизация, синтез словоформ, поиск по шаблону</li>
+                    <li><span style="font-weight: bold; color: blue">Фиксированные числовые идентификаторы лексем!</span></li>
+                </ul>
+            </div>
+            
+            <div class="lang-cards">
+                <div class="lang-card active">
+                    <div class="emoji">🇷🇺</div>
+                    <div class="title">Русский</div>
+                </div>
+                
+                <div class="lang-card inactive">
+                    <div class="emoji">🇬🇧</div>
+                    <div class="title">Английский</div>
+                </div>
+                
+                <div class="lang-card inactive">
+                    <div class="emoji">🇺🇦</div>
+                    <div class="title">Українська</div>
+                </div>
+            </div>
             <h2>Пример использования (C++)</h2>
-<div class="api-interface"><pre><span class="comment">// Лемматизация слова (multibyte-версия)</span>
+            <div class="api-interface"><pre><span class="comment">// Лемматизация слова (multibyte-версия)</span>
   IMlmaMbXX*  pmorph;
   SLemmInfoA  lemmas[32];
   <span class="kw">char</span>        fmbuff[256];
