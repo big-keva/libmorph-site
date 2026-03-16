@@ -98,7 +98,7 @@
   <span class="kw">char</span>        fmbuff[256];
   SGramInfo   grbuff[32];
 
-  <span class="fn">mlmaruGetAPI</span>( <span class="st">"utf-8"</span>, (<span class="kw">void</span>**)&pmorph );
+  <span class="fn">mlmaruGetAPI</span>( <span class="kw">LIBMORPH_API_4_MAGIC</span> <span class="st">":utf-8"</span>, (<span class="kw">void</span>**)&pmorph );
 
   nlemma = pmorph-><span class="fn">Lemmatize</span>( <span class="st">"стали"</span>, lemmas, fmbuff, grbuff );
 
