@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="description" content="libmorph — высокопроизводительная библиотека морфологического анализа.
+      libmorphrus, libmorpheng, libmorphukr - поддержка русского, английского и украинского языков. C++, Open Source, MIT License.">
+    <meta name="keywords" content="морфология, русский язык, C++, SDK, лемматизация, NLP, анализ текста, libmorphrus">
+    <meta property="og:title" content="libmorph — морфологический анализатор на C++">
+    <meta property="og:image" content="https://libmorph.ru">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libmorph :: О проекте</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Дополнительные стили для страницы "О проекте" */
+        .history-timeline {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .history-item {
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .history-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--primary);
+        }
+
+        .history-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .history-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .history-desc {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .about-section {
+            margin: 2rem 0;
+        }
+
+        .about-section h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="header-container">
+                <div class="logo">
+                  <a href="index.html">LIB<span>MORPH</span>.RU</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><span class="current">О проекте</span></li>
+                        <li><a href="help.html">Документация</a></li>
+                        <li><a href="modules.html">Модули</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content-wrapper">
+            <h1>О проекте libmorph</h1>
+            
+            <!-- Краткое описание -->
+            <div class="about-section">
+                <p>
+                    <strong>libmorph</strong> — это высокопроизводительная библиотека морфологического анализа, 
+                    разрабатываемая с <strong>1996 года</strong>. За почти три десятилетия проект прошёл путь 
+                    от исследовательского прототипа до промышленного решения, используемого в крупнейших 
+                    российских поисковых системах.
+                </p>
+            </div>
+
+            <!-- Статистика -->
+            <!-- div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1996</div>
+                    <div class="stat-label">год основания</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">языка</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5.5M</div>
+                    <div class="stat-label">словоформ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1.3M</div>
+                    <div class="stat-label">слов/сек</div>
+                </div>
+            </div -->
+
+            <!-- История разработки -->
+            <!-- div class="about-section">
+                <h2>История разработки</h2>
+                
+                <div class="history-timeline">
+                    <div class="history-item">
+                        <div class="history-year">1996</div>
+                        <div class="history-title">Зарождение идеи</div>
+                        <div class="history-desc">
+                            Андрей Коваленко (Keva) начинает работу над морфологическим анализатором 
+                            для использования в орфографическом корректоре «Пропись». Первая версия 
+                            написана на C и работает только с русским языком.
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">1999</div>
+                        <div class="history-title">Интеграция с Rambler</div>
+                        <div class="history-desc">
+                            Библиотека начинает использоваться в поисковой системе Rambler для 
+                            морфологического анализа поисковых запросов и индексирования документов.
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">2003</div>
+                        <div class="history-title">Переход на C++</div>
+                        <div class="history-desc">
+                            Полная переработка кода на C++, разработка COM-подобного API. 
+                            Добавлена поддержка английского языка.
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">2005</div>
+                        <div class="history-title">Расширение словарей</div>
+                        <div class="history-desc">
+                            Объём словаря русского языка достигает 2.5 млн словоформ. 
+                            Добавлена поддержка украинского языка.
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">2009</div>
+                        <div class="history-title">Интеграция с &lt;META&gt;</div>
+                        <div class="history-desc">
+                            libmorph начинает использоваться в поисковой системе &lt;META&gt; 
+                            (позже вошедшей в состав Rambler).
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">2015</div>
+                        <div class="history-title">Open Source</div>
+                        <div class="history-desc">
+                            Проект публикуется под лицензией MIT. Начинается работа над обёртками 
+                            для Python, PHP, Go и других языков.
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">2020</div>
+                        <div class="history-title">Вероятностные модули</div>
+                        <div class="history-desc">
+                            Начало разработки вероятностных модулей (libfuzzy) для обработки 
+                            неизвестных слов и исправления опечаток.
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">2026</div>
+                        <div class="history-title">30 лет разработки</div>
+                        <div class="history-desc">
+                            Проект продолжает активно развиваться. Скорость анализа достигает 
+                            1.3 млн слов в секунду на одном ядре. Готовится релиз гибридного 
+                            анализатора, объединяющего словарный и вероятностный подходы.
+                        </div>
+                    </div>
+                </div>
+            </div -->
+
+            <!-- Технологии -->
+            <!-- div class="about-section">
+                <h2>Технологии</h2>
+                <p>
+                    libmorph построена на следующих ключевых технологиях и подходах:
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">C++17</span>
+                    <span class="tech-tag">COM-подобный API</span>
+                    <span class="tech-tag">Радиксные деревья</span>
+                    <span class="tech-tag">FastText</span>
+                    <span class="tech-tag">word2vec</span>
+                    <span class="tech-tag">UTF-16</span>
+                    <span class="tech-tag">CP1251</span>
+                    <span class="tech-tag">KOI8-R</span>
+                    <span class="tech-tag">Levenshtein distance</span>
+                </div>
+            </div -->
+
+            <!-- Философия проекта -->
+            <!-- div class="about-section">
+                <h2>Философия</h2>
+                <p>
+                    Главный принцип разработки — <strong>скорость без компромиссов</strong>. 
+                    Все алгоритмы оптимизированы для максимальной производительности, 
+                    при этом мы сохраняем чистоту и поддерживаемость кода. 
+                    Библиотека спроектирована так, чтобы её можно было легко встраивать 
+                    в существующие проекты на C, C++ и других языках через обёртки.
+                </p>
+                <p>
+                    Мы верим в открытый исходный код и свободное распространение знаний. 
+                    libmorph распространяется под лицензией MIT и может использоваться 
+                    в любых целях — от исследовательских до коммерческих.
+                </p>
+            </div -->
+
+            <!-- Благодарности -->
+            <!-- div class="about-section">
+                <h2>Благодарности</h2>
+                <p>
+                    Проект был бы невозможен без поддержки и участия многих людей и организаций:
+                </p>
+                <ul>
+                    <li>Команда разработчиков поисковых систем Rambler и &lt;META&gt; за многолетнее сотрудничество и нагрузочное тестирование</li>
+                    <li>Участники open-source сообщества за патчи, идеи и обёртки для других языков</li>
+                    <li>Все пользователи, которые сообщают об ошибках и предлагают улучшения</li>
+                </ul>
+            </div -->
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-copyright">
+                © 1996-2026 Keva. Разработка высокопроизводительных NLP решений.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
