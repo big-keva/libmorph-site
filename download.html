@@ -298,20 +298,13 @@
         <main class="content-wrapper">
             <h1>Загрузки</h1>
             
-            <!-- Интерактивный селектор для Linux -->
+            <!-- Интерактивный селектор для Linux и Windows -->
             <div class="selector-panel">
                 <div class="selector-grid">
                     <div class="selector-group">
                         <label for="lang-select">Язык:</label>
                         <select id="lang-select" onchange="updateDownload()">
                             <option value="rus" selected>Русский</option>
-                        </select>
-                    </div>
-
-                    <div class="selector-group">
-                        <label for="type-select">Тип модуля:</label>
-                        <select id="type-select" onchange="updateDownload()">
-                            <option value="dict" selected>Словарный (libmorph)</option>
                         </select>
                     </div>
 
@@ -348,37 +341,6 @@ apt update</pre></code>
                 <p>Пакеты:</p><code><pre>apt install libmorph-rus
 apt install libmorph-rus-dev</pre></code>
             </div>
-
-            <!-- Windows архивы -->
-            <!-- h2>Windows (ZIP архивы)</h2>
-            
-            <div class="windows-packages">
-                <h3>Русский язык</h3>
-                <table class="download-table">
-                    <thead>
-                        <tr>
-                            <th>Архив</th>
-                            <th>Содержимое</th>
-                            <th>Версия</th>
-                            <th>Скачать</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>libmorph-rus-win64</strong></td>
-                            <td>Словарный модуль для русского языка, разделяемый runtime (.dll)</td>
-                            <td>4.2026.03.7</td>
-                            <td><a href="#" class="download-link">ZIP</a></td>
-                        </tr>
-                        <tr>
-                            <td><strong>libmorph-rus-win64-dev</strong></td>
-                            <td>Статическая библиотека и заголовки для русского языка</td>
-                            <td>4.2026.03.7</td>
-                            <td><a href="#" class="download-link">ZIP</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div -->
         </main>
 
         <footer class="site-footer">
@@ -389,33 +351,31 @@ apt install libmorph-rus-dev</pre></code>
     </div>
 
     <script>
-        // Данные для загрузок (только Linux, Windows теперь статически)
+        // Данные для загрузок (единый пакет dict+fuzzy)
         const downloads = {
             rus: {
-                dict: {
-                    deb: {
-                        runtime: {
-                            name: 'libmorph-rus',
-                            desc: 'Словарный модуль для русского языка, разделяемый runtime (.so)',
-                            url: 'deb/pool/main/libm/libmorph-rus/libmorph-rus_4.2026.03.7_amd64.deb'
-                        },
-                        dev: {
-                            name: 'libmorph-rus-dev',
-                            desc: 'Статическая библиотека и заголовки для русского языка',
-                            url: 'deb/pool/main/libm/libmorph-rus-dev/libmorph-rus-dev_4.2026.03.7_amd64.deb'
-                        }
+                deb: {
+                    runtime: {
+                        name: 'libmorph-rus',
+                        desc: 'Морфологический модуль для русского языка (словарный + вероятностный анализ), разделяемый runtime (.so)',
+                        url: 'deb/pool/main/libm/libmorph-rus/libmorph-rus_4.2026.03.7_amd64.deb'
                     },
-                    windows: {
-                        runtime: {
-                            name: 'libmorph-rus-win64',
-                            desc: 'Словарный модуль для русского языка, разделяемый runtime (.dll)',
-                            url: 'win/libmorph-rus-win64.zip'
-                        },
-                        dev: {
-                            name: 'libmorph-rus-win64-dev',
-                            desc: 'Статическая библиотека и заголовки (.lib, *.h)',
-                            url: 'win/libmorph-rus-win64-dev.zip'
-                        }
+                    dev: {
+                        name: 'libmorph-rus-dev',
+                        desc: 'Статическая библиотека и заголовки для русского языка',
+                        url: 'deb/pool/main/libm/libmorph-rus-dev/libmorph-rus-dev_4.2026.03.7_amd64.deb'
+                    }
+                },
+                windows: {
+                    runtime: {
+                        name: 'libmorph-rus-win64',
+                        desc: 'Морфологический модуль для русского языка (словарный + вероятностный анализ), разделяемый runtime (.dll)',
+                        url: 'win/libmorph-rus-win64.zip'
+                    },
+                    dev: {
+                        name: 'libmorph-rus-win64-dev',
+                        desc: 'Статическая библиотека и заголовки (.lib, *.h)',
+                        url: 'win/libmorph-rus-win64-dev.zip'
                     }
                 }
             }
@@ -423,12 +383,11 @@ apt install libmorph-rus-dev</pre></code>
 
         function updateDownload() {
             const lang = document.getElementById('lang-select').value;
-            const type = document.getElementById('type-select').value;
             const platform = document.getElementById('platform-select').value;
             const pkgType = document.getElementById('package-select').value;
             
             try {
-                const data = downloads[lang][type][platform][pkgType];
+                const data = downloads[lang][platform][pkgType];
                 const resultDiv = document.getElementById('download-result');
                 
                 if (!data) {
