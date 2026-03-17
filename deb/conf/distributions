@@ -3,5 +3,5 @@ Label: libmorph
 Codename: stable
 Architectures: amd64
 Components: main
-Description: libmorph[rus/eng] repository for Debian
+Description: libmorph repository for Debian
 SignWith: 99D7103E314F5607

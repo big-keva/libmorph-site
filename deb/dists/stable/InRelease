@@ -4,26 +4,26 @@ Hash: SHA512
 Origin: Andrey Kovalenko aka Keva
 Label: libmorph
 Codename: stable
-Date: Tue, 10 Mar 2026 14:45:40 UTC
+Date: Tue, 17 Mar 2026 16:19:53 UTC
 Architectures: amd64
 Components: main
-Description: libmorph[rus/eng] repository for Debian
+Description: libmorph repository for Debian
 MD5Sum:
- 31668ef10131925853c0e46c05ad4000 1748 main/binary-amd64/Packages
- 6b8382beb2d8c813cda3a9246eb9a913 757 main/binary-amd64/Packages.gz
- bb79ebc411f6cf61bafd66e5bae92b5c 139 main/binary-amd64/Release
+ 3060ec535a44e5a09a930661c40fe904 549 main/binary-amd64/Packages
+ beae6896024e6f20cdc1c5a8d10e1f2c 394 main/binary-amd64/Packages.gz
+ 01b9237042d4c0487c1884b00d810e19 130 main/binary-amd64/Release
 SHA1:
- 47420bce13ff5c605358faa5833eeb3f4b951f18 1748 main/binary-amd64/Packages
- d9bd393220f7d85cda2c141f05e08b4dd1f0118d 757 main/binary-amd64/Packages.gz
- a074d9855fa9f536b7a00ec24fa2471b2fff6c79 139 main/binary-amd64/Release
+ f6d84510d12cb13f24c42fa0e58b2c56a3668f07 549 main/binary-amd64/Packages
+ 4f2036481dd4d1ea45f7225a15437dee1757915f 394 main/binary-amd64/Packages.gz
+ fd43bb6dc35b9f977043397d14918085be7c2d48 130 main/binary-amd64/Release
 SHA256:
- 219a57e8b31b964bc4057ebdef186345ed2868a6be13ca0e505e66b7c7a42917 1748 main/binary-amd64/Packages
- 3c0037eb87bc78b804fa6715dd6a77375d5e3a605c0aae5a775b668b93e5f9d4 757 main/binary-amd64/Packages.gz
- 756b46e48a53a2194aa9f2b7f7e3cdce58481dcb9f1d97359c6fad9e30b3c1ab 139 main/binary-amd64/Release
+ af2dc82175c55acc3bdc5acdca52999ebb5b748eb1c070e216eb1d3ba8967106 549 main/binary-amd64/Packages
+ 9dabc7822a229aebd0881f68c9e24c8ff3220ebc7d34c42e1ff084f5b2b7bbb9 394 main/binary-amd64/Packages.gz
+ 00496a81091d2f84a7adafc7b8198477705f12b1a6fda5de665db7a1752413dc 130 main/binary-amd64/Release
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSgiVjyJoEIqZu3Wj2Z1xA+MU9WBwUCabAulAAKCRCZ1xA+MU9W
-BxmdAP99TqWbF6QfTWIJJYds729dMmSgwi7hh6OdIL0qw2gPDAD8Dc9Iocwe0A/8
-lKwPMiEPsVpwsBRgFpE5MUIJ8xlRswU=
-=5eUG
+iHUEARYKAB0WIQSgiVjyJoEIqZu3Wj2Z1xA+MU9WBwUCabl/KQAKCRCZ1xA+MU9W
+B59YAP932+TV2CbI0pXtSOMY7yYul7hEwIY5+K2526XT/rVSNgEAxaOBE+KfRhwW
+w4t35Z0DU7a33IvRjSXDxlO6ZPEckwk=
+=ULyb
 -----END PGP SIGNATURE-----
