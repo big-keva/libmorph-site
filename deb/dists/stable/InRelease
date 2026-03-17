@@ -4,7 +4,7 @@ Hash: SHA512
 Origin: Andrey Kovalenko aka Keva
 Label: libmorph
 Codename: stable
-Date: Tue, 17 Mar 2026 16:19:53 UTC
+Date: Tue, 17 Mar 2026 18:06:50 UTC
 Architectures: amd64
 Components: main
 Description: libmorph repository for Debian
@@ -22,8 +22,8 @@ SHA256:
  00496a81091d2f84a7adafc7b8198477705f12b1a6fda5de665db7a1752413dc 130 main/binary-amd64/Release
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSgiVjyJoEIqZu3Wj2Z1xA+MU9WBwUCabl/KQAKCRCZ1xA+MU9W
-B59YAP932+TV2CbI0pXtSOMY7yYul7hEwIY5+K2526XT/rVSNgEAxaOBE+KfRhwW
-w4t35Z0DU7a33IvRjSXDxlO6ZPEckwk=
-=ULyb
+iHUEARYKAB0WIQSgiVjyJoEIqZu3Wj2Z1xA+MU9WBwUCabmYOgAKCRCZ1xA+MU9W
+B28EAQD+qTFxQUOoULLf2cUMwok0/xU16aNZ0hxjGEk7uswusQD/da5JSoqMhHLA
+scPbFXmDIiwXwebNiXJZET4fkhYuZgg=
+=xxMT
 -----END PGP SIGNATURE-----
