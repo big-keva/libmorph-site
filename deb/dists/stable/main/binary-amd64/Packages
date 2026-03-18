@@ -1,15 +1,32 @@
-Package: libmorph-rus
-Version: 4.2026.03.7
+Package: moonycode
+Version: 2.7
 Architecture: amd64
 Depends: libc6 (>= 2.17)
 Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
 Priority: optional
 Section: libdevel
-Filename: pool/main/libm/libmorph-rus/libmorph-rus_4.2026.03.7_amd64.deb
-Size: 1863860
-SHA256: 7412c974a4cfedb737e2f83f0959978e94673772df3b1726284a3036abe8fc01
-SHA1: 0e409ca137a6e38ba7e08b28c9d1f6c19a8e56ed
-MD5sum: 021938f48fb4599fee94003904687ea7
-Description: libmorphrus shared runtime library
-  This package contains russian morphological analyser shared library.
+Filename: pool/main/m/moonycode/moonycode_2.7_amd64.deb
+Size: 103036
+SHA256: 9df208c556942230f9fe4b73c5d0a96781753a4b219edcf895bc6cb73c85cc57
+SHA1: d47f02593afe32080c5420ffc95273c04fc89a8f
+MD5sum: 3147412a4870cf0f818f05d98bc36014
+Description: moonycode - fast and tiny cyrillic codepages and unicode support runtime
+  This package contains codepages convertors and decoders shared library for most popular
+  cyrillic codepages: 1251, 866, koi8, utf-8, utf-16 and utf-32.
+
+Package: moonycode-dev
+Version: 2.7
+Architecture: amd64
+Depends: libc6 (>= 2.17)
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: libdevel
+Filename: pool/main/m/moonycode-dev/moonycode-dev_2.7_amd64.deb
+Size: 109108
+SHA256: fc8f823dd620b220e0030fe7d68bf3fd5e4fa994bab3fee48500f938f5cfacc9
+SHA1: 167b24a0b2fae8ec5dd919337528a4c86a8617ef
+MD5sum: 4a29ac21c9994418f3047db4e2e45661
+Description: moonycode - fast and tiny cyrillic codepages and unicode support
+  This package contains codepages convertors and decoders static library and headers for most popular
+  cyrillic codepages: 1251, 866, koi8, utf-8, utf-16 and utf-32.
 

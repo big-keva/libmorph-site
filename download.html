@@ -336,7 +336,7 @@
                 <h3>📦 Установка из репозитория (Debian/Ubuntu)</h3>
                 <p>Подключение репозитория:</p>
                 <code><pre>curl -sSf https://libmorph.ru/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/libmorph-archive-keyring.gpg
-echo "deb https://libmorph.ru/deb stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/libmorph-archive-keyring.gpg] https://libmorph.ru/deb stable main" | sudo tee /etc/apt/sources.list.d/libmorph.list
 apt update</pre></code>
                 
                 <p>Пакеты:</p><code><pre>apt install libmorph-rus
