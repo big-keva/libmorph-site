@@ -1,32 +1,29 @@
 Package: moonycode
-Version: 2.7
 Architecture: amd64
-Depends: libc6 (>= 2.17)
-Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
 Priority: optional
-Section: libdevel
+Section: devel
 Filename: pool/main/m/moonycode/moonycode_2.7_amd64.deb
-Size: 103036
-SHA256: 9df208c556942230f9fe4b73c5d0a96781753a4b219edcf895bc6cb73c85cc57
-SHA1: d47f02593afe32080c5420ffc95273c04fc89a8f
-MD5sum: 3147412a4870cf0f818f05d98bc36014
-Description: moonycode - fast and tiny cyrillic codepages and unicode support runtime
-  This package contains codepages convertors and decoders shared library for most popular
-  cyrillic codepages: 1251, 866, koi8, utf-8, utf-16 and utf-32.
+Size: 258128
+SHA256: 864cdab63fa5db60534c789bc98589b5edf05af84cb3e51fcf7c769b978e0b25
+SHA1: 7cd686f867d083a35fa8ce6a802dc709daf1c2ed
+MD5sum: ec787386b875aedf0fa0dd45d1f480ee
+Description: moonycode built using CMake
+Maintainer: Andrew Kovalenko aka Keva <keva@rambler.ru>
+Version: 2.7
+Installed-Size: 375
 
 Package: moonycode-dev
-Version: 2.7
 Architecture: amd64
-Depends: libc6 (>= 2.17)
-Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Depends: moonycode (= 2.7)
 Priority: optional
-Section: libdevel
+Section: devel
 Filename: pool/main/m/moonycode-dev/moonycode-dev_2.7_amd64.deb
-Size: 109108
-SHA256: fc8f823dd620b220e0030fe7d68bf3fd5e4fa994bab3fee48500f938f5cfacc9
-SHA1: 167b24a0b2fae8ec5dd919337528a4c86a8617ef
-MD5sum: 4a29ac21c9994418f3047db4e2e45661
-Description: moonycode - fast and tiny cyrillic codepages and unicode support
-  This package contains codepages convertors and decoders static library and headers for most popular
-  cyrillic codepages: 1251, 866, koi8, utf-8, utf-16 and utf-32.
+Size: 266730
+SHA256: ed86d1c6d61c89d0fb7a1ff90fe8cce98da193ca922a31b482370120780ddb5d
+SHA1: dbf6486524a756bab4d2d102531d6ce5e9eaa07a
+MD5sum: 74cacdc2c82eb080b48ae3b4b1f42fbd
+Description: moonycode built using CMake
+Maintainer: Andrew Kovalenko aka Keva <keva@rambler.ru>
+Version: 2.7
+Installed-Size: 447
 
