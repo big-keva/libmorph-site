@@ -3,10 +3,10 @@ Architecture: amd64
 Priority: optional
 Section: devel
 Filename: pool/main/m/moonycode/moonycode_2.7_amd64.deb
-Size: 258128
-SHA256: 864cdab63fa5db60534c789bc98589b5edf05af84cb3e51fcf7c769b978e0b25
-SHA1: 7cd686f867d083a35fa8ce6a802dc709daf1c2ed
-MD5sum: ec787386b875aedf0fa0dd45d1f480ee
+Size: 258130
+SHA256: 7f6f61782f9d89687802374e6ac0573acb494834e893137e210f44e5155de42b
+SHA1: f52f3361ae02945397130aa781a0065c5225f0f7
+MD5sum: 2dd062057c6a7d2619696c36174c42b8
 Description: moonycode built using CMake
 Maintainer: Andrew Kovalenko aka Keva <keva@rambler.ru>
 Version: 2.7
@@ -18,10 +18,10 @@ Depends: moonycode (= 2.7)
 Priority: optional
 Section: devel
 Filename: pool/main/m/moonycode-dev/moonycode-dev_2.7_amd64.deb
-Size: 266730
-SHA256: ed86d1c6d61c89d0fb7a1ff90fe8cce98da193ca922a31b482370120780ddb5d
-SHA1: dbf6486524a756bab4d2d102531d6ce5e9eaa07a
-MD5sum: 74cacdc2c82eb080b48ae3b4b1f42fbd
+Size: 266728
+SHA256: 9aef62437ff5b7a247126c4b9e9f06fb9732b72a94a5ebd8ffcb9e7a61de9b1c
+SHA1: 824defc11ed078100ebb41f3feac33ba0a700e7e
+MD5sum: 0e5320493f176424f9496afc0cc518a6
 Description: moonycode built using CMake
 Maintainer: Andrew Kovalenko aka Keva <keva@rambler.ru>
 Version: 2.7
@@ -36,9 +36,9 @@ Priority: optional
 Section: devel
 Filename: pool/main/m/morphapi-dev/morphapi-dev_4.1_all.deb
 Size: 5760
-SHA256: d3206159f8d1acf2f0eedf4885bf6ed3ef2b45ca7ab09eb7908ec46e5810fbd7
-SHA1: 5748a85ba31fbe679c033ad70f6475686cf15e0f
-MD5sum: 72d7292acef60bbdc9af2bbfcb1203b6
+SHA256: c98b17d8d375bc350a08f482689cc186a271bd1c58399511bd5daec2c5c1f1c5
+SHA1: 015e9077343c0375e2eaeaf67c1df55d1496c354
+MD5sum: 6bd09613fef66e919f7f688dd6a077f1
 Description: libmorph libraries common API headers
   This package contains common API headers (api.h and api.hpp) used
   by all libmorph libraries. These headers are required for development only.
@@ -51,10 +51,10 @@ Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
 Priority: optional
 Section: devel
 Filename: pool/main/m/morphrus/morphrus_4.1.2026.03_amd64.deb
-Size: 1652932
-SHA256: 99e667f650439f00f4c10224a6a4562f6eb6a82ffcee9cf6bf31fe9bd2e84bd5
-SHA1: c3d3af244cda46deb0eac09edbbe5a5709318430
-MD5sum: a094da2a5a4184ec127c8e875c61199a
+Size: 1651944
+SHA256: 9b77c7be2907cba3cfd1f812a48aeb36fb35f9cd4348682c508285ff4a3c2832
+SHA1: f25af56ea3924fe3ac89c66f40ca0ddf8fcfc668
+MD5sum: f64328a743ff58a836cf73f3eef17c3d
 Description: libmorphrus shared runtime library
   This package contains russian morphological analyser shared library.
 
@@ -66,10 +66,10 @@ Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
 Priority: optional
 Section: devel
 Filename: pool/main/m/morphrus-dev/morphrus-dev_4.1.2026.03_amd64.deb
-Size: 1583040
-SHA256: 8aee7154aa6da60e0427200786f508e7bd2dfa3b70254472cde52a21a7b8021d
-SHA1: bd849106c706f727ff07a04cef58aff1f727ccde
-MD5sum: f368a1f1d9050341c99cfd3cfa87a612
+Size: 1583740
+SHA256: 2210c9f3c0f77f669c5f099d521428ec4e2883b4a330cc9ad6e0fa4d92303b55
+SHA1: 1d80187ed8cac6e9c2c188aaf82cdf0b0cacf862
+MD5sum: 73c9976a3ad2c99d80958ff41b43b81b
 Description: libmorphrus static library and headers
   This package contains russian morphological analyser static library
   and developer headers.
