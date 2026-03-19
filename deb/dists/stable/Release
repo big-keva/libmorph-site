@@ -1,19 +1,19 @@
 Origin: Andrey Kovalenko aka Keva
 Label: libmorph
 Codename: stable
-Date: Thu, 19 Mar 2026 08:09:18 UTC
+Date: Thu, 19 Mar 2026 14:46:43 UTC
 Architectures: amd64
 Components: main
 Description: libmorph repository for Debian
 MD5Sum:
- 2479b4528803c8943bb2fd5fb94236f7 907 main/binary-amd64/Packages
- f0a366379ef0a9b09729ed6165094f02 470 main/binary-amd64/Packages.gz
+ b33ac3f3c43db53d1fa8aa89c64c3d93 2620 main/binary-amd64/Packages
+ 384514311bef88b21680567baf83a085 1037 main/binary-amd64/Packages.gz
  01b9237042d4c0487c1884b00d810e19 130 main/binary-amd64/Release
 SHA1:
- a68a4a52d1daa12654d411b8efb4a7be94ae0937 907 main/binary-amd64/Packages
- e3099d71f14d87a1a2a296a585af65528964c7a0 470 main/binary-amd64/Packages.gz
+ 7a811b54cfee47353ae1acfd02953e13da8a2ccd 2620 main/binary-amd64/Packages
+ bd574424a18aafa4452060259497b2c35f14807a 1037 main/binary-amd64/Packages.gz
  fd43bb6dc35b9f977043397d14918085be7c2d48 130 main/binary-amd64/Release
 SHA256:
- 13b9ec09cc99d023c1597f3cdc16a9859f025ab8cec911dfb063a4939fdd6f27 907 main/binary-amd64/Packages
- 6593b313283c9efc10967ef53be12b28e0a82bedb50b4581f0bfe1bbabb155f2 470 main/binary-amd64/Packages.gz
+ 6553679a895edd0baffa576a8d94791c8a7e6894f294c1c3c2ec0e5e04bcb835 2620 main/binary-amd64/Packages
+ 3abb206f3bf69e68d8363216c52b04d8875d138337950ae198a3ae69cb0c867e 1037 main/binary-amd64/Packages.gz
  00496a81091d2f84a7adafc7b8198477705f12b1a6fda5de665db7a1752413dc 130 main/binary-amd64/Release

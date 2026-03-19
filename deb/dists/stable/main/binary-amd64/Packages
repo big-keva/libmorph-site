@@ -27,3 +27,50 @@ Maintainer: Andrew Kovalenko aka Keva <keva@rambler.ru>
 Version: 2.7
 Installed-Size: 447
 
+Package: morphapi-dev
+Version: 4.1
+Architecture: all
+Depends:
+Maintainer: Andrew Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: devel
+Filename: pool/main/m/morphapi-dev/morphapi-dev_4.1_all.deb
+Size: 5760
+SHA256: d3206159f8d1acf2f0eedf4885bf6ed3ef2b45ca7ab09eb7908ec46e5810fbd7
+SHA1: 5748a85ba31fbe679c033ad70f6475686cf15e0f
+MD5sum: 72d7292acef60bbdc9af2bbfcb1203b6
+Description: libmorph libraries common API headers
+  This package contains common API headers (api.h and api.hpp) used
+  by all libmorph libraries. These headers are required for development only.
+
+Package: morphrus
+Version: 4.1.2026.03
+Architecture: amd64
+Depends: libc6 (>= 2.17)
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: devel
+Filename: pool/main/m/morphrus/morphrus_4.1.2026.03_amd64.deb
+Size: 1652932
+SHA256: 99e667f650439f00f4c10224a6a4562f6eb6a82ffcee9cf6bf31fe9bd2e84bd5
+SHA1: c3d3af244cda46deb0eac09edbbe5a5709318430
+MD5sum: a094da2a5a4184ec127c8e875c61199a
+Description: libmorphrus shared runtime library
+  This package contains russian morphological analyser shared library.
+
+Package: morphrus-dev
+Version: 4.1.2026.03
+Architecture: amd64
+Depends: libc6 (>= 2.17), morphapi-dev, moonycode-dev
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: devel
+Filename: pool/main/m/morphrus-dev/morphrus-dev_4.1.2026.03_amd64.deb
+Size: 1583040
+SHA256: 8aee7154aa6da60e0427200786f508e7bd2dfa3b70254472cde52a21a7b8021d
+SHA1: bd849106c706f727ff07a04cef58aff1f727ccde
+MD5sum: f368a1f1d9050341c99cfd3cfa87a612
+Description: libmorphrus static library and headers
+  This package contains russian morphological analyser static library
+  and developer headers.
+
