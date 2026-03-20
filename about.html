@@ -107,7 +107,6 @@
         .stat-label {
             font-size: 1rem;
             color: var(--text-dark);
-            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
@@ -155,44 +154,60 @@
             <div class="about-section">
                 <p>
                     <strong>libmorph</strong> — это высокопроизводительная библиотека морфологического анализа, 
-                    разрабатываемая с <strong>1996 года</strong>. За почти три десятилетия проект прошёл путь 
-                    от исследовательского прототипа до промышленного решения, используемого в крупнейших 
-                    российских поисковых системах.
+                    разрабатываемая с <strong>1994 года</strong>. За три с лишним десятилетия проект прошёл путь 
+                    от модуля проверки орфографии до промышленного решения, используемого в backend крупнейших
+                    компаний.
                 </p>
             </div>
 
             <!-- Статистика -->
-            <!-- div class="stats-grid">
+            <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">1996</div>
-                    <div class="stat-label">год основания</div>
+                    <div class="stat-number">1994</div>
+                    <div class="stat-label">Первый продукт<br><span style='font-style: italic'>Пропись 4.0</span></div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">3</div>
                     <div class="stat-label">языка</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">5.5M</div>
-                    <div class="stat-label">словоформ</div>
+                    <div class="stat-number">1,300,000</div>
+                    <div class="stat-label">слов в секунду</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">1.3M</div>
-                    <div class="stat-label">слов/сек</div>
-                </div>
-            </div -->
+            </div>
 
             <!-- История разработки -->
-            <!-- div class="about-section">
+            <div class="about-section">
                 <h2>История разработки</h2>
                 
                 <div class="history-timeline">
                     <div class="history-item">
-                        <div class="history-year">1996</div>
-                        <div class="history-title">Зарождение идеи</div>
+                        <div class="history-year">1994</div>
+                        <div class="history-title">Начало разработки</div>
                         <div class="history-desc">
-                            Андрей Коваленко (Keva) начинает работу над морфологическим анализатором 
-                            для использования в орфографическом корректоре «Пропись». Первая версия 
-                            написана на C и работает только с русским языком.
+                            Получив словарь Зализняка в электронном виде, я увлёкся идеей и почти на год полностью
+                            ушёл в разработку. Будучи человеком достаточно невежественным, придумал, гуляя с собакой
+                            в Воронцовском парке, префиксные деревья. Сделал на Borland Pascal с Turbo Vision рабочую
+                            среду для классификации слов и просмотра парадигм. Динамическую библиотеку сделал на C,
+                            заодно его и выучил.
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">1996</div>
+                        <div class="history-title">linguist.dll</div>
+                        <div class="history-desc">
+                            Первая публичная версия легла в основу орфографического корректора «Пропись 4.0».
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-year">1997</div>
+                        <div class="history-title">ИПС Апорт!</div>
+                        <div class="history-desc">
+                            Библиотека стала лингвистической базой первой русской поисковой системы с поддержкой русской
+                            морфологии. И &ndash; да, первым русским поисковиком был Rambler, а первым поисковиком,
+                            учитывавшим русское словоизменение &ndash; именно Апорт!
                         </div>
                     </div>
 
@@ -200,35 +215,17 @@
                         <div class="history-year">1999</div>
                         <div class="history-title">Интеграция с Rambler</div>
                         <div class="history-desc">
-                            Библиотека начинает использоваться в поисковой системе Rambler для 
-                            морфологического анализа поисковых запросов и индексирования документов.
+                            Библиотека легла в основу системы индексирования и поиска при перепроектировании и перезапуске
+                            поисковой системы Rambler. С её помощью строились не только поисковые ключи, но и цитаты, а в
+                            образах документов слова кодировались парами <span style='font-style: italic'>{идентификатор лексемы; идентификатор формы}.
                         </div>
                     </div>
 
                     <div class="history-item">
-                        <div class="history-year">2003</div>
-                        <div class="history-title">Переход на C++</div>
-                        <div class="history-desc">
-                            Полная переработка кода на C++, разработка COM-подобного API. 
-                            Добавлена поддержка английского языка.
-                        </div>
-                    </div>
-
-                    <div class="history-item">
-                        <div class="history-year">2005</div>
-                        <div class="history-title">Расширение словарей</div>
-                        <div class="history-desc">
-                            Объём словаря русского языка достигает 2.5 млн словоформ. 
-                            Добавлена поддержка украинского языка.
-                        </div>
-                    </div>
-
-                    <div class="history-item">
-                        <div class="history-year">2009</div>
+                        <div class="history-year">2000</div>
                         <div class="history-title">Интеграция с &lt;META&gt;</div>
                         <div class="history-desc">
-                            libmorph начинает использоваться в поисковой системе &lt;META&gt; 
-                            (позже вошедшей в состав Rambler).
+                            libmorph начинает использоваться в поисковой системе &lt;META&gt;. Сделан анализатор украинского.
                         </div>
                     </div>
 
@@ -236,31 +233,30 @@
                         <div class="history-year">2015</div>
                         <div class="history-title">Open Source</div>
                         <div class="history-desc">
-                            Проект публикуется под лицензией MIT. Начинается работа над обёртками 
-                            для Python, PHP, Go и других языков.
+                            Проект публикуется под лицензией GPLv2. Оптимизация для 64-разрядных систем.
                         </div>
                     </div>
 
                     <div class="history-item">
-                        <div class="history-year">2020</div>
-                        <div class="history-title">Вероятностные модули</div>
+                        <div class="history-year">2024</div>
+                        <div class="history-title">Open Source</div>
                         <div class="history-desc">
-                            Начало разработки вероятностных модулей (libfuzzy) для обработки 
-                            неизвестных слов и исправления опечаток.
+                            Лицензия пересмотрена. Теперь это MIT.
                         </div>
                     </div>
 
                     <div class="history-item">
                         <div class="history-year">2026</div>
-                        <div class="history-title">30 лет разработки</div>
+                        <div class="history-title">30 лет</div>
                         <div class="history-desc">
-                            Проект продолжает активно развиваться. Скорость анализа достигает 
-                            1.3 млн слов в секунду на одном ядре. Готовится релиз гибридного 
-                            анализатора, объединяющего словарный и вероятностный подходы.
+                            С выхода первой версии в 1996 году проект продолжает развиваться. На сегодня
+                            скорость анализа русского модуля достигает 1.3 млн слов в секунду на одном ядре.
+                            Сделан вероятностный анализатор для неизвестных слов. Обновлён сайт. Организована
+                            установка из репозиториев.
                         </div>
                     </div>
                 </div>
-            </div -->
+            </div>
 
             <!-- Технологии -->
             <!-- div class="about-section">
