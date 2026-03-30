@@ -34,16 +34,9 @@
     <title>libmorph :: Модули анализа</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Дополнительные стили для модулей */
+        /* Дополнительные стили для модулей (используем переменные из глобального CSS) */
         .module-section {
             margin: 3rem 0;
-        }
-
-        .module-pair {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
         }
 
         .module-card {
@@ -51,81 +44,26 @@
             border: 2px solid var(--border-color);
             border-radius: 10px;
             padding: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow);
             transition: all 0.2s;
-            position: relative;
-            display: flex;              /* включаем flex */
-            flex-direction: column;     /* располагаем по вертикали */
-            height: 100%;               /* занимаем всю высоту в сетке */
-/*            background: var(--bg-white);
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.2s;
-            position: relative;*/
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
-        .module-card:hover:not(.inactive) {
+        .module-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow);
             border-color: var(--accent);
         }
 
-        .module-card.inactive {
-            opacity: 0.6;
-            background: #f5f5f5;
-            border-color: #ccc;
-            filter: grayscale(30%);
-        }
-
-        .module-card.inactive::before {
-            content: "🔜 В разработке";
-            position: absolute;
-            top: -0.5rem;
-            right: 1rem;
-            background: var(--text-dark);
-            color: white;
-            padding: 0.2rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        .module-card h3 {
-            margin-top: 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;            /* чтобы на узких экранах не ломалось */
-        }
-
-        .module-card.dictionary h3 {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .module-card.fuzzy h3 {
-            color: var(--secondary);
-            border-bottom-color: var(--secondary);
-        }
-
-        .module-card .features-list {
-            flex: 1;                    /* список занимает всё доступное место */
-            margin: 1rem 0;
-            padding-left: 1.2rem;
-        }
-
         .module-header {
-            display: grid;
-            grid-template-columns: auto auto;
-            justify-content: start;
-            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
             gap: 0.75rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--primary);
         }
@@ -134,112 +72,89 @@
             font-size: 1.4rem;
             font-weight: 600;
             color: var(--primary);
-            line-height: 1.2;           /* фиксированная высота строки */
-        }
-
-        .module-type {
-            font-size: 0.8rem;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            background: var(--bg-light);
-            color: var(--text-dark);
-            font-weight: 500;
-            line-height: 1.2;           /* та же высота строки */
-            display: inline-block;
-            white-space: nowrap;
+            line-height: 1.2;
         }
 
         .module-badge {
             display: inline-block;
-            padding: 0.3rem 1rem;
+            padding: 0.2rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin: 0 0;
-            line-height: 1.2;
-            height: auto;
-            vertical-align: middle;        /* добавляем */
-        }
-
-        .badge-dict {
-            background: var(--primary);
-            color: white;
-        }
-
-        .badge-fuzzy {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .status-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.2rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    height: 1.5rem;
-    line-height: 1;
-    box-sizing: border-box;
-    margin: 0;
-    vertical-align: middle;        /* добавляем */
-        }
-
-        .status-ready {
             background: #27ae60;
             color: white;
         }
 
-        .status-beta {
-            background: #f39c12;
-            color: white;
-        }
-
-        .status-dev {
-            background: #7f8c8d;
-            color: white;
-        }
-
-        .features-list {
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
             margin: 1rem 0;
+        }
+
+        .feature-group {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 0.8rem;
+        }
+
+        .feature-group h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3rem;
+        }
+
+        .feature-group ul {
+            margin: 0;
             padding-left: 1.2rem;
         }
 
-        .features-list li {
+        .feature-group li {
+            font-size: 0.85rem;
             margin-bottom: 0.3rem;
-            font-size: 0.95rem;
         }
 
-        .module-footer {
-            margin-top: auto;           /* прижимаем footer к низу */
-            padding-top: 0.5rem;
-            border-top: 1px dashed var(--border-color);
-            font-size: 0.9rem;
-        }
-
-        .init-example {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
+        .tech-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
             margin-top: 0.5rem;
         }
 
-        .module-meta {
+        .module-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-color);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
             flex-wrap: wrap;
+            gap: 1rem;
         }
 
-       .status-badge, .module-badge {
-           line-height: 1.2;  /* одинаковая высота строки */
-       }
+        .status-note {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
 
+        @media (max-width: 48rem) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .module-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
@@ -263,315 +178,147 @@
         </header>
 
         <main class="content-wrapper">
-            <!-- h1>Модули libmorph</h1>
-            
-            <p>
-                Для каждого языка доступны два типа модулей: <strong class="highlight">словарные (libmorph/*)</strong> для точного анализа 
-                известных слов и <strong class="highlight">вероятностные (libfuzzy/*)</strong> для обработки неизвестных слов, опечаток, 
-                неологизмов. Некоторые модули находятся в разработке и будут доступны в ближайших релизах.
-            </p>
-
-            <div class="toc">
-                <h2>Содержание</h2>
-                <h3><a href="#rus">Русский язык</a></h3>
-                <h3><a href="#eng">Английский язык</a></h3>
-                <h3><a href="#ukr">Украинский язык</a></h3>
-                <h3><a href="#comparison">Сравнение типов модулей</a></h3>
-            </div -->
+            <h1>Модули анализа</h1>
+            <p>Каждый языковой модуль включает два подхода к анализу: <strong>словарный</strong> (точный анализ на основе словаря) и <strong>вероятностный</strong> (обработка неизвестных слов и неологизмов).</p>
 
             <!-- Русский язык -->
             <div class="module-section" id="rus">
-                <h2>🇷🇺 Русский язык</h2>
-                
-                <div class="module-pair">
-                    <div class="module-card dictionary">
-                        <div class="module-header">
-                          <span class="module-title">lib<span style="color: #00aa88">morph</span><span style="color: #0088ff">rus</span></span>
-                          <span class="module-type">словарный</span>
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-title">🇷🇺 <span style="color: #00aa88">morph</span><span style="color: #0088ff">rus</span></span>
+                        <span class="module-badge">стабильный</span>
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-group">
+                            <h4>📖 Словарный анализ</h4>
+                            <ul>
+                                <li>На базе Великого словаря А. А. Зализняка</li>
+                                <li>Расширение до 142,000 лексем</li>
+                                <li>Причастия как формы глаголов</li>
+                                <li>Полные грамматические характеристики</li>
+                                <li>10+ лет проверки орфографии в офисных приложениях Windows</li>
+                                <li>15+ лет в индексации и поиске Rambler</li>
+                            </ul>
                         </div>
-                        <div class="module-meta">
-                            <span class="status-badge status-ready">готов</span>
-                            <span class="badge-dict module-badge">точный анализ</span>
-                        </div>
-                        
-                        <p>Анализатор на базе Великого словаря А. А. Зализняка</p>
-                        
-                        <ul class="features-list">
-                            <li>✅ Расширение до 142,000 лексем</li>
-                            <li>✅ Причастия как формы глаголов</li>
-                            <li>✅ Полные грамматические характеристики отождествлений</li>
-                            <li>✅ 10 лет проверки орфографии под Windows</li>
-                            <li>✅ 15 лет индексирования и поиска в ядре Рамблера</li>
-                        </ul>
-                        
-                        <div class="init-example">
-                            <span class="comment">// Инициализация модуля:</span><br>
-                            IMlmaMb*  morpho;<br><br>
-
-                            <span class="kw">if</span> ( <span class="fn">mlmaruGetAPI</span>( <span class="st">"utf-8"</span>, &morpho ) != 0 )<br>
-                            &nbsp;&nbsp;FAIL();<br>
-                        </div>
-                        
-                        <div class="module-footer">
-                            <a href="download.html?lang=rus&type=dict">Скачать →</a>
+                        <div class="feature-group">
+                            <h4>🔮 Вероятностный анализ</h4>
+                            <ul>
+                                <li>Инвертированный словарь</li>
+                                <li>Выделение основы и нормальной формы</li>
+                                <li>Склонение неизвестных слов</li>
+                                <li>Полные грамматические характеристики</li>
+                                <li>Оценка вероятности подобранных моделей</li>
+                            </ul>
                         </div>
                     </div>
 
-                    <!-- Вероятностный модуль (в разработке) -->
-                    <div class="module-card fuzzy inactive">
-                        <div class="module-header">
-                          <span class="module-title">lib<span style="color: #00aa88">fuzzy</span><span style="color: #0088ff">rus</span></span>
-                          <span class="module-type">вероятностный</span>
-                        </div>
-                        <div class="module-meta">
-                            <span class="status-badge status-dev">тестирование</span>
-                            <span class="badge-dict module-badge">обработка неизвестных слов</span>
-                        </div>
+                    <div class="api-interface">
+                        IMlmaMb*  morph;<br>
+                        IMlfaMb*  fuzzy;<br>
+                        <br>
+                        <span class="comment">// Инициализация словарного модуля:</span><br>
+                        <span class="kw">if</span> ( <span class="fn">mlma<span style="color: #aaffff">ru</span>GetAPI</span>( <span class="kw">LIBMORPH_API_4_MAGIC</span> <span class="st">":utf-8"</span>, (<span class="kw">void</span>**)&morpho ) != 0 ) FAIL();<br><br>
+                        <span class="comment">// Инициализация вероятностного модуля:</span><br>
+                        <span class="kw">if</span> ( <span class="fn">mlfa<span style="color: #aaffff">ru</span>GetAPI</span>( <span class="kw">LIBMORPH_API_4_MAGIC</span> <span class="st">":utf-8"</span>, (<span class="kw">void</span>**)&fuzzy ) != 0 ) FAIL();
+                    </div>
 
-                        <p>Вероятностный анализатор для обработки неологизмов.</p>
-                        
-                        <ul class="features-list">
-                            <li>⏳ Инвертированный словарь с анализом справа налево</li>
-                            <li>⏳ Выделение основы и класса словоизменения</li>
-                            <li>⏳ Фиксированный набор грамматических классов</li>
-                            <li>⏳ Склонение и спряжение неизвестных слов</li>
-                        </ul>
-                        
-                        <div class="init-example">
-                            <span class="comment">// Инициализация модуля:</span><br>
-                            IMlfaMb*  morpho;<br><br>
-
-                            <span class="kw">if</span> ( <span class="fn">mlfaruGetAPI</span>( <span class="st">"utf-8"</span>, &morpho ) != 0 )<br>
-                            &nbsp;&nbsp;FAIL();<br>
-                        </div>
-                        
-                        <div class="module-footer">
-                            <span style="color: #999;">Скоро</span>
-                        </div>
+                    <div class="module-footer">
+                        <a href="download.html?lang=rus" class="download-link">Скачать libmorph/rus</a>
+                        <!-- span class="status-note">Версия 4.1.2026.03</span -->
                     </div>
                 </div>
             </div>
 
             <!-- Английский язык -->
-            <!-- div class="module-section" id="eng">
-                <h2>🇬🇧 Английский язык</h2>
-                
-                <div class="module-pair">
-                    <div class="module-card dictionary">
-                        <h3>
-                            libmorph/eng
-                            <span class="module-type">словарный</span>
-                        </h3>
-                        <div class="module-meta">
-                            <span class="status-badge status-ready">готов</span>
-                            <span class="badge-dict module-badge">точный анализ</span>
+            <div class="module-section" id="eng">
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-title">🇬🇧 <span style="color: #00aa88">morph</span><span style="color: #0088ff">eng</span></span>
+                        <span class="module-badge">стабильный</span>
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-group">
+                            <h4>📖 Словарный анализ</h4>
+                            <ul>
+                                <li>Словарь 112,575 основ</li>
+                                <li>Зафиксированные в словаре номера лексем</li>
+                            </ul>
                         </div>
-                        
-                        <p>Морфологический анализ английского языка на основе словарных данных.</p>
-                        
-                        <ul class="features-list">
-                            <li>✅ Объём словаря: 1.8 млн словоформ</li>
-                            <li>✅ Неправильные глаголы (полный список)</li>
-                            <li>✅ Множественное число существительных</li>
-                            <li>✅ Сравнительные степени прилагательных</li>
-                            <li>✅ Фразовые глаголы</li>
-                        </ul>
-                        
-                        <div class="init-example">
-                            <strong>Инициализация:</strong><br>
-                            IMlmaMb* morph = CreateEnglishMorphMb("en_US.UTF-8");<br>
-                            IMlmaWc* morph_w = CreateEnglishMorphWc();
-                        </div>
-                        
-                        <div class="module-footer">
-                            <a href="download.html?lang=eng&type=dict">Скачать →</a>
+                        <div class="feature-group">
+                            <h4>🔮 Вероятностный анализ</h4>
+                            <ul>
+                                <li>Инвертированный словарь</li>
+                                <li>Выделение основы и нормальной формы</li>
+                                <li>Склонение неизвестных слов</li>
+                                <li>Оценка вероятности подобранных моделей</li>
+                            </ul>
                         </div>
                     </div>
 
-                    <div class="module-card fuzzy inactive">
-                        <h3>
-                            libfuzzy/eng
-                            <span class="module-type">вероятностный</span>
-                        </h3>
-                        <div class="module-meta">
-                            <span class="status-badge status-beta">бета</span>
-                            <span class="badge-fuzzy module-badge">обработка неизвестных</span>
-                        </div>
-                        
-                        <p>Вероятностный анализатор для английского языка. Доступен в бета-версии для тестирования.</p>
-                        
-                        <ul class="features-list">
-                            <li>🔄 Модель на основе word2vec (300K векторов)</li>
-                            <li>🔄 Предсказание для технических терминов</li>
-                            <li>🔄 Исправление опечаток</li>
-                            <li>🔄 Распознавание неологизмов</li>
-                        </ul>
-                        
-                        <div class="init-example">
-                            <strong>Инициализация (бета):</strong><br>
-                            IFuzzyMb* fuzzy = CreateEnglishFuzzyMb("en_US");<br>
-                            fuzzy->GuessWord("cryptocurrencies");
-                        </div>
-                        
-                        <div class="module-footer">
-                            <a href="download.html?lang=eng&type=fuzzy&beta=1" style="color: var(--secondary);">Скачать бета →</a>
-                        </div>
+                    <div class="api-interface">
+                        IMlmaMb*  morph;<br>
+                        IMlfaMb*  fuzzy;<br>
+                        <br>
+                        <span class="comment">// Инициализация словарного модуля:</span><br>
+                        <span class="kw">if</span> ( <span class="fn">mlma<span style="color: #aaffff">en</span>GetAPI</span>( <span class="kw">LIBMORPH_API_4_MAGIC</span> <span class="st">":utf-8"</span>, (<span class="kw">void</span>**)&morpho ) != 0 ) FAIL();<br><br>
+                        <span class="comment">// Инициализация вероятностного модуля:</span><br>
+                        <span class="kw">if</span> ( <span class="fn">mlfa<span style="color: #aaffff">en</span>GetAPI</span>( <span class="kw">LIBMORPH_API_4_MAGIC</span> <span class="st">":utf-8"</span>, (<span class="kw">void</span>**)&fuzzy ) != 0 ) FAIL();
+                    </div>
+
+                    <div class="module-footer">
+                        <a href="download.html?lang=eng" class="download-link">Скачать libmorph/eng</a>
+                        <!-- span class="status-note">Версия 4.2026.03.7</span -->
                     </div>
                 </div>
-            </div -->
+            </div>
 
             <!-- Украинский язык -->
             <!-- div class="module-section" id="ukr">
-                <h2>🇺🇦 Украинский язык</h2>
-                
-                <div class="module-pair">
-                    <div class="module-card dictionary">
-                        <h3>
-                            libmorph/ukr
-                            <span class="module-type">словарный</span>
-                        </h3>
-                        <div class="module-meta">
-                            <span class="status-badge status-ready">готов</span>
-                            <span class="badge-dict module-badge">точный анализ</span>
+                <div class="module-card">
+                    <div class="module-header">
+                        <span class="module-title">🇺🇦 libmorph/ukr</span>
+                        <span class="module-badge">стабільний</span>
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-group">
+                            <h4>📖 Словниковий аналіз</h4>
+                            <ul>
+                                <li>1.2 млн словоформ</li>
+                                <li>Чередования в корнях</li>
+                                <li>Кличний відмінок</li>
+                                <li>Особливості української граматики</li>
+                                <li>Історична лексика</li>
+                            </ul>
                         </div>
-                        
-                        <p>Морфологический анализ украинского языка с учётом особенностей грамматики.</p>
-                        
-                        <ul class="features-list">
-                            <li>✅ Объём словаря: 1.2 млн словоформ</li>
-                            <li>✅ Чередования в корнях</li>
-                            <li>✅ Кличний відмінок</li>
-                            <li>✅ Особливості української граматики</li>
-                            <li>✅ Історична лексика</li>
-                        </ul>
-                        
-                        <div class="init-example">
-                            <strong>Ініціалізація:</strong><br>
-                            IMlmaMb* morph = CreateUkrainianMorphMb("uk_UA.UTF-8");<br>
-                            IMlmaWc* morph_w = CreateUkrainianMorphWc();
-                        </div>
-                        
-                        <div class="module-footer">
-                            <a href="download.html?lang=ukr&type=dict">Завантажити →</a>
+                        <div class="feature-group">
+                            <h4>🔮 Імовірнісний аналіз</h4>
+                            <ul>
+                                <li>Модель на основі FastText</li>
+                                <li>Аналіз суржику</li>
+                                <li>Виправлення помилок</li>
+                                <li>Передбачення граматичних форм</li>
+                            </ul>
+                            <span class="tech-badge">у розробці</span>
                         </div>
                     </div>
 
-                    <div class="module-card fuzzy inactive">
-                        <h3>
-                            libfuzzy/ukr
-                            <span class="module-type">вероятностный</span>
-                        </h3>
-                        <div class="module-meta">
-                            <span class="status-badge status-dev">разработка</span>
-                            <span class="badge-fuzzy module-badge">обробка невідомих</span>
-                        </div>
-                        
-                        <p>Імовірнісний аналізатор для обробки невідомих слів, діалектизмів та неологізмів.</p>
-                        
-                        <ul class="features-list">
-                            <li>⏳ Модель на основі FastText</li>
-                            <li>⏳ Аналіз суржику</li>
-                            <li>⏳ Виправлення помилок</li>
-                            <li>⏳ Передбачення граматичних форм</li>
-                        </ul>
-                        
-                        <div class="init-example">
-                            <strong>Планується:</strong><br>
-                            IFuzzyMb* fuzzy = CreateUkrainianFuzzyMb("uk_UA");<br>
-                            fuzzy->Analyze("смартфон");
-                        </div>
-                        
-                        <div class="module-footer">
-                            <span style="color: #999;">Очікуйте у версії 2.6.0</span>
-                        </div>
+                    <div class="api-interface">
+                        <span class="comment">// Ініціалізація словникового модуля:</span><br>
+                        IMlmaMb* morph = <span class="fn">CreateUkrainianMorphMb</span>(<span class="st">"uk_UA.UTF-8"</span>);<br>
+                        IMlmaWc* morph_w = <span class="fn">CreateUkrainianMorphWc</span>();<br><br>
+                        <span class="comment">// Ініціалізація імовірнісного модуля (планується):</span><br>
+                        IFuzzyMb* fuzzy = <span class="fn">CreateUkrainianFuzzyMb</span>(<span class="st">"uk_UA"</span>);
+                    </div>
+
+                    <div class="module-footer">
+                        <a href="download.html?lang=ukr" class="download-link">Завантажити libmorph/ukr</a>
+                        <span class="status-note">Версія 4.2026.03.7</span>
                     </div>
                 </div>
             </div -->
-
-            <!-- Сравнение типов модулей -->
-            <!-- div class="module-section" id="comparison">
-                <h2>Сравнение типов модулей</h2>
-                
-                <table class="download-table">
-                    <thead>
-                        <tr>
-                            <th>Характеристика</th>
-                            <th>Словарный (libmorph/*)</th>
-                            <th>Вероятностный (libfuzzy/*)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Точность на известных словах</strong></td>
-                            <td>99.9%</td>
-                            <td>85-95% (зависит от модели)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Обработка неизвестных слов</strong></td>
-                            <td>❌ Не работает</td>
-                            <td>✅ Да (статистическое предсказание)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Исправление опечаток</strong></td>
-                            <td>❌ Нет</td>
-                            <td>✅ Да (Levenshtein, Damerau)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Скорость (слов/сек)</strong></td>
-                            <td>1 000 000+</td>
-                            <td>50 000 - 100 000</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Память</strong></td>
-                            <td>50-100 MB</td>
-                            <td>200-500 MB (модель)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Рекомендация</strong></td>
-                            <td>Для известной лексики, высокая точность</td>
-                            <td>Для текстов с опечатками, новых слов</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="note" style="margin-top: 2rem;">
-                    <strong>Рекомендации по использованию:</strong><br>
-                    Для максимальной точности рекомендуется комбинировать оба подхода: сначала пробовать словарный анализ,
-                    при неудаче — вероятностный. В будущих версиях появится гибридный модуль, объединяющий оба метода.
-                </div>
-            </div -->
-
-            <!-- Статус разработки -->
-            <!-- div class="module-section">
-                <h2>Статус разработки</h2>
-                
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0;">
-                    <div style="background: var(--bg-white); padding: 1rem; border-radius: 8px; border-left: 4px solid #27ae60;">
-                        <strong>✅ Готовы</strong><br>
-                        libmorph/rus<br>
-                        libmorph/eng<br>
-                        libmorph/ukr
-                    </div>
-                    <div style="background: var(--bg-white); padding: 1rem; border-radius: 8px; border-left: 4px solid #f39c12;">
-                        <strong>🔄 Бета</strong><br>
-                        libfuzzy/eng
-                    </div>
-                    <div style="background: var(--bg-white); padding: 1rem; border-radius: 8px; border-left: 4px solid #7f8c8d;">
-                        <strong>⏳ В разработке</strong><br>
-                        libfuzzy/rus<br>
-                        libfuzzy/ukr
-                    </div>
-                </div>
-
-                <p>
-                    <strong>Планы релизов:</strong><br>
-                    • <strong>Версия 2.4.0</strong> (текущая) — словарные модули<br>
-                    • <strong>Версия 2.5.0</strong> (Q3 2025) — libfuzzy/eng (стабильный), libfuzzy/rus (бета)<br>
-                    • <strong>Версия 2.6.0</strong> (Q1 2026) — libfuzzy/rus (стабильный), libfuzzy/ukr (бета)<br>
-                    • <strong>Версия 3.0.0</strong> (Q4 2026) — гибридный анализ, универсальный API
-                </p>
-            </div -->
-
         </main>
 
         <footer class="site-footer">

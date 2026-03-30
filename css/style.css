@@ -530,7 +530,7 @@ p {
     border-radius: 0.5rem;
     overflow-x: auto;
     font-family: var(--font-mono);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     border: 0.06rem solid #2a3b4e;
     max-width: 100%;
 }

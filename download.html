@@ -306,6 +306,7 @@
                         <label for="lang-select">Язык:</label>
                         <select id="lang-select" onchange="updateDownload()">
                             <option value="rus" selected>Русский</option>
+                            <option value="eng">Английский</option>
                         </select>
                     </div>
 
@@ -358,12 +359,12 @@ apt install morphrus-dev</pre></code>
                 deb: {
                     runtime: {
                         name: 'morphrus',
-                        desc: 'Морфологический модуль для русского языка, разделяемый runtime (.so)',
+                        desc: 'Морфологические библиотеки для русского языка, разделяемый runtime (.so)',
                         url: 'deb/pool/main/m/morphrus/morphrus_4.1.2026.03_amd64.deb'
                     },
                     dev: {
                         name: 'morphrus-dev',
-                        desc: 'Статическая библиотека и заголовки для русского языка',
+                        desc: 'Статические библиотеки и заголовки к ним',
                         url: 'deb/pool/main/m/morphrus/morphrus-dev_4.1.2026.03_amd64.deb'
                     }
                 },
@@ -379,9 +380,51 @@ apt install morphrus-dev</pre></code>
                         url: 'win/libmorph-rus-win64-dev.zip'
                     }
                 }
+            },
+            eng: {
+                deb: {
+                    runtime: {
+                        name: 'morpheng',
+                        desc: 'Морфологические библиотеки для английского, разделяемый runtime (.so)',
+                        url: 'deb/pool/main/m/morpheng/morpheng_4.1.2026.03_amd64.deb'
+                    },
+                    dev: {
+                        name: 'morpheng-dev',
+                        desc: 'Статические библиотеки и заголовки к ним',
+                        url: 'deb/pool/main/m/morphrus/morpheng-dev_4.1.2026.03_amd64.deb'
+                    }
+                }/*,
+                windows: {
+                    runtime: {
+                        name: 'morpheng-win64',
+                        desc: 'Морфологический модуль для русского языка, разделяемый runtime (.dll)',
+                        url: 'win/libmorph-rus-win64.zip'
+                    },
+                    dev: {
+                        name: 'morpheng-dev-win64',
+                        desc: 'Статическая библиотека и заголовки (.lib, *.h)',
+                        url: 'win/libmorph-rus-win64-dev.zip'
+                    }
+                }*/
             }
         };
-
+    
+        // Получение параметров из URL
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+    
+        // Установка выбранного языка из URL при загрузке
+        function setLangFromUrl() {
+            const langParam = getUrlParameter('lang');
+            const langSelect = document.getElementById('lang-select');
+            
+            if (langParam && downloads[langParam]) {
+                langSelect.value = langParam;
+            }
+        }
+    
         function updateDownload() {
             const lang = document.getElementById('lang-select').value;
             const platform = document.getElementById('platform-select').value;
@@ -400,6 +443,7 @@ apt install morphrus-dev</pre></code>
                 const isDevPackage = pkgType === 'dev' || data.name.includes('-dev');
                 
                 let apiData = null;
+                let mooData = null;
                 if (isDevPackage && platform === 'deb') {
                     apiData = {
                         name: 'morphapi-dev',
@@ -455,8 +499,20 @@ apt install morphrus-dev</pre></code>
                 `;
             }
         }
-
-        window.onload = updateDownload;
+    
+        // Обновление URL при изменении языка (опционально)
+        document.getElementById('lang-select').addEventListener('change', (e) => {
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.set('lang', e.target.value);
+            window.history.pushState({}, '', newUrl);
+            updateDownload();
+        });
+    
+        // Инициализация при загрузке
+        window.onload = () => {
+            setLangFromUrl();
+            updateDownload();
+        };
     </script>
 </body>
 </html>
