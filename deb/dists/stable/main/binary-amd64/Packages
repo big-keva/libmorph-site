@@ -43,6 +43,37 @@ Description: libmorph libraries common API headers
   This package contains common API headers (api.h and api.hpp) used
   by all libmorph libraries. These headers are required for development only.
 
+Package: morpheng
+Version: 4.1.2026.03
+Architecture: amd64
+Depends: libc6 (>= 2.17)
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: devel
+Filename: pool/main/m/morpheng/morpheng_4.1.2026.03_amd64.deb
+Size: 1094208
+SHA256: 0e6b0e02784b987f1b77e861b126876892acfb4332e81cf5b06cc4c6e2eb94f6
+SHA1: 0f1223413bf5161ea40438a9ce9224aa9be50a5d
+MD5sum: c2179952bfb4920e3fe1232b90d06fb4
+Description: morpheng shared runtime libraries
+  This package contains english morphological analyser shared libraries.
+
+Package: morpheng-dev
+Version: 4.1.2026.03
+Architecture: amd64
+Depends: libc6 (>= 2.17), morphapi-dev, moonycode-dev
+Maintainer: Andrey Kovalenko aka Keva <keva@rambler.ru>
+Priority: optional
+Section: devel
+Filename: pool/main/m/morpheng-dev/morpheng-dev_4.1.2026.03_amd64.deb
+Size: 1001412
+SHA256: 8a40fcb9f9fdddf6f23baa4f05ddec2848e300f2d214cc9769221104d9200cf2
+SHA1: 6504ea159cc3901c61ef32729ac139342175c86d
+MD5sum: 1f0f42e976617357ca6c146b66fced9f
+Description: libmorpheng static libraries and headers
+  This package contains english morphological analyser static libraries
+  and developer headers.
+
 Package: morphrus
 Version: 4.1.2026.03
 Architecture: amd64
