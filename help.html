@@ -87,6 +87,10 @@
                 <h3><a href="#3_2">Доступ к интерфейсам</a></h3>
                 <h3><a href="#3_3">Лемматизация</a></h3>
                 <h3><a href="#3_4">Построение формы слова</a></h3 -->
+              <h2><a href="#3">Модули для python</a></h2>
+                <h3><a href="#3_1">Константы</a></h3>
+                <h3><a href="#3_2">Структуры данных</a></h3>
+
             </div>
 
             <div class="doc-content">
@@ -411,8 +415,99 @@
   auto  FindForms( inword, formid_t[, dwsets] ) -> std::vector<string>;
   int   FindMatch( IMlmaMatch*, inword );
   int   FindMatch( inword, FMatch );
-};<pre></div>
+};</pre></div>
 
+            <h2 id="3">Модули для python</h2>
+              <p>Морфологические модули для python реализованы независимо, однако также используют один и тот же программный интерфейс.
+                 Установка:</p>
+<div class="api-interface"><pre>
+pip install py<span class="kw">rus</span>morph
+pip install py<span class="kw">eng</span>morph
+</pre></div>
+
+              <p>После установки надо создать эксемпляр интерфейса модуля, который, впрочем, является потокобезопасным, так как
+                 вся работа со словарями выполняется в режиме read only, а внутренние данные существуют лишь на стеке в ходе вызова.
+    
+<div class="api-interface"><pre>
+imorph = pyrusmorph.mlmaruWc()
+ifuzzy = pyrusmorph.mlfaruWc()
+</pre></div>
+
+          <h3 id="3_1">Константы</h2>
+                <ul>
+                  <li><code>py*morph.<b>SF_IGNORE_CAPITALS</b> == 0x0002</code>  &ndash; константа, отключающая чувствительность вызовов
+                      к регистру переданного слова. Без неё слово <i>киев</i> будет опознано только как форма слова <i>кий</i>,
+                      с ней &ndash; ещё и как форма слова <i>Киев</i>; без неё <i>Москва</i> будет опознана, а <i>москва</i> &ndash; нет.</li>
+                </ul>
+          <h3 id="3_2">Структуры данных</h2>
+<div class="api-interface"><pre>
+class GramInfo:
+    bFlags: int
+    grInfo: int
+    idForm: int
+    wdInfo: int
+</pre></div>
+              <ul>
+                  <li><code><b>wdInfo</b> & 0x3f</code> &ndash; техническая часть речи в младших 7 битах;</li>
+                  <li><code><b>grInfo</b></code> &ndash; грамматическое описание формы в аддитивном виде;</li>
+                  <li><code><b>vFlags</b></code> &ndash; флаги одушевлённости-неодушевлённости;</li>
+                  <li><code><b>idForm</b></code> &ndash; идентификаторо формы слова в интервале [0..255].</li>
+              </ul>
+
+<div class="api-interface"><pre>
+class MbLemmInfo:
+    lexid: int
+    lemma: bytes
+    grams: List[GramInfo]
+
+class WcLemmInfo:
+    lexid: int
+    lemma: string
+    grams: List[GramInfo]
+</pre></div>
+              <ul>
+                  <li><code><b>lexid</b></code> &ndash; фиксированный номер лексемы из словаря;</li>
+                  <li><code><b>lemma</b></code> &ndash; строка словарной формы слова в рабочей кодировке модуля или <code>utf-16</code>;</li>
+                  <li><code><b>grams</b></code> &ndash; массив грамматических описаний форм.</li>
+              </ul>
+                  
+<div class="api-interface"><pre>
+class MbStemInfo:
+    fWeight: float
+    stLemma: bytes
+    stemLen: int
+    lexType: int
+    grammar: List[GramInfo]
+
+class WcStemInfo:
+    fWeight: float
+    stLemma: string
+    stemLen: int
+    lexType: int
+    grammar: List[GramInfo]
+</pre></div>
+              <ul>
+                  <li><code><b>fWeight</b></code> &ndash; мера достоверности отождествления с моделью словоизменения;</li>
+                  <li><code><b>stLemma</b></code> &ndash; строка предполагаемой словарной формы слова в рабочей кодировке модуля или <code>utf-16</code>;</li>
+                  <li><code><b>stemLen</b></code> &ndash; длина графической основы слова в символах;</li>
+                  <li><code><b>lexType</b></code> &ndash; идентификатор присвоенного грамматического класса;</li>
+                  <li><code><b>grammar</b></code> &ndash; массив грамматических описаний форм.</li>
+              </ul>
+                  
+<div class="api-interface"><pre>
+class MbStrMatch:
+    form: int
+    text: bytes
+
+class WcStrMatch:
+    form: int
+    text: string
+</pre></div>
+              <ul>
+                  <li><code><b>form</b></code> &ndash; идентификатор формы слова;</li>
+                  <li><code><b>text</b></code> &ndash; строка формы слова в рабочей кодировке модуля или <code>utf-16</code>.</li>
+              </ul>
+                  
           </div>
         </main>
 
