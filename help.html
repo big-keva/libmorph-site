@@ -383,7 +383,8 @@
                   Шаблон может содержать буквы и символы <b>*</b> и <b>?</b>. <b>*</b> соответствует любому количеству любых символов,
                   <b>?</b> &ndash; одному символу. Найденные лексемы и формы подаются по одной лексеме в переданный интерфейс
                   <code>IFormsMatch</code>. Вызовы продолжаются до тех пор, пока не будет завершён проход по словарю и пока
-                  функция регистрации <b>pienum-><span class="fn">AddLexeme</span>( ... )</b> не вернёт 0. Возвращает:</p>
+                  функция регистрации <b>pienum-><span class="fn">AddLexeme</span>( ... )</b> не вернёт значение, отличное от 0.<br>
+                  Возвращает:</p>
                   <ul>
                     <li>1 при успехе;</li>
                     <li>значение меньше нуля в случае ошибки (см. коды ошибок).</li>
@@ -528,24 +529,72 @@ class WcStrMatch:
                  и в программном интерфейсе модуля. Мы используем их вместо строк, так как определение лексемы строкой неоднозначно (см. <span class="kw">стать</span>, <span class="kw">простой</span>, <span class="kw">Киев</span>),
                  тогда как численный идентификатор заведомо уникален.</p>
 
-              <h4 id="3_3_1">Информация о лексеме</h4>
+              <h4 id="3_3_1">Построение формы слова</h4>
 <div class="api-interface"><pre>
-partsp = imorph.part_of_sp( nlexid )
+formlist = imorph.build_form( nlexid, 5 )
 
-print(f"technical part of speech for lexeme {nlexid} is {partsp}")
+if len(formlist) != 0:
+    for nextform in formlist:
+        print(f<span class='st'>"  {nextform}"</span>)
+else:
+    print(<span class='st'>"формы не найдены!"</span>)
 </pre></div>
-                  <p>Функция возвращает техническую часть речи переданной лексемы или 0, если лексема неизвестна.</p>
+                <p>Функция строит указанную грамматическую форму лексемы и возвращает список построенных вариантов её начертания.
+                   Чаще всего это одна форма, однако, например, для творительного падежа единственного числа существительных женского
+                   рода в русском языке существует альтернатива: <i>весной</i>, <i>весною</i>.</p>
+
               <h4 id="3_3_2">Проверка правописания</h4>
 <div class="api-interface"><pre>
-partsp = imorph.check_word( str, 0 )
+check = imorph.check_word( str, 0 )
 
-if partsp != 0:
-    print("слово есть в словаре")
+if check != 0:
+    print(<span class='st'>"слово есть в словаре"</span>)
 else:
-    print("неизвестное слово")
+    print(<span class='st'>"неизвестное слово"</span>)
 </pre></div>
                 <p>Функция проверяет правописание слова по словарю с учётом переданных настроек и
                    возвращает 0, если слово неизвестное, или 1, если слово было опознано.</p>
+
+              <h4 id="3_3_3">Лемматизация</h4>
+<div class="api-interface"><pre>
+    lemmas = morph.lemmatize(str, 0)
+ 
+    if len(lemmas) != 0:
+        for lemm in lemmas:
+            print(f<span class='st'>"  {lemm.lexid:&lt;6d}  {lemm.lemma}"</span>)
+
+            for gram in lemm.grams:
+                print(f<span class='st'>"    {partOfSpeech[gram.wdInfo & 0x3f]}  {gram.idForm:2d}"</span>)
+    else:
+        print(<span class='st'>"unknown word"</span>)
+</pre></div>
+                <p>Функция ищет в словаре все варианты отождествления поданной строки с формами всех возможных лексем и возвращает список
+                   найденных отождествлений <a href="#3_2_2">XxLemmInfo</a> и их грамматических описаний.
+
+              <h4 id="3_3_4">Поиск по шаблону</h4>
+<div class="api-interface"><pre>
+def print_lexeme_forms(lexeme, formlist):
+    print(f"<span class='st'>{lexeme:&lt;6d}"</span>)
+    for nextform in formlist:
+        print(f<span class='st'>"  {nextform.form:&lt;2d}  {nextform.text}"</span>)
+    return 0
+
+imorph.find_match(mask, print_lexeme_forms)
+</pre></div>
+
+                <p>Функция выполняет поиск всех возможных форм всех словарных лексем, которые соответствуют переданному шаблону.
+                   Шаблон может содержать буквы и символы * и ?. * соответствует любому количеству любых символов, ? – одному символу.
+                   Найденные лексемы и формы подаются по одной лексеме функции-перехватчику (callback). Вызовы продолжаются до тех пор,
+                   пока не будет завершён проход по словарю или пока функция-перехватчик не вернёт значение, отличное от 0.</p>
+
+              <h4 id="3_3_5">Информация о лексеме</h4>
+<div class="api-interface"><pre>
+partsp = imorph.part_of_sp( nlexid )
+
+print(f<span class='st'>"technical part of speech for lexeme {nlexid} is {partsp}"</span>)
+</pre></div>
+                  <p>Функция возвращает техническую часть речи переданной лексемы или 0, если лексема неизвестна.</p>
+                  
           </div>
         </main>
 
