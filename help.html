@@ -486,25 +486,25 @@ class WcLemmInfo:
 
 <div class="api-interface"><pre>
 class MbStemInfo:
-    fWeight: float
-    stLemma: bytes
-    stemLen: int
-    lexType: int
-    grammar: List[GramInfo]
+    fProb: float
+    lemma: bytes
+    lStem: int
+    clsId: int
+    grams: List[GramInfo]
 
 class WcStemInfo:
-    fWeight: float
-    stLemma: string
-    stemLen: int
-    lexType: int
-    grammar: List[GramInfo]
+    fProb: float
+    lemma: string
+    lStem: int
+    clsId: int
+    grams: List[GramInfo]
 </pre></div>
                 <ul>
-                  <li><code><b>fWeight</b></code> &ndash; мера достоверности отождествления с моделью словоизменения;</li>
-                  <li><code><b>stLemma</b></code> &ndash; строка предполагаемой словарной формы слова в рабочей кодировке модуля или <code>utf-16</code>;</li>
-                  <li><code><b>stemLen</b></code> &ndash; длина графической основы слова в символах;</li>
-                  <li><code><b>lexType</b></code> &ndash; идентификатор присвоенного грамматического класса;</li>
-                  <li><code><b>grammar</b></code> &ndash; массив грамматических описаний форм.</li>
+                  <li><code><b>fProb</b></code> &ndash; мера достоверности отождествления с моделью словоизменения;</li>
+                  <li><code><b>lemma</b></code> &ndash; строка предполагаемой словарной формы слова в рабочей кодировке модуля или <code>utf-16</code>;</li>
+                  <li><code><b>lStem</b></code> &ndash; длина графической основы слова в символах;</li>
+                  <li><code><b>clsId</b></code> &ndash; идентификатор присвоенного грамматического класса;</li>
+                  <li><code><b>grams</b></code> &ndash; массив грамматических описаний форм.</li>
                 </ul>
                   
               <h4 id="3_2_4">Форма слова с её идентификатором</h4>
@@ -595,8 +595,69 @@ print(f<span class='st'>"technical part of speech for lexeme {nlexid} is {partsp
 </pre></div>
                   <p>Функция возвращает техническую часть речи переданной лексемы или 0, если лексема неизвестна.</p>
                   
+            <h3 id="3_4">Вероятностный анализатор</h3>
+              <p>Строит гипотезы о способах словоизменения переданной строки, оценивает их вероятность, отметает
+                 явно слабые и возвращает наиболее вероятные. Для более точной идентификации и чтобы избежать ложных отождествлений,
+                 характеризует каждый из подобранных вариантов не только графической основой, но и идентификатором грамматического класса.
+                 Использует не все возможные в языке грамматические классы, а лишь наиболее продуктивные, так как призван работать
+                 в связке со словарным анализатором.</p>
+
+              <h4 id="3_4_1">Построение формы слова</h4>
+<div class="api-interface"><pre>
+def print_stemforms(stem, clsid, idform):
+    formlist = ifuzzy.build_form(stem, clsid, idform)
+ 
+    if len(formlist) != 0:
+        for form in formlist:
+            print(f<span class='st'>"  {form}"</span>)
+    else:
+        print(<span class='st'>"unknown word"</span>)
+</pre></div>
+                 <p>Функция строит начертания формы слова и идентификатором <strong>idform</strong> для лексемы с графической основой
+                    <strong>stem</strong> и классом словоизменения <strong>clsid</strong>. Номер класса &ndash; это тот самый номер,
+                    который возвращает <a href="#">lemmatize()</a> в структуре <a href="#3_2_3">XxStemInfo</a>.</p>
+                  
+              <h4 id="3_4_1">Список образцов грамматического класса</h4>
+<div class="api-interface"><pre>
+    samples = ifuzzy.get_sample(clsid)
+
+    if len(samples) != 0:
+        for sample in samples:
+            print(f"\t{sample}");
+</pre></div>
+                 <p>Информационный вызов, который показывает, какие эталонные слова изменяются по указанной модели словоизменения.
+
+              <h4 id="3_4_1">Лемматизация</h4>
+<div class="api-interface"><pre>
+    stemlist = ifuzzy.lemmatize(str, 0)
+ 
+    print(f"{str}")
+    if len(stemlist) != 0:
+        for stem in stemlist:
+            stemform = stem.lemma[:stem.lStem] + "|" + stem.lemma[stem.lStem:]
+            print(f"  {stem.fProb}\t{stemform}")
+
+            for gram in stem.grams:
+                print(f"    {partOfSpeech[gram.wdInfo & 0x3f]}  {gram.idForm:2d}")
+    else:
+        print("unknown word")
+</pre></div>
+                 <p>Выполняет вероятностный анализ поданного слова в соответствии с настройками и возвращает массив отождествлений.
+                    Каждый элемент массива, <a href="#">XxStemInfo</a>, содержит лемму (нормальную, или словарную, форму слова),
+                    длину графической основы, которая не изменяется при склонении или спряжении, присвоенный номер грамматического класса,
+                    вероятность применения этой модели и массив грамматических описаний форм, с которыми совпала поданная.</p>
+
+              <h4 id="3_4_5">Информация о грамматическом классе</h4>
+<div class="api-interface"><pre>
+partsp = ifuzzy.part_of_sp( clsId )
+
+print(f<span class='st'>"technical part of speech for class {clsId} is {partsp}"</span>)
+</pre></div>
+                  <p>Функция возвращает техническую часть речи переданной лексемы или 0, если лексема неизвестна.</p>
+                  
           </div>
         </main>
+
 
         <footer class="site-footer">
           <div class="footer-copyright">
