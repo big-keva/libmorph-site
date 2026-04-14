@@ -425,21 +425,24 @@ pip install py<span class="kw">rus</span>morph
 pip install py<span class="kw">eng</span>morph
 </pre></div>
 
-              <p>После установки надо создать эксемпляр интерфейса модуля, который, впрочем, является потокобезопасным, так как
-                 вся работа со словарями выполняется в режиме read only, а внутренние данные существуют лишь на стеке в ходе вызова.
+              <p>После установки следует получить доступ к интерфейсам модуля. И интерфейсы, и сам модуль являются потокобезопасными,
+                 так как вся работа со словарями выполняется в режиме read only, а внутренние данные существуют лишь на стеке в ходе вызова.
     
 <div class="api-interface"><pre>
+import pyrusmorph
+
 imorph = pyrusmorph.mlmaruWc()
 ifuzzy = pyrusmorph.mlfaruWc()
 </pre></div>
 
-          <h3 id="3_1">Константы</h2>
+              <h3 id="3_1">Константы</h2>
                 <ul>
                   <li><code>py*morph.<b>SF_IGNORE_CAPITALS</b> == 0x0002</code>  &ndash; константа, отключающая чувствительность вызовов
                       к регистру переданного слова. Без неё слово <i>киев</i> будет опознано только как форма слова <i>кий</i>,
                       с ней &ndash; ещё и как форма слова <i>Киев</i>; без неё <i>Москва</i> будет опознана, а <i>москва</i> &ndash; нет.</li>
                 </ul>
           <h3 id="3_2">Структуры данных</h2>
+            <h4 id="3_2_1">Грамматическое описание</h4>
 <div class="api-interface"><pre>
 class GramInfo:
     bFlags: int
@@ -447,12 +450,17 @@ class GramInfo:
     idForm: int
     wdInfo: int
 </pre></div>
-              <ul>
+                <ul>
                   <li><code><b>wdInfo</b> & 0x3f</code> &ndash; техническая часть речи в младших 7 битах;</li>
                   <li><code><b>grInfo</b></code> &ndash; грамматическое описание формы в аддитивном виде;</li>
                   <li><code><b>vFlags</b></code> &ndash; флаги одушевлённости-неодушевлённости;</li>
                   <li><code><b>idForm</b></code> &ndash; идентификаторо формы слова в интервале [0..255].</li>
-              </ul>
+                </ul>
+
+            <h4 id="3_2_2">Найденная лексема</h4>
+              <p>Декларируются две структуры для <strong>multibyte</strong>- и <strong>widechar</strong>-интерфейса, отличающиеся лишь представлением леммы (словарной формы слова).
+                В первом случае это bytes &ndash; последовательность байтов, представляющая слово в некоторой кодировке, во втором &ndash; нативная
+                python-строка в <strong>utf-16</strong>.</p>
 
 <div class="api-interface"><pre>
 class MbLemmInfo:
@@ -465,12 +473,16 @@ class WcLemmInfo:
     lemma: string
     grams: List[GramInfo]
 </pre></div>
-              <ul>
+                <ul>
                   <li><code><b>lexid</b></code> &ndash; фиксированный номер лексемы из словаря;</li>
                   <li><code><b>lemma</b></code> &ndash; строка словарной формы слова в рабочей кодировке модуля или <code>utf-16</code>;</li>
                   <li><code><b>grams</b></code> &ndash; массив грамматических описаний форм.</li>
-              </ul>
+                </ul>
                   
+            <h4 id="3_2_3">Выделенная основа</h4>
+              <p>Структура подобна предыдущей, однако описывает формально выделенную вероятностным анализатором основу слова
+                 и сопутствующие грамматические характеристики и ограничения.</p>
+
 <div class="api-interface"><pre>
 class MbStemInfo:
     fWeight: float
@@ -486,14 +498,17 @@ class WcStemInfo:
     lexType: int
     grammar: List[GramInfo]
 </pre></div>
-              <ul>
+                <ul>
                   <li><code><b>fWeight</b></code> &ndash; мера достоверности отождествления с моделью словоизменения;</li>
                   <li><code><b>stLemma</b></code> &ndash; строка предполагаемой словарной формы слова в рабочей кодировке модуля или <code>utf-16</code>;</li>
                   <li><code><b>stemLen</b></code> &ndash; длина графической основы слова в символах;</li>
                   <li><code><b>lexType</b></code> &ndash; идентификатор присвоенного грамматического класса;</li>
                   <li><code><b>grammar</b></code> &ndash; массив грамматических описаний форм.</li>
-              </ul>
+                </ul>
                   
+              <h4 id="3_2_4">Форма слова с её идентификатором</h4>
+                <p>При извлечении соответствующих шаблону форм сами эти формы передаются функции захвата.</p>
+
 <div class="api-interface"><pre>
 class MbStrMatch:
     form: int
@@ -503,11 +518,34 @@ class WcStrMatch:
     form: int
     text: string
 </pre></div>
-              <ul>
+                <ul>
                   <li><code><b>form</b></code> &ndash; идентификатор формы слова;</li>
-                  <li><code><b>text</b></code> &ndash; строка формы слова в рабочей кодировке модуля или <code>utf-16</code>.</li>
-              </ul>
-                  
+                  <li><code><b>text</b></code> &ndash; строка формы слова в рабочей кодировке модуля или <strong>utf-16</strong>.</li>
+                </ul>
+           
+            <h3 id="3_3">Словарный анализатор</h3>
+              <p>Поскольку словарные анализаторы приписывают всем лексемам стабильные численные идентификаторы, последние активно используются
+                 и в программном интерфейсе модуля. Мы используем их вместо строк, так как определение лексемы строкой неоднозначно (см. <span class="kw">стать</span>, <span class="kw">простой</span>, <span class="kw">Киев</span>),
+                 тогда как численный идентификатор заведомо уникален.</p>
+
+              <h4 id="3_3_1">Информация о лексеме</h4>
+<div class="api-interface"><pre>
+partsp = imorph.part_of_sp( nlexid )
+
+print(f"technical part of speech for lexeme {nlexid} is {partsp}")
+</pre></div>
+                  <p>Функция возвращает техническую часть речи переданной лексемы или 0, если лексема неизвестна.</p>
+              <h4 id="3_3_2">Проверка правописания</h4>
+<div class="api-interface"><pre>
+partsp = imorph.check_word( str, 0 )
+
+if partsp != 0:
+    print("слово есть в словаре")
+else:
+    print("неизвестное слово")
+</pre></div>
+                <p>Функция проверяет правописание слова по словарю с учётом переданных настроек и
+                   возвращает 0, если слово неизвестное, или 1, если слово было опознано.</p>
           </div>
         </main>
 
