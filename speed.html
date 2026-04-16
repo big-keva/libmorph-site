@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YCN3VFR4X8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YCN3VFR4X8');
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107269142', 'ym');
+
+    ym(107269142, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/107269142" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<head>
+    <meta name="description" content="libmorph — высокопроизводительная библиотека морфологического анализа. Сравнение производительности pymorphy3 и pyrusmorph.">
+    <meta name="keywords" content="морфология, русский язык, C++, SDK, производительность, бенчмарк, pymorphy3, pyrusmorph">
+    <meta property="og:title" content="libmorph — Сравнение производительности">
+    <meta property="og:image" content="https://libmorph.ru">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libmorph :: Сравнение производительности</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Дополнительные стили для страницы производительности */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            padding: 1em;
+            align-items: center;
+            box-shadow: var(--shadow);
+            border-top: 4px solid;
+        }
+
+        .comparison-card.pymorphy {
+            border-top-color: #e74c3c;
+        }
+
+        .comparison-card.pyrusmorph {
+            border-top-color: #27ae60;
+        }
+
+        .comparison-card h2 {
+            margin-top: 0;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .speed-number {
+            font-size: 2.0rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-item {
+            background: var(--bg-light);
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .speed-ratio {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .speed-ratio .ratio-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .methodology {
+            background: var(--bg-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .methodology h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .methodology code {
+            display: block;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 48rem) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .speed-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="header-container">
+                <div class="logo">
+                  <a href="index.html">LIB<span>MORPH</span>.RU</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О проекте</a></li>
+                        <li><a href="help.html">Документация</a></li>
+                        <li><a href="modules.html">Модули</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content-wrapper">
+            <h1>Сравнение производительности</h1>
+            
+            <p>Сравнительное тестирование производительности двух морфологических анализаторов русского языка,
+               <strong>pymorphy3</strong>(популярная Python-библиотека) и <strong>libmorph/pyrusmorph</strong>,
+               проводилось на <a href="./sample.txt.gz"> реальном текстовом файле</a> объёмом <strong>311 775 слов</strong>.</p>
+            <p>Исходный код написанных deepseek под кальку программ измерения производительности:
+               <a href="https://github.com/big-keva/libmorph/blob/master/pyrusmorph/speed/pymorphy3-speed.py">pymorphy3-speed.py</a>
+               и
+               <a href="https://github.com/big-keva/libmorph/blob/master/pyrusmorph/speed/pyrusmorph-speed.py">pyrusmorph-speed.py</a>.</p>
+
+            <p>В коде умышленно не принимаются во внимание однобуквенные слова, так как в русском языке их, как известно,
+               девять &ndash; <b>а</b>, <b>б</b>, <b>в</b>, <b>и</b>, <b>к</b>, <b>о</b>, <b>с</b>, <b>у</b> и <b>я</b>,
+               но они очень высокочастотные, и производительность pymoprhy3 сильно проседает, почти вдвое. На производительность
+               libmorph/pyrusmorph же они практически не влияют (10%).</p>
+
+            <!-- Сравнительная таблица -->
+            <div class="comparison-grid">
+                <!-- pymorphy3 -->
+                <div class="comparison-card pymorphy">
+                    <h2>pymorphy3</h2>
+                    <div class="speed-number">24 273 слов/сек</div>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Затраченное время</div>
+                            <div class="stat-value">12.85 сек</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Опознано слов</div>
+                            <div class="stat-value">278 519 (89.3%)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pyrusmorph (libmorph) -->
+                <div class="comparison-card pyrusmorph">
+                    <h2>pyrusmorph</h2>
+                    <div class="speed-number">570 418 слов/сек</div>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Затраченное время</div>
+                            <div class="stat-value">0.55 сек</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Опознано слов</div>
+                            <div class="stat-value">278 221 (89.2%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Соотношение скоростей -->
+            <div class="speed-ratio">
+                <div class="ratio-number">🚀 23.5x* быстрее</div>
+                <div>* если не выкидывать однобуквенные слова, то pyrusmorph в <strong>30+</strong> раз быстрее</div>
+            </div>
+
+            <!-- Методика тестирования -->
+            <div class="methodology">
+                <h3>📋 Методика тестирования</h3>
+                <p>
+                    Тестирование проводилось на идентичном текстовом файле смешанной тематики, содержащем <strong>311 775</strong> 
+                    слов, из который большинство &ndash; русские, однако встречаются также англицизмы, цифры и аббревиатура.
+                </p>
+                <p><strong>Условия проведения теста:</strong></p>
+                <ul>
+                    <li>Однопоточный режим</li>
+                    <li>Слова обрабатываются последовательно</li>
+                    <li>На слова текст разбивается предварительно</li>
+                    <li>Оба анализатора используют свои словари по умолчанию</li>
+                </ul>
+                
+                <p><strong>Команды для запуска тестов:</strong></p>
+                
+                <p><em>pymorphy3:</em></p>
+                <code>$ python ./pymorphy3-speed.py<br>
+--- Старт обработки 311775 слов...<br>
+------------------------------<br>
+Затраченное время:      12.8445сек<br>
+Общее количество слов:  311775<br>
+Опознано слов:          278519 (89.3%)<br>
+Скорость:               24273 слов/сек</code>
+                
+                <p><em>pyrusmorph (libmorph):</em></p>
+                <code>$ python ./pyrusmorph-speed.py<br>
+--- Старт обработки 311775 слов...<br>
+------------------------------<br>
+Затраченное время:      0.5466 сек<br>
+Общее количество слов:  311775<br>
+Опознано слов:          278221 (89.2%)<br>
+Скорость:               570418 слов/сек</code>
+            </div>
+
+            <!-- Ссылки на исходники -->
+            <div class="methodology" style="border-left-color: var(--primary);">
+                <h3>🔗 Исходные коды тестов</h3>
+                <ul>
+                    <li><a href="https://github.com/big-keva/libmorph/blob/master/pyrusmorph/speed/pymorphy3-speed.py">pymorphy3-speed.py</a> — скрипт для тестирования pymorphy3</li>
+                    <li><a href="https://github.com/big-keva/libmorph/blob/master/pyrusmorph/speed/pyrusmorph-speed.py">pyrusmorph-speed.py</a> — скрипт для тестирования libmorph/pyrusmorph</li>
+                    <li><a href="./sample.txt.gz">sample.txt.gz</a> — тестовый корпус (311 775 слов)</li>
+                </ul>
+                <p class="disclaimer">
+                    ⚡ <strong>Примечание:</strong> Тесты проводились на процессоре Intel Core Ultra 7 155H @ 4.5 GHz.
+                    Абсолютные значения могут отличаться в зависимости от аппаратного обеспечения, но соотношение скоростей сохраняется.
+                </p>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-copyright">
+                © 1996-2026 Keva. Разработка высокопроизводительных NLP решений.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
